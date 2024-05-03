@@ -12,12 +12,9 @@ import {
 } from "@iconscout/react-unicons";
 
 import UserImg from "../../../public/images/user.png";
-import logo from "@/assets/icons/wsc-logo.svg";
-import search from "@/assets/icons/search.svg";
-import chat from "@/assets/icons/chat.svg";
-import bell from "@/assets/icons/bell.svg";
 import Cartdropdown from "../layout/Cartdropdown";
-import { navLinks } from "./constants";
+import { icons, navLinks } from "./constants";
+import "./header.scss";
 
 let token = "";
 let session_id = "";
@@ -72,6 +69,8 @@ function Header() {
 
   const [data, setData] = useState({});
   const [settings, setSettings] = useState({});
+  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -84,6 +83,8 @@ function Header() {
 
   const totalQuantity = data?.header?.totalQuantity;
   const islogin = data?.isLogin;
+
+  const showSeachBox = () => setIsSearchBoxOpen(true);
 
   let logout = async (event) => {
     const response = await fetch(
@@ -121,6 +122,18 @@ function Header() {
     }
   };
 
+  const handleInputChange = (event) => {
+    setSearchKey(event.target.value);
+  };
+
+  const handleInputKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      console.log("Enter key pressed. Input value:", searchKey);
+      window.location.href = "/search?search=" + searchKey;
+      setSearchKey("");
+      setIsSearchBoxOpen(false);
+    }
+  };
   return (
     <div>
       <header className="header">
@@ -254,14 +267,45 @@ function Header() {
         <div className="header--mobile">
           <div className="flex justify-between items-center py-2 px-5">
             <figure className="logo">
-              <Image src={logo} width={46} alt="wsc logo" />
+              <Image src={icons.logo} width={46} alt="wsc logo" />
             </figure>
             <div className="flex gap-2.5">
-              <Image src={search} width={25} height={25} alt="search" />
-              <Image src={chat} width={25} height={25} alt="help chat" />
-              <Image src={bell} width={25} height={25} alt="notification" />
+              <Image
+                src={icons.search}
+                width={25}
+                height={25}
+                alt="search"
+                style={{ display: isSearchBoxOpen ? "none" : "inline" }}
+                onClick={showSeachBox}
+              />
+              <Image src={icons.chat} width={25} height={25} alt="help chat" />
+              <Image
+                src={icons.bell}
+                width={25}
+                height={25}
+                alt="notification"
+              />
             </div>
           </div>
+          {isSearchBoxOpen && (
+            <div className="px-2.5">
+              <div className="seach-box flex px-4">
+                <Image
+                  src={icons.searchInput}
+                  width={15}
+                  height={15}
+                  alt="search"
+                />
+                <input
+                  type="text"
+                  placeholder="Search for product"
+                  value={searchKey}
+                  onChange={handleInputChange}
+                  onKeyDown={handleInputKeyDown}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </header>
     </div>

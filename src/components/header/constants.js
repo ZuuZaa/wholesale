@@ -1,3 +1,9 @@
+import logo from "@/assets/icons/wsc-logo.svg";
+import search from "@/assets/icons/search.svg";
+import searchInput from "@/assets/icons/search-input.svg";
+import chat from "@/assets/icons/chat.svg";
+import bell from "@/assets/icons/bell.svg";
+
 export const navLinks = [
   {
     id: "home",
@@ -42,3 +48,11 @@ export const navLinks = [
     isDefault: false,
   },
 ];
+
+export const icons = {
+  logo,
+  search,
+  searchInput,
+  chat,
+  bell
+}
