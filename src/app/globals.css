@@ -29,6 +29,7 @@
   --background-breadcrumb: #f4f4f4;
 }
 
+
 .pt-70 {
   padding-top: 70px;
 }
@@ -204,6 +205,10 @@ section {
   .custom-container {
     max-width: 1200px;
   }
+}
+
+main {
+  flex-grow: 1;
 }
 
 /* Header */

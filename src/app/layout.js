@@ -1,8 +1,7 @@
 import { Roboto } from 'next/font/google'
 import './globals.css'
-//import Header from '../components/layout/Header'
-import Footer from '../components/layout/Footer'
 import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 
 const roboto = Roboto({ 
@@ -20,10 +19,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Header />
-        {children}
-        <Footer />
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
-  )
+  );
 }

@@ -811,503 +811,828 @@ export default function MainPage() {
 
   return (
     <main className="flex flex-col items-center justify-between">
-
-        {/* Slider Section */}
-        {
-          bannerSection==1&&(
-            <section className='slider-section pb-14'>
-              <Swiper pagination={{ dynamicBullets: true, clickable:true }} loop={true} modules={[Pagination]} className="mySwiper" >
-                {
-                  bannerImages.map(banner=>{
-                    return(
-                      <SwiperSlide >
-                        <div className='slider-img'>
-                          <img src={banner.image} width={1200} height={780} className='object-cover w-full mb-3' alt='Slider Image'></img>
-                          {/* <Image src={Slider1} width={1200} height={780} className='object-cover w-full mb-3' alt='Slider Image'/> */}
-                        </div>
-                        <div className='content' >
-                            <div className='frd-container mx-auto h-100'>
-                              
-                              <div>
-                                  <h4 className='text-xl md:text-2xl mb-5'>{banner.title1}</h4>
-                                  <h1 className='text-3xl md:text-6xl mb-6 font-semibold'>{banner.title2}</h1>
-                                  <p className='text-sm md:text-lg'>{banner.description}</p>
-                                  
-                                  <Link href='/categories' className=" link-design1 font-bold inline-flex rounded-full gap-1">Shop Now <UilArrowRight size="24" color="#ffffff" /></Link>
-                              </div>
-
-                            </div>
-                        </div>
-                      </SwiperSlide>
-
-                    )
-                  })
-                }
-                
-
-
-              </Swiper>
-            </section>
-          )
-        }
-        
-        {/* Trending Categories */}
-        {
-          trendCategSection==1&&(
-            <section className='trending-section'>
-              <div className='frd-container mx-auto mb-10'>
-                <div className='flex justify-between items-center'>
-                  <div className='section-title '>
-                    <h2>Trending Categories</h2>
+      {/* Slider Section */}
+      {bannerSection == 1 && (
+        <section className="slider-section pb-14">
+          <Swiper
+            pagination={{ dynamicBullets: true, clickable: true }}
+            loop={true}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
+            {bannerImages.map((banner) => {
+              return (
+                <SwiperSlide>
+                  <div className="slider-img">
+                    <img
+                      src={banner.image}
+                      width={1200}
+                      height={780}
+                      className="object-cover w-full mb-3"
+                      alt="Slider Image"
+                    ></img>
+                    {/* <Image src={Slider1} width={1200} height={780} className='object-cover w-full mb-3' alt='Slider Image'/> */}
                   </div>
-                </div>
-              </div>
-              <div className='frd-container mx-auto'>
-                <Swiper
-                      breakpoints={{ 300: {slidesPerView: 2,}, 576: {slidesPerView: 3,}, 768: {slidesPerView: 4,} , 992: {slidesPerView: 5,}, 1200: {slidesPerView: 6,}}}
-                      spaceBetween={20}
-                      loop={true}
-                      autoplay={{ delay: 2500, disableOnInteraction: false, }}
-                      hashNavigation={{ watchState: true, }}
-                      navigation={true}
-                      modules={[ Navigation, HashNavigation]}>
-                      {/* onSlideChange={() => console.log('slide change')}
-                      onSwiper={(swiper) => console.log(swiper)}> */}
-                      
-                      {
-                        categoryImages.map(catimg=>{
-                          return(
-                            <SwiperSlide className='zoom-img categories-swiper-item text-center'>
-                              <Link href={"/category/" + catimg.categoryid} key={catimg.id} passHref={true} className=''>
-                                <div className='category-swiper-item-img-wrap w-full overflow-hidden'>
-                                  {/* <Image src={CategoryImg1} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full mb-3' alt='Category'/> */}
-                                  <img src={catimg.image} width="300" height="400" class="blog-swiper-item-img object-cover w-full h-full mb-3" alt={catimg.categoryname}></img>
-                                </div>
-                                <h5 className="hover-red text-lg">{catimg.categoryname}</h5>
-                              </Link>
-                            </SwiperSlide>
+                  <div className="content">
+                    <div className="frd-container mx-auto h-100">
+                      <div>
+                        <h4 className="text-xl md:text-2xl mb-5">
+                          {banner.title1}
+                        </h4>
+                        <h1 className="text-3xl md:text-6xl mb-6 font-semibold">
+                          {banner.title2}
+                        </h1>
+                        <p className="text-sm md:text-lg">
+                          {banner.description}
+                        </p>
 
-                          )
-                        })
-
-                      }
-                    </Swiper>
-              </div>
-            </section>
-          )
-        }
-        
-
-        {/* Banner Section */}
-        {
-          offersSection==1&&(
-            <section className='banner-section pb-10'>
-              <div className='frd-container mx-auto'>
-                <div className='grid grid-cols-1 md:grid-cols-2 gap-7 mb-8'>
-                  {
-                    offers.map(offer=>{
-                      return(
-                      <div className='banner1-wrapper relative zoom-img'>
-                        <div className='banner2-image banner-image'>
-                          <img src={offer.image} className='infosecicon mx-auto' alt="Icon"></img>
-                            {/* <Image src={Banner1Bck1} className='infosecicon mx-auto' alt="Icon"/> */}
-                          </div>
-                          <div className='banner2-content banner-content mb-8 md:mb-0 relative md:absolute'>
-                            <span>{offer.title}</span>
-                            <h2>{offer.description}</h2>
-                            <Link href='/categories' className=" link-design1 font-bold inline-block rounded-full">Shop Now</Link>
-                          </div>
+                        <Link
+                          href="/categories"
+                          className=" link-design1 font-bold inline-flex rounded-full gap-1"
+                        >
+                          Shop Now <UilArrowRight size="24" color="#ffffff" />
+                        </Link>
                       </div>
-                      )
-                    })
-                  }
-                  
-                </div>
-              </div>
-            </section>
-          )
-        }
-        
-
-        {/* Latest Products */}
-        <section className='latest-products-section pb-6' >
-          <div className='frd-container mx-auto mb-10'>
-              <div className='flex justify-between items-center'>
-                <div className='section-title '>
-                  <h2>Trending Products</h2>
-                </div>
-                <Link href="products/3" className='section-title-link flex items-center'>View all <UilArrowRight size="24" color="#e4573d" /></Link>
-              </div>
-            </div>
-            <div className='frd-container mx-auto'>
-              <Swiper 
-              breakpoints={{ 300: {slidesPerView: 1,}, 768: {slidesPerView: 3,}, 992: {slidesPerView: 5,}}} 
-              spaceBetween={20} loop={true} autoplay={{ delay: 2500, disableOnInteraction: false, }} 
-              hashNavigation={{ watchState: true, }} 
-              navigation={true} 
-              modules={[ Navigation, HashNavigation]}> 
-              {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
-                  {
-                    trendingProducts.map(product=>{
-                      const items = [];
-
-                      for(let i = 1; i <= 5; i++)
-                      {
-                        if(product.starCount >= i){
-                           items.push(<UisStar size="18" color="#ffc400" />)
-                        }
-                        else {
-                           items.push(<UilStar size="18" color="#ffc400" />)
-                        }
-                      }
-
-                      const images=[];
-                      images.push(<img src={product.mainImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-                      if(product.secondImage==null)
-                      {
-                        images.push(<img src={product.mainImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-
-                      }
-                      else{
-                        images.push(<img src={product.secondImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-
-                      }
-
-                      const fav_icon=[];
-                      if(product.favorite==0)
-                      {
-                        fav_icon.push(<div className='wishlist-icon flex items-center justify-center hover-red-bg' ><FontAwesomeIcon className='fav_icon_reg' icon={regularHeart} style={{fontSize:22}}  color="#ffffff" onClick={addFavorite} id={product.id} /><FontAwesomeIcon style={{display:'none',fontSize:22}} className='fav_icon_solid' icon={solidHeart} color="#ffffff" onClick={removeFavorite} id={product.id} /></div>)
-                      }
-                      else{
-                        fav_icon.push(<div className='wishlist-icon flex items-center justify-center hover-red-bg' ><FontAwesomeIcon style={{display:'none',fontSize:22}} className='fav_icon_reg' icon={regularHeart}  color="#ffffff" onClick={addFavorite} id={product.id} /><FontAwesomeIcon className='fav_icon_solid' icon={solidHeart} style={{fontSize:22}} color="#ffffff" onClick={removeFavorite} id={product.id} /></div>)
-                      }
-                      const add_cart_div=[];
-                      if(product.quantity>0)
-                      {
-                        add_cart_div.push(<div className='add-to-cart-wrap pm flex items-center justify-center gap-2'><input class="cart_quant cart_quant_update" type="number" min="1" max="10000" defaultValue={product.quantity} onKeyUp={updateInput} id={product.id} /><div className='flex gap-2 pm-wrap minus_plus_btn' id={product.cartId}><button type="button" className='rounded-full font-bold inline-block text-base minus_button' onClick={minusCart} id={product.id}><span>-</span></button><button type="button" className='rounded-full font-bold inline-block text-base plus_button' onClick={plusCart} id={product.id}><span>+</span></button></div></div>)
-
-                      }
-                      else{
-                        add_cart_div.push(<div className='add-to-cart-wrap flex items-center justify-center gap-2'><input class="cart_quant" type="number" min="1" max="10000" defaultValue="1"/><button type='button' onClick={addCart} id={product.id} className='rounded-full font-bold inline-block text-base add_cart_btn'>Add</button></div>)
-                      }
-
-                      return(
-                        <SwiperSlide className='zoom-img latest-product-swiper-item mb-12 pb-5 relative'>
-                        <div className='latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square'>
-                          <Link href={`product/${product.id}`}  key={product.id} passHref={true} className=''>
-                            
-                            {images}
-                              {/* <Image src={ProductImg1} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
-                              {/* <Image src={ProductImg2} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
-                          </Link>
-                          <div className='hover-item-wrap flex items-center justify-center gap-3'>
-                                 {fav_icon}
-                              <div className='compare-icon flex items-center justify-center hover-red-bg' onClick={addCompare} id={product.id}>
-                                 <UilComparison size="20" color="#ffffff" />
-                              </div>
-                          </div>
-                        </div>
-                      <div className='latest-product-swiper-item-content pt-5 mt-1 px-3'>
-                            <div className='rating flex gap-1 justify-center'>
-                              {items}
-                            </div>
-                            <div className='name text-center my-2'>
-                            {/* substring(0,40)... */}
-                              <Link href={`product/${product.id}`}  key={product.id} passHref={true} className='hover-red text-lg'>{product.name}</Link>
-                            </div>
-                            <div className='price flex justify-center items-center gap-2'>
-                              <span className='inline-block text-lg font-bold ls-5'>£{product.price.toFixed(2)}</span>
-                              {/* <del className='inline-block text-sm'>$119.00</del> */}
-                            </div>
-                            <div className='add-to-cart'>
-                              {add_cart_div}
-                            </div>
-                      </div>
-                      {
-                        product.about!=null?(<div className='info-icon absolute '>
-                        <div className='info-icon-circle flex items-center justify-center hover-red-bg'>
-                          <UilInfo size="30" color="#ffffff" />
-                        </div>
-                        <div className='info-icon-box'>
-                        <div className='info-icon-box-table'>
-                            <div className='sp-table-head'>
-                                {product.about.substring(0,300)}...
-                            </div>
-                        </div>
-                        </div>
-                  </div>):(<div className='info-icon absolute '>
-                          <div className='info-icon-circle flex items-center justify-center hover-red-bg'>
-                            <UilInfo size="30" color="#ffffff" />
-                          </div>
-                    </div>)
-                      }
-                      {
-                        product.new==1?(<div className='new-product-icon absolute flex items-center justify-center'>New</div>):(<div></div>)
-                      }
-                      
-                  </SwiperSlide>
-
-                      )
-                    })
-                  }
-                  
-
-                </Swiper>
-            </div>
-        </section>
-        {/* Partners */}
-        {
-          partnersSection==1&&(
-            <section className='partners-section mt-5 mb-16'>
-              <div className='frd-container mx-auto mb-10'>
-                  <div className='flex justify-between items-center'>
-                    <div className='section-title '>
-                      <h2>Partners</h2>
                     </div>
                   </div>
-                </div>
-                <div className='frd-container mx-auto'>
-                  <Swiper 
-                  breakpoints={{ 300: {slidesPerView: 2,}, 768: {slidesPerView: 3,}, 992: {slidesPerView: 5,}}} 
-                  spaceBetween={20} loop={true} autoplay={{ delay: 2500, disableOnInteraction: false, }} 
-                  hashNavigation={{ watchState: true, }} 
-                  navigation={true} 
-                  modules={[ Navigation, HashNavigation]} 
-                  // onSlideChange={() => console.log('slide change')}
-                  //  onSwiper={(swiper) => console.log(swiper)}
-                  >
-                      {
-                        brands.map(brand=>{
-                          return(
-                            <SwiperSlide className='zoom-img partners-swiper-item mb-12 p-5 relative'>
-                              <img src={brand.image} width={300} height={200} className='partners-swiper-item-img object-contain w-full h-full' alt='Product'></img>
-                              {/* <Image src={Partner1} width={300} height={200} className='partners-swiper-item-img object-contain w-full h-full' alt='Product'/> */}
-                            </SwiperSlide>
-                          )
-                        })
-                      }
-                      
-                    </Swiper>
-                </div>
-            </section>
-          )
-        }
-        
-
-        {/* Best Seller Products */}
-        <section className='popular-products-section'>
-        <div className='frd-container mx-auto mb-10'>
-              <div className='flex justify-between items-center'>
-                <div className='section-title '>
-                  <h2>Best Seller Products</h2>
-                </div>
-                <Link href='products/2' passHref={true}  className='section-title-link flex items-center'>View all <UilArrowRight size="24" color="#e4573d" /></Link>
-              </div>
-            </div>
-            <div className='frd-container mx-auto'>
-              <Swiper 
-              breakpoints={{ 300: {slidesPerView: 1,}, 768: {slidesPerView: 3,}, 992: {slidesPerView: 5,}}} 
-              spaceBetween={20} loop={true} autoplay={{ delay: 2500, disableOnInteraction: false, }} 
-              hashNavigation={{ watchState: true, }} 
-              navigation={true} 
-              modules={[ Navigation, HashNavigation]}> 
-              {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
-                  {
-                    bestSellProducts.map(product=>{
-                      const items = [];
-
-                      for(let i = 1; i <= 5; i++)
-                      {
-                        if(product.starCount >= i){
-                           items.push(<UisStar size="18" color="#ffc400" />)
-                        }
-                        else {
-                           items.push(<UilStar size="18" color="#ffc400" />)
-                        }
-                      }
-                      const images=[];
-                      images.push(<img src={product.mainImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-                      if(product.secondImage==null)
-                      {
-                        images.push(<img src={product.mainImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-
-                      }
-                      else{
-                        images.push(<img src={product.secondImage} width="300" height="400" class="latest-product-swiper-item-img object-cover w-full h-full" alt={product.name}></img>)
-
-                      }
-                      const fav_icon=[];
-                      if(product.favorite==0)
-                      {
-                        fav_icon.push(<div className='wishlist-icon flex items-center justify-center hover-red-bg' ><FontAwesomeIcon className='fav_icon_reg' icon={regularHeart} size="20" color="#ffffff" onClick={addFavorite} id={product.id} /><FontAwesomeIcon style={{display:'none'}} className='fav_icon_solid' icon={solidHeart} size="20" color="#ffffff" onClick={removeFavorite} id={product.id} /></div>)
-                      }
-                      else{
-                        fav_icon.push(<div className='wishlist-icon flex items-center justify-center hover-red-bg' ><FontAwesomeIcon style={{display:'none'}} className='fav_icon_reg' icon={regularHeart} size="20" color="#ffffff" onClick={addFavorite} id={product.id} /><FontAwesomeIcon className='fav_icon_solid' icon={solidHeart} size="20" color="#ffffff" onClick={removeFavorite} id={product.id} /></div>)
-                      }
-                      const add_cart_div=[];
-                      if(product.quantity>0)
-                      {
-                        add_cart_div.push(<div className='add-to-cart-wrap pm flex items-center justify-center gap-2'><input class="cart_quant cart_quant_update" type="number" min="1" max="10000" defaultValue={product.quantity} onKeyUp={updateInput} id={product.id} /><div className='flex gap-2 pm-wrap minus_plus_btn' id={product.cartId}><button type="button" className='rounded-full font-bold inline-block text-base minus_button' onClick={minusCart} id={product.id}><span>-</span></button><button type="button" className='rounded-full font-bold inline-block text-base plus_button' onClick={plusCart} id={product.id}><span>+</span></button></div></div>)
-
-                      }
-                      else{
-                        add_cart_div.push(<div className='add-to-cart-wrap flex items-center justify-center gap-2'><input class="cart_quant" type="number" min="1" max="10000" defaultValue="1"/><button type='button' onClick={addCart} id={product.id} className='rounded-full font-bold inline-block text-base add_cart_btn'>Add</button></div>)
-                      }
-
-                      return(
-                        <SwiperSlide className='zoom-img latest-product-swiper-item mb-12 pb-5 relative'>
-                        <div className='latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square'>
-                          <Link href={`product/${product.id}`}  key={product.id} passHref={true} className=''>
-                              {images}
-                              {/* <Image src={ProductImg1} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
-                              {/* <Image src={ProductImg2} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
-                          </Link>
-                          <div className='hover-item-wrap flex items-center justify-center gap-3'>
-                              {fav_icon}
-                              <div className='compare-icon flex items-center justify-center hover-red-bg' onClick={addCompare}>
-                                 <UilComparison size="20" color="#ffffff" />
-                              </div>
-                          </div>
-                        </div>
-                      <div className='latest-product-swiper-item-content pt-5 mt-1 px-3'>
-                            <div className='rating flex gap-1 justify-center'>
-                              {items}
-                            </div>
-                            <div className='name text-center my-2'>
-                            {/* .substring(0,40)... */}
-                              <Link href={`product/${product.id}`}  key={product.id} passHref={true} className='hover-red text-lg'>{product.name}</Link>
-                            </div>
-                            <div className='price flex justify-center items-center gap-2'>
-                              <span className='inline-block text-lg font-bold ls-5'>£{product.price.toFixed(2)}</span>
-                              {/* <del className='inline-block text-sm'>$119.00</del> */}
-                            </div>
-                            <div className='add-to-cart'>
-                              {add_cart_div}
-                            </div>
-                      </div>
-                      
-                      {
-                        product.about!=null?(<div className='info-icon absolute '>
-                        <div className='info-icon-circle flex items-center justify-center hover-red-bg'>
-                          <UilInfo size="30" color="#ffffff" />
-                        </div>
-                        <div className='info-icon-box'>
-                          <div className='info-icon-box-table'>
-                              <div className='sp-table-head'>
-                                {product.about.substring(0,300)}...
-                              </div>
-                          </div>
-                        </div>
-                  </div>):(<div className='info-icon absolute '>
-                          <div className='info-icon-circle flex items-center justify-center hover-red-bg'>
-                            <UilInfo size="30" color="#ffffff" />
-                          </div>
-                    </div>)
-                      }
-                      {
-                        product.new==1?(<div className='new-product-icon absolute flex items-center justify-center'>New</div>):(<div></div>)
-                      }
-                  </SwiperSlide>
-
-                      )
-                    })
-                  }
-                  
-
-                </Swiper>
-            </div>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+                
         </section>
+      )}
 
-        {/* Blog & Events */}
-        {
-          blogSection==1&&(
-            <section className='blog-events-section mt-5 mb-16'>
-              <div className='frd-container mx-auto mb-10'>
-                  <div className='flex justify-between items-center'>
-                      <div className='section-title '>
-                        <h2>Blog & Events</h2>
-                      </div>
-                      <Link href='/blogs' className='section-title-link flex items-center'>View all <UilArrowRight size="24" color="#e4573d" /></Link>
-                  </div>
+      {/* Trending Categories */}
+      {trendCategSection == 1 && (
+        <section className="trending-section">
+          <div className="frd-container mx-auto mb-10">
+            <div className="flex justify-between items-center">
+              <div className="section-title ">
+                <h2>Trending Categories</h2>
               </div>
-              <div className='frd-container mx-auto'>
-                    <Swiper
-                      breakpoints={{ 300: {slidesPerView: 1,}, 768: {slidesPerView: 2,}, 992: {slidesPerView: 3,}}}
-                      spaceBetween={30}
-                      loop={true}
-                      autoplay={{
-                        delay: 2500,
-                        disableOnInteraction: false,
-                      }}
-                      hashNavigation={{
-                        watchState: true,
-                      }}
-                      navigation={true}
-                      modules={[ Navigation, HashNavigation]}
-                      //onSlideChange={() => console.log('slide change')}
-                      //onSwiper={(swiper) => console.log(swiper)}
+            </div>
+          </div>
+          <div className="frd-container mx-auto">
+            <Swiper
+              breakpoints={{
+                300: { slidesPerView: 2 },
+                576: { slidesPerView: 3 },
+                768: { slidesPerView: 4 },
+                992: { slidesPerView: 5 },
+                1200: { slidesPerView: 6 },
+              }}
+              spaceBetween={20}
+              loop={true}
+              autoplay={{ delay: 2500, disableOnInteraction: false }}
+              hashNavigation={{ watchState: true }}
+              navigation={true}
+              modules={[Navigation, HashNavigation]}
+            >
+              {/* onSlideChange={() => console.log('slide change')}
+                      onSwiper={(swiper) => console.log(swiper)}> */}
+
+              {categoryImages.map((catimg) => {
+                return (
+                  <SwiperSlide className="zoom-img categories-swiper-item text-center">
+                    <Link
+                      href={"/category/" + catimg.categoryid}
+                      key={catimg.id}
+                      passHref={true}
+                      className=""
                     >
-                      {
-                        blogs.map(blog=>{
-                          return(
-                            <SwiperSlide className='zoom-img blog-swiper-item' key={blog.id}>
-                              <Link href={`blog/${blog.id}`}  key={blog.id} passHref={true} className=''>
-                                <div className='blog-swiper-item-img-wrap w-full overflow-hidden'>
-                                  {/* <Image src={blog.image} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full' alt={blog.title}/> */}
-                                <img src={blog.image} width="300" height="400" className='blog-swiper-item-img object-cover w-full h-full' alt={blog.title} ></img>
-                                </div>
-                              </Link>
-                              <div className='blog-swiper-item-content pt-5'>
-                                <div className='blog-created-date flex items-center gap-2'>
-                                  <UilCalender size="18" color='#444'/>
-                                  <span className='text-sm'>{blog.addDate.split('T')[0]}</span>
-                                </div>
-                                <Link href={`blog/${blog.id}`}  key={blog.id} passHref={true} className='name mt-2 text-xl tracking-normal hover-red block'>{blog.title}</Link>
-                              </div>
-                          </SwiperSlide>
+                      <div className="category-swiper-item-img-wrap w-full overflow-hidden">
+                        {/* <Image src={CategoryImg1} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full mb-3' alt='Category'/> */}
+                        <img
+                          src={catimg.image}
+                          width="300"
+                          height="400"
+                          class="blog-swiper-item-img object-cover w-full h-full mb-3"
+                          alt={catimg.categoryname}
+                        ></img>
+                      </div>
+                      <h5 className="hover-red text-lg">
+                        {catimg.categoryname}
+                      </h5>
+                    </Link>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        </section>
+      )}
 
-                          )
-                        })
-                      }
-                      
+      {/* Banner Section */}
+      {offersSection == 1 && (
+        <section className="banner-section pb-10">
+          <div className="frd-container mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-8">
+              {offers.map((offer) => {
+                return (
+                  <div className="banner1-wrapper relative zoom-img">
+                    <div className="banner2-image banner-image">
+                      <img
+                        src={offer.image}
+                        className="infosecicon mx-auto"
+                        alt="Icon"
+                      ></img>
+                      {/* <Image src={Banner1Bck1} className='infosecicon mx-auto' alt="Icon"/> */}
+                    </div>
+                    <div className="banner2-content banner-content mb-8 md:mb-0 relative md:absolute">
+                      <span>{offer.title}</span>
+                      <h2>{offer.description}</h2>
+                      <Link
+                        href="/categories"
+                        className=" link-design1 font-bold inline-block rounded-full"
+                      >
+                        Shop Now
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
+      {/* Latest Products */}
+      <section className="latest-products-section pb-6">
+        <div className="frd-container mx-auto mb-10">
+          <div className="flex justify-between items-center">
+            <div className="section-title ">
+              <h2>Trending Products</h2>
+            </div>
+            <Link
+              href="products/3"
+              className="section-title-link flex items-center"
+            >
+              View all <UilArrowRight size="24" color="#e4573d" />
+            </Link>
+          </div>
+        </div>
+        <div className="frd-container mx-auto">
+          <Swiper
+            breakpoints={{
+              300: { slidesPerView: 1 },
+              768: { slidesPerView: 3 },
+              992: { slidesPerView: 5 },
+            }}
+            spaceBetween={20}
+            loop={true}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            hashNavigation={{ watchState: true }}
+            navigation={true}
+            modules={[Navigation, HashNavigation]}
+          >
+            {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
+            {trendingProducts.map((product) => {
+              const items = [];
 
-                    </Swiper>
-                </div>
-            </section>
-          )
+              for (let i = 1; i <= 5; i++) {
+                if (product.starCount >= i) {
+                  items.push(<UisStar size="18" color="#ffc400" />);
+                } else {
+                  items.push(<UilStar size="18" color="#ffc400" />);
+                }
+              }
 
-        }
-        
-        
+              const images = [];
+              images.push(
+                <img
+                  src={product.mainImage}
+                  width="300"
+                  height="400"
+                  class="latest-product-swiper-item-img object-cover w-full h-full"
+                  alt={product.name}
+                ></img>
+              );
+              if (product.secondImage == null) {
+                images.push(
+                  <img
+                    src={product.mainImage}
+                    width="300"
+                    height="400"
+                    class="latest-product-swiper-item-img object-cover w-full h-full"
+                    alt={product.name}
+                  ></img>
+                );
+              } else {
+                images.push(
+                  <img
+                    src={product.secondImage}
+                    width="300"
+                    height="400"
+                    class="latest-product-swiper-item-img object-cover w-full h-full"
+                    alt={product.name}
+                  ></img>
+                );
+              }
 
-        {/* Info Section */}
-        {
-          featuresSection==1&&(
-            <section className='info-section'>
-            <div className='frd-container mx-auto'>
-                <div className='grid grid-cols-1 lg:grid-cols-3'>
-                {
-                    features.map(feature=>{
-                      return(
-                        <div className='grid-info-sec-col mb-3 sm:mb-4 lg:mb-0'key={feature.id}>
-                          <div className='grid-info-box text-center'>
-                            {/* <Image src="" width={51} className='infosecicon mx-auto' alt=""/> */}
-                            <img src={feature.icon} width="51" class="infosecicon mx-auto" alt={feature.title}></img>
-                            <h5>{feature.title}</h5>
-                            <p className='ls-5'>{feature.description}</p>
+              const fav_icon = [];
+              if (product.favorite == 0) {
+                fav_icon.push(
+                  <div className="wishlist-icon flex items-center justify-center hover-red-bg">
+                    <FontAwesomeIcon
+                      className="fav_icon_reg"
+                      icon={regularHeart}
+                      style={{ fontSize: 22 }}
+                      color="#ffffff"
+                      onClick={addFavorite}
+                      id={product.id}
+                    />
+                    <FontAwesomeIcon
+                      style={{ display: "none", fontSize: 22 }}
+                      className="fav_icon_solid"
+                      icon={solidHeart}
+                      color="#ffffff"
+                      onClick={removeFavorite}
+                      id={product.id}
+                    />
+                  </div>
+                );
+              } else {
+                fav_icon.push(
+                  <div className="wishlist-icon flex items-center justify-center hover-red-bg">
+                    <FontAwesomeIcon
+                      style={{ display: "none", fontSize: 22 }}
+                      className="fav_icon_reg"
+                      icon={regularHeart}
+                      color="#ffffff"
+                      onClick={addFavorite}
+                      id={product.id}
+                    />
+                    <FontAwesomeIcon
+                      className="fav_icon_solid"
+                      icon={solidHeart}
+                      style={{ fontSize: 22 }}
+                      color="#ffffff"
+                      onClick={removeFavorite}
+                      id={product.id}
+                    />
+                  </div>
+                );
+              }
+              const add_cart_div = [];
+              if (product.quantity > 0) {
+                add_cart_div.push(
+                  <div className="add-to-cart-wrap pm flex items-center justify-center gap-2">
+                    <input
+                      class="cart_quant cart_quant_update"
+                      type="number"
+                      min="1"
+                      max="10000"
+                      defaultValue={product.quantity}
+                      onKeyUp={updateInput}
+                      id={product.id}
+                    />
+                    <div
+                      className="flex gap-2 pm-wrap minus_plus_btn"
+                      id={product.cartId}
+                    >
+                      <button
+                        type="button"
+                        className="rounded-full font-bold inline-block text-base minus_button"
+                        onClick={minusCart}
+                        id={product.id}
+                      >
+                        <span>-</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="rounded-full font-bold inline-block text-base plus_button"
+                        onClick={plusCart}
+                        id={product.id}
+                      >
+                        <span>+</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              } else {
+                add_cart_div.push(
+                  <div className="add-to-cart-wrap flex items-center justify-center gap-2">
+                    <input
+                      class="cart_quant"
+                      type="number"
+                      min="1"
+                      max="10000"
+                      defaultValue="1"
+                    />
+                    <button
+                      type="button"
+                      onClick={addCart}
+                      id={product.id}
+                      className="rounded-full font-bold inline-block text-base add_cart_btn"
+                    >
+                      Add
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <SwiperSlide className="zoom-img latest-product-swiper-item mb-12 pb-5 relative">
+                  <div className="latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square">
+                    <Link
+                      href={`product/${product.id}`}
+                      key={product.id}
+                      passHref={true}
+                      className=""
+                    >
+                      {images}
+                      {/* <Image src={ProductImg1} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
+                      {/* <Image src={ProductImg2} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
+                    </Link>
+                    <div className="hover-item-wrap flex items-center justify-center gap-3">
+                      {fav_icon}
+                      <div
+                        className="compare-icon flex items-center justify-center hover-red-bg"
+                        onClick={addCompare}
+                        id={product.id}
+                      >
+                        <UilComparison size="20" color="#ffffff" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="latest-product-swiper-item-content pt-5 mt-1 px-3">
+                    <div className="rating flex gap-1 justify-center">
+                      {items}
+                    </div>
+                    <div className="name text-center my-2">
+                      {/* substring(0,40)... */}
+                      <Link
+                        href={`product/${product.id}`}
+                        key={product.id}
+                        passHref={true}
+                        className="hover-red text-lg"
+                      >
+                        {product.name}
+                      </Link>
+                    </div>
+                    <div className="price flex justify-center items-center gap-2">
+                      <span className="inline-block text-lg font-bold ls-5">
+                        £{product.price.toFixed(2)}
+                      </span>
+                      {/* <del className='inline-block text-sm'>$119.00</del> */}
+                    </div>
+                    <div className="add-to-cart">{add_cart_div}</div>
+                  </div>
+                  {product.about != null ? (
+                    <div className="info-icon absolute ">
+                      <div className="info-icon-circle flex items-center justify-center hover-red-bg">
+                        <UilInfo size="30" color="#ffffff" />
+                      </div>
+                      <div className="info-icon-box">
+                        <div className="info-icon-box-table">
+                          <div className="sp-table-head">
+                            {product.about.substring(0, 300)}...
                           </div>
                         </div>
-                      )
-                    })
-                  }
-                </div>
+                      </div>
+                                
+                    </div>
+                  ) : (
+                    <div className="info-icon absolute ">
+                      <div className="info-icon-circle flex items-center justify-center hover-red-bg">
+                        <UilInfo size="30" color="#ffffff" />
+                      </div>
+                                
+                    </div>
+                  )}
+                  {product.new == 1 ? (
+                    <div className="new-product-icon absolute flex items-center justify-center">
+                      New
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+      </section>
+      {/* Partners */}
+      {partnersSection == 1 && (
+        <section className="partners-section mt-5 mb-16">
+          <div className="frd-container mx-auto mb-10">
+            <div className="flex justify-between items-center">
+              <div className="section-title ">
+                <h2>Partners</h2>
+              </div>
             </div>
+          </div>
+          <div className="frd-container mx-auto">
+            <Swiper
+              breakpoints={{
+                300: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                992: { slidesPerView: 5 },
+              }}
+              spaceBetween={20}
+              loop={true}
+              autoplay={{ delay: 2500, disableOnInteraction: false }}
+              hashNavigation={{ watchState: true }}
+              navigation={true}
+              modules={[Navigation, HashNavigation]}
+              // onSlideChange={() => console.log('slide change')}
+              //  onSwiper={(swiper) => console.log(swiper)}
+            >
+              {brands.map((brand) => {
+                return (
+                  <SwiperSlide className="zoom-img partners-swiper-item mb-12 p-5 relative">
+                    <img
+                      src={brand.image}
+                      width={300}
+                      height={200}
+                      className="partners-swiper-item-img object-contain w-full h-full"
+                      alt="Product"
+                    ></img>
+                    {/* <Image src={Partner1} width={300} height={200} className='partners-swiper-item-img object-contain w-full h-full' alt='Product'/> */}
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+                
         </section>
-          )
-        }
-        
+      )}
+
+      {/* Best Seller Products */}
+      <section className="popular-products-section">
+        <div className="frd-container mx-auto mb-10">
+          <div className="flex justify-between items-center">
+            <div className="section-title ">
+              <h2>Best Seller Products</h2>
+            </div>
+            <Link
+              href="products/2"
+              passHref={true}
+              className="section-title-link flex items-center"
+            >
+              View all <UilArrowRight size="24" color="#e4573d" />
+            </Link>
+          </div>
+        </div>
+        <div className="frd-container mx-auto">
+          <Swiper
+            breakpoints={{
+              300: { slidesPerView: 1 },
+              768: { slidesPerView: 3 },
+              992: { slidesPerView: 5 },
+            }}
+            spaceBetween={20}
+            loop={true}
+            autoplay={{ delay: 2500, disableOnInteraction: false }}
+            hashNavigation={{ watchState: true }}
+            navigation={true}
+            modules={[Navigation, HashNavigation]}
+          >
+            {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
+            {bestSellProducts.map((product) => {
+              const items = [];
+
+              for (let i = 1; i <= 5; i++) {
+                if (product.starCount >= i) {
+                  items.push(<UisStar size="18" color="#ffc400" />);
+                } else {
+                  items.push(<UilStar size="18" color="#ffc400" />);
+                }
+              }
+              const images = [];
+              images.push(
+                <img
+                  src={product.mainImage}
+                  width="300"
+                  height="400"
+                  class="latest-product-swiper-item-img object-cover w-full h-full"
+                  alt={product.name}
+                ></img>
+              );
+              if (product.secondImage == null) {
+                images.push(
+                  <img
+                    src={product.mainImage}
+                    width="300"
+                    height="400"
+                    class="latest-product-swiper-item-img object-cover w-full h-full"
+                    alt={product.name}
+                  ></img>
+                );
+              } else {
+                images.push(
+                  <img
+                    src={product.secondImage}
+                    width="300"
+                    height="400"
+                    class="latest-product-swiper-item-img object-cover w-full h-full"
+                    alt={product.name}
+                  ></img>
+                );
+              }
+              const fav_icon = [];
+              if (product.favorite == 0) {
+                fav_icon.push(
+                  <div className="wishlist-icon flex items-center justify-center hover-red-bg">
+                    <FontAwesomeIcon
+                      className="fav_icon_reg"
+                      icon={regularHeart}
+                      size="20"
+                      color="#ffffff"
+                      onClick={addFavorite}
+                      id={product.id}
+                    />
+                    <FontAwesomeIcon
+                      style={{ display: "none" }}
+                      className="fav_icon_solid"
+                      icon={solidHeart}
+                      size="20"
+                      color="#ffffff"
+                      onClick={removeFavorite}
+                      id={product.id}
+                    />
+                  </div>
+                );
+              } else {
+                fav_icon.push(
+                  <div className="wishlist-icon flex items-center justify-center hover-red-bg">
+                    <FontAwesomeIcon
+                      style={{ display: "none" }}
+                      className="fav_icon_reg"
+                      icon={regularHeart}
+                      size="20"
+                      color="#ffffff"
+                      onClick={addFavorite}
+                      id={product.id}
+                    />
+                    <FontAwesomeIcon
+                      className="fav_icon_solid"
+                      icon={solidHeart}
+                      size="20"
+                      color="#ffffff"
+                      onClick={removeFavorite}
+                      id={product.id}
+                    />
+                  </div>
+                );
+              }
+              const add_cart_div = [];
+              if (product.quantity > 0) {
+                add_cart_div.push(
+                  <div className="add-to-cart-wrap pm flex items-center justify-center gap-2">
+                    <input
+                      class="cart_quant cart_quant_update"
+                      type="number"
+                      min="1"
+                      max="10000"
+                      defaultValue={product.quantity}
+                      onKeyUp={updateInput}
+                      id={product.id}
+                    />
+                    <div
+                      className="flex gap-2 pm-wrap minus_plus_btn"
+                      id={product.cartId}
+                    >
+                      <button
+                        type="button"
+                        className="rounded-full font-bold inline-block text-base minus_button"
+                        onClick={minusCart}
+                        id={product.id}
+                      >
+                        <span>-</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="rounded-full font-bold inline-block text-base plus_button"
+                        onClick={plusCart}
+                        id={product.id}
+                      >
+                        <span>+</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              } else {
+                add_cart_div.push(
+                  <div className="add-to-cart-wrap flex items-center justify-center gap-2">
+                    <input
+                      class="cart_quant"
+                      type="number"
+                      min="1"
+                      max="10000"
+                      defaultValue="1"
+                    />
+                    <button
+                      type="button"
+                      onClick={addCart}
+                      id={product.id}
+                      className="rounded-full font-bold inline-block text-base add_cart_btn"
+                    >
+                      Add
+                    </button>
+                  </div>
+                );
+              }
+
+              return (
+                <SwiperSlide className="zoom-img latest-product-swiper-item mb-12 pb-5 relative">
+                  <div className="latest-product-swiper-item-img-wrap w-full overflow-hidden relative aspect-square">
+                    <Link
+                      href={`product/${product.id}`}
+                      key={product.id}
+                      passHref={true}
+                      className=""
+                    >
+                      {images}
+                      {/* <Image src={ProductImg1} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
+                      {/* <Image src={ProductImg2} width={300} height={400} className='latest-product-swiper-item-img object-cover w-full h-full' alt='Product'/> */}
+                    </Link>
+                    <div className="hover-item-wrap flex items-center justify-center gap-3">
+                      {fav_icon}
+                      <div
+                        className="compare-icon flex items-center justify-center hover-red-bg"
+                        onClick={addCompare}
+                      >
+                        <UilComparison size="20" color="#ffffff" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="latest-product-swiper-item-content pt-5 mt-1 px-3">
+                    <div className="rating flex gap-1 justify-center">
+                      {items}
+                    </div>
+                    <div className="name text-center my-2">
+                      {/* .substring(0,40)... */}
+                      <Link
+                        href={`product/${product.id}`}
+                        key={product.id}
+                        passHref={true}
+                        className="hover-red text-lg"
+                      >
+                        {product.name}
+                      </Link>
+                    </div>
+                    <div className="price flex justify-center items-center gap-2">
+                      <span className="inline-block text-lg font-bold ls-5">
+                        £{product.price.toFixed(2)}
+                      </span>
+                      {/* <del className='inline-block text-sm'>$119.00</del> */}
+                    </div>
+                    <div className="add-to-cart">{add_cart_div}</div>
+                  </div>
+
+                  {product.about != null ? (
+                    <div className="info-icon absolute ">
+                      <div className="info-icon-circle flex items-center justify-center hover-red-bg">
+                        <UilInfo size="30" color="#ffffff" />
+                      </div>
+                      <div className="info-icon-box">
+                        <div className="info-icon-box-table">
+                          <div className="sp-table-head">
+                            {product.about.substring(0, 300)}...
+                          </div>
+                        </div>
+                      </div>
+                                
+                    </div>
+                  ) : (
+                    <div className="info-icon absolute ">
+                      <div className="info-icon-circle flex items-center justify-center hover-red-bg">
+                        <UilInfo size="30" color="#ffffff" />
+                      </div>
+                                
+                    </div>
+                  )}
+                  {product.new == 1 ? (
+                    <div className="new-product-icon absolute flex items-center justify-center">
+                      New
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </div>
+      </section>
+
+      {/* Blog & Events */}
+      {blogSection == 1 && (
+        <section className="blog-events-section mt-5 mb-16">
+          <div className="frd-container mx-auto mb-10">
+            <div className="flex justify-between items-center">
+              <div className="section-title ">
+                <h2>Blog & Events</h2>
+              </div>
+              <Link
+                href="/blogs"
+                className="section-title-link flex items-center"
+              >
+                View all <UilArrowRight size="24" color="#e4573d" />
+              </Link>
+            </div>
+          </div>
+          <div className="frd-container mx-auto">
+            <Swiper
+              breakpoints={{
+                300: { slidesPerView: 1 },
+                768: { slidesPerView: 2 },
+                992: { slidesPerView: 3 },
+              }}
+              spaceBetween={30}
+              loop={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              hashNavigation={{
+                watchState: true,
+              }}
+              navigation={true}
+              modules={[Navigation, HashNavigation]}
+              //onSlideChange={() => console.log('slide change')}
+              //onSwiper={(swiper) => console.log(swiper)}
+            >
+              {blogs.map((blog) => {
+                return (
+                  <SwiperSlide
+                    className="zoom-img blog-swiper-item"
+                    key={blog.id}
+                  >
+                    <Link
+                      href={`blog/${blog.id}`}
+                      key={blog.id}
+                      passHref={true}
+                      className=""
+                    >
+                      <div className="blog-swiper-item-img-wrap w-full overflow-hidden">
+                        {/* <Image src={blog.image} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full' alt={blog.title}/> */}
+                        <img
+                          src={blog.image}
+                          width="300"
+                          height="400"
+                          className="blog-swiper-item-img object-cover w-full h-full"
+                          alt={blog.title}
+                        ></img>
+                      </div>
+                    </Link>
+                    <div className="blog-swiper-item-content pt-5">
+                      <div className="blog-created-date flex items-center gap-2">
+                        <UilCalender size="18" color="#444" />
+                        <span className="text-sm">
+                          {blog.addDate.split("T")[0]}
+                        </span>
+                      </div>
+                      <Link
+                        href={`blog/${blog.id}`}
+                        key={blog.id}
+                        passHref={true}
+                        className="name mt-2 text-xl tracking-normal hover-red block"
+                      >
+                        {blog.title}
+                      </Link>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        </section>
+      )}
+
+      {/* Info Section */}
+      {featuresSection == 1 && (
+        <section className="info-section">
+          <div className="frd-container mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3">
+              {features.map((feature) => {
+                return (
+                  <div
+                    className="grid-info-sec-col mb-3 sm:mb-4 lg:mb-0"
+                    key={feature.id}
+                  >
+                    <div className="grid-info-box text-center">
+                      {/* <Image src="" width={51} className='infosecicon mx-auto' alt=""/> */}
+                      <img
+                        src={feature.icon}
+                        width="51"
+                        class="infosecicon mx-auto"
+                        alt={feature.title}
+                      ></img>
+                      <h5>{feature.title}</h5>
+                      <p className="ls-5">{feature.description}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
-  )
+  );
 }
 

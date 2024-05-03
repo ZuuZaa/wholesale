@@ -53,7 +53,6 @@ async function getHeader() {
     }
   );
   const data = await response.json();
-  console.log(data.output);
   return data.output;
 }
 
@@ -128,7 +127,6 @@ function Header() {
 
   const handleInputKeyDown = (event) => {
     if (event.keyCode === 13) {
-      console.log("Enter key pressed. Input value:", searchKey);
       window.location.href = "/search?search=" + searchKey;
       setSearchKey("");
       setIsSearchBoxOpen(false);
@@ -275,15 +273,25 @@ function Header() {
                 width={25}
                 height={25}
                 alt="search"
-                style={{ display: isSearchBoxOpen ? "none" : "inline" }}
+                style={{
+                  display: isSearchBoxOpen ? "none" : "inline",
+                  cursor: "pointer",
+                }}
                 onClick={showSeachBox}
               />
-              <Image src={icons.chat} width={25} height={25} alt="help chat" />
+              <Image
+                src={icons.chat}
+                width={25}
+                height={25}
+                alt="help chat"
+                style={{ cursor: "pointer" }}
+              />
               <Image
                 src={icons.bell}
                 width={25}
                 height={25}
                 alt="notification"
+                style={{ cursor: "pointer" }}
               />
             </div>
           </div>
