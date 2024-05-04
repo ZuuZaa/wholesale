@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Pcard from "../../../public/images/footer/Payment2.png";
-import './footer.scss'
+import "./footer.scss";
 import { footerLinks } from "./constants";
 
 async function fetchData() {
@@ -11,27 +11,20 @@ async function fetchData() {
     "https://api.wscshop.co.uk/api/layout/get-footer"
   );
   const data = await response.json();
-  console.log(data.output);
-
   return data.output;
 }
 const Footer = () => {
-  const [data, setData] = useState({
-    settings: [],
-    socialMedia: [],
-  });
   const [settings, setSettings] = useState({});
 
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
-      setData(fetchedData);
       setSettings(fetchedData.settings[0]);
     }
 
     fetchDataAsync();
   }, []);
-  console.log(data.settings);
+
   return (
     <footer>
       <div className="footer--desktop">
@@ -138,7 +131,7 @@ const Footer = () => {
       <div className="footer--mobile ">
         <ul className="flex justify-around items-center h-full">
           {footerLinks.map((link) => (
-            <li key={link.name} >
+            <li key={link.name}>
               <Link href={link.path}>
                 <Image src={link.icon} height={20} alt={link.name} />
               </Link>
