@@ -1764,10 +1764,20 @@ export default function MainPage() {
             </Link>
           </div>
 
-          <Swiper slidesPerView={"auto"} spaceBetween={12}>
-            {categoryImages?.map((cat) => (
-              <SwiperSlide key={cat.id}>
-                <img src={cat.image} alt={cat.title} />
+          <Swiper slidesPerView={"auto"} spaceBetween={3}>
+            {trendingProducts?.map((cat) => (
+              <SwiperSlide key={cat.id} className="recommended-product-card">
+                <Link href="#">
+                  <div>
+                    <figure>
+                      <img src={cat.mainImage} alt={cat.name} />
+                    </figure>
+                    <div className="product-info">
+                      <p>{cat.name}</p>
+                      <span className="color-green">{`₤ ${cat.price}`}</span>
+                    </div>
+                  </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>
