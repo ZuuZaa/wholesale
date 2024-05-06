@@ -16,7 +16,6 @@ import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import favorite from "@/assets/icons/favorite.svg";
 import Image from "next/image";
 
-
 import { Autoplay } from "swiper/modules";
 
 // Import Swiper React components
@@ -82,7 +81,7 @@ export default function MainPage({ children }) {
   const [partnersSection, setPartnersSection] = useState(0);
   const [blogSection, setBlogSection] = useState(0);
   const [featuresSection, setFeaturesSection] = useState(0);
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("best sellers");
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -108,23 +107,21 @@ export default function MainPage({ children }) {
   const offers = data.offers;
   //const dealsProducts=data.dealsProducts;
 
-  const links = [
-    { title: "Profile", path: "../account/profile", icon: "UilUser" },
-    { title: "Orders", path: "../account/history", icon: "UilHistory" },
-    { title: "Security", path: "../account/security", icon: "UilShield" },
-  ];
   const products = [
     {
-      name: "all",
-      items: data?.featuredProducts,
+      name: "best sellers",
+      items: data?.bestSellProducts,
+      visible: true,
+    },
+    {
+      name: "special offers",
+      items: data?.dealsProducts,
+      visible: !!offersSection,
     },
     {
       name: "trending",
       items: data?.trendingProducts,
-    },
-    {
-      name: "best sells",
-      items: data?.trendingProducts,
+      visible: !!trendCategSection,
     },
   ];
 
@@ -1784,17 +1781,17 @@ export default function MainPage({ children }) {
         </section>
         <section className="recommended">
           <div className="section-title flex justify-between px-">
-            <h4 className="section-title color-green">Recommended</h4>
+            <h4 className="section-title color-green">New Products</h4>
             <Link href="products/3" className="view-all-link color-green">
               show all
             </Link>
           </div>
 
           <Swiper slidesPerView={"auto"} spaceBetween={3}>
-            {trendingProducts?.map((product) => (
+            {data.featuredProducts?.map((product) => (
               <SwiperSlide
                 key={product.id}
-                className="recommended-product-card"
+                className="product-card"
               >
                 <Link href="#">
                   <div>
@@ -1813,44 +1810,52 @@ export default function MainPage({ children }) {
         </section>
         <section className="products">
           <ul className="products-tabs-list">
-            {products.map((item) => (
-              <li
-                className={activeTab === item.name && "active-tab"}
-                onClick={() => tabClickHandler(item.name)}
-              >
-                {item.name}
-              </li>
-            ))}
+            {products.map(
+              (item) =>
+                item.visible && (
+                  <li
+                    className={activeTab === item.name && "active-tab"}
+                    onClick={() => tabClickHandler(item.name)}
+                  >
+                    {item.name}
+                  </li>
+                )
+            )}
           </ul>
-          <div className="products-list">
+          <Swiper
+            slidesPerView={"auto"}
+            spaceBetween={3}
+            className="products-list"
+          >
             {products
-              .find((item) => item.name === activeTab)
+              ?.find((item) => item.name === activeTab)
               ?.items?.map((product) => (
-                <Link href="#">
-                  <div className="product-card">
-                    <figure>
-                      <img
-                        className="product-card-image"
-                        src={product.mainImage}
-                        alt={product.name}
-                      />
-                      <Image
-                        src={favorite}
-                        height={20}
-                        alt="add to favorites"
-                        className="favorite-icon"
-                      />
-                    </figure>
-                    <div className="product-info">
-                      <p>{product.name}</p>
-                      <span>{`₤ ${product.price}`}</span>
+                <SwiperSlide key={product.id} className="product-card">
+                  <Link href="#">
+                    <div>
+                      <figure>
+                        <img
+                          src={product.mainImage}
+                          alt={product.name}
+                          className="product-card-image"
+                        />
+                        <Image src={favorite} className="favorite-icon"/>
+                      </figure>
+                      <div className="product-info">
+                        <p>{product.name}</p>
+                        <span>{`₤ ${product.price}`}</span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </SwiperSlide>
               ))}
-          </div>
+          </Swiper>
         </section>
       </div>
     </main>
   );
 }
+
+
+
+
