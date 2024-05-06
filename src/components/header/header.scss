@@ -1,5 +1,14 @@
+.header--mobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 5;
+}
 
-.seach-box {
+.search-box {
     border: 0.4px solid #828282;
     max-width: 340px;
     height: 36px;
@@ -25,6 +34,7 @@
     .header--desktop {
         display: block;
     }
+
     .header--mobile {
         display: none;
     }

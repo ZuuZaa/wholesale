@@ -297,7 +297,7 @@ function Header() {
           </div>
           {isSearchBoxOpen && (
             <div className="px-2.5">
-              <div className="seach-box flex px-4">
+              <div className="search-box flex px-4">
                 <Image
                   src={icons.searchInput}
                   width={15}
