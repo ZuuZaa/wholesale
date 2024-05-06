@@ -1,4 +1,4 @@
-.login--mobile {
+.register--mobile {
     justify-content: center;
     align-items: center;
     background-color: #b8ecd7;
@@ -11,7 +11,7 @@
     flex-direction: column;
     gap: 44px;
     padding: 50px 20px 40px;
-    max-width: 335px;
+    width: 335px;
     border-radius: 20px;
     box-shadow: 0px 2px 4px 0px #FFFFFF66 inset;
     box-shadow: 0px 2px 4px 0px #00000040;
@@ -31,7 +31,7 @@
     }
 }
 
-.login-form {
+.register-form {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -83,21 +83,21 @@
 }
 
 @media screen and (max-width:768px) {
-    .login--desktop {
+    .register--desktop {
         display: none;
     }
 
-    .login--mobile {
+    .register--mobile {
         display: flex;
     }
 }
 
 @media screen and (min-width:769px) {
-    .login--desktop {
+    .register--desktop {
         display: block;
     }
 
-    .login--mobile {
+    .register--mobile {
         display: none;
     }
 }

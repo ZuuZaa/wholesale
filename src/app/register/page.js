@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { UilPhone, UilInfo, UilMap, UilEnvelope } from '@iconscout/react-unicons'
 import { Accordion, AccordionHeader, AccordionBody } from "@material-tailwind/react";
 import VerificationModal from './verification';
+import './register.scss';
 
 function Icon({ id, open }) {
     return (
@@ -83,78 +84,161 @@ export default function Register() {
   
   return (
     <main>
-
+      <div className="register--desktop">
         {/* Breadcrumb */}
-        <div className='breadcrumb-wrapper py-12'>
-          <div className='custom-container mx-auto'>
+        <div className="breadcrumb-wrapper py-12">
+          <div className="custom-container mx-auto">
             <div className="flex" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-
                 <li className="inline-flex items-center">
-                  <a href="#" className="inline-flex items-center text-sm font-medium"> Home </a>
+                  <a
+                    href="#"
+                    className="inline-flex items-center text-sm font-medium"
+                  >
+                    {" "}
+                    Home{" "}
+                  </a>
                 </li>
                 <li>
                   <div className="flex items-center">
-                    <a href="#" className="ms-1 text-sm font-medium md:ms-2">Account</a>
+                    <a href="#" className="ms-1 text-sm font-medium md:ms-2">
+                      Account
+                    </a>
                   </div>
                 </li>
-
               </ol>
             </div>
           </div>
         </div>
-        
+
         {/* Register  Section */}
-        <section className='login-register-main-section mt-5'>
-          <div className='custom-container mx-auto'>
-            <div className='account-lr-wrap mx-auto p-8 text-center'>
-                <h4 className='account-page-title'>Register</h4>
-                <p className='mb-8'>Please Register using account detail bellow.</p>
-                <form className="w-full" onSubmit={handleSubmit}>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>First Name</label>
-                    <input className='' type='text' placeholder='First Name' value={firstname} onChange={(e) => setFirstname(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Last Name</label>
-                    <input className='' type='text' placeholder='Last Name' value={lastname} onChange={(e) => setLastname(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Email</label>
-                    <input className='' type='email' placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Phone</label>
-                    <input className='' type='text' placeholder='Phone' value={phone} onChange={(e) => setPhone(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Company</label>
-                    <input className='' type='text' placeholder='Company' value={company} onChange={(e) => setCompany(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Position</label>
-                    <input className='' type='text' placeholder='Position' value={position} onChange={(e) => setPosition(e.target.value)}/>
-                  </div>
-                  <div className='account-form-flex mb-4'>
-                    <label className='text-sm'>Password</label>
-                    <input className='' type='password' placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-                  </div>
-                  <div class='mt-5'>
-                    <button class="account-page-btn link-design1 inline-block border-none font-bold">Create</button>
-                  </div>     
-                  <div className="message">{message ? <p className='text-green-500'>{message}</p> : null}</div>
-                </form>
-                {/* <span className='hover-red cursor-pointer text-sm mt-5'>Return to Store</span> */}
+        <section className="login-register-main-section mt-5">
+          <div className="custom-container mx-auto">
+            <div className="account-lr-wrap mx-auto p-8 text-center">
+              <h4 className="account-page-title">Register</h4>
+              <p className="mb-8">
+                Please Register using account detail bellow.
+              </p>
+              <form className="w-full" onSubmit={handleSubmit}>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">First Name</label>
+                  <input
+                    className=""
+                    type="text"
+                    placeholder="First Name"
+                    value={firstname}
+                    onChange={(e) => setFirstname(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Last Name</label>
+                  <input
+                    className=""
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Email</label>
+                  <input
+                    className=""
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Phone</label>
+                  <input
+                    className=""
+                    type="text"
+                    placeholder="Phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Company</label>
+                  <input
+                    className=""
+                    type="text"
+                    placeholder="Company"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Position</label>
+                  <input
+                    className=""
+                    type="text"
+                    placeholder="Position"
+                    value={position}
+                    onChange={(e) => setPosition(e.target.value)}
+                  />
+                </div>
+                <div className="account-form-flex mb-4">
+                  <label className="text-sm">Password</label>
+                  <input
+                    className=""
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div class="mt-5">
+                  <button class="account-page-btn link-design1 inline-block border-none font-bold">
+                    Create
+                  </button>
+                </div>
+                <div className="message">
+                  {message ? <p className="text-green-500">{message}</p> : null}
+                </div>
+              </form>
+              {/* <span className='hover-red cursor-pointer text-sm mt-5'>Return to Store</span> */}
             </div>
-          </div> 
+          </div>
         </section>
 
-  {/* Verification Modal */}
-      <button ref={buttonRef} className='verification-modal-btn'  onClick={() => setModalOpen(true)}></button>
-      <VerificationModal isOpen={isModalOpen} onClose={() => setModalOpen(false)}  email={email}>
-      </VerificationModal>
+        {/* Verification Modal */}
+        <button
+          ref={buttonRef}
+          className="verification-modal-btn"
+          onClick={() => setModalOpen(true)}
+        ></button>
+      </div>
+      <div className="register--mobile">
+        <div className="form-container">
+          <div className="form-title">
+            <h2 className="color-green">Welcome!</h2>
+            <p className="color-green">Create an account</p>
+          </div>
+          <form action="" className="register-form">
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <input type="password" placeholder="Password" />
+            <button type="submit">Sign up</button>
+          </form>
 
+          <p className="color-green">
+            Already has an account?
+            <Link href="/login" className="color-green">
+              Log in
+            </Link>
+          </p>
+        </div>
+      </div>
+      <VerificationModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        email={email}
+      ></VerificationModal>
     </main>
-  )
+  );
 }
 

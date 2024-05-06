@@ -31,7 +31,7 @@ function Icon({ id, open }) {
   );
 }
 
-import './login.scss'
+import "./login.scss";
 
 export default function Login() {
   const [isVisible, setIsVisible] = useState(false);
@@ -315,12 +315,25 @@ export default function Login() {
       </div>
 
       <div className="login--mobile">
-        <div className="login-title">
-          <h2>Welcome!</h2>
-          <p>Create an account</p>
-        </div>
-        <div className="login-form">
-          <form action=""></form>
+        <div className="form-container">
+          <div className="form-title">
+            <h2 className="color-green">Welcome!</h2>
+            <p className="color-green">
+              Please login using account detail bellow
+            </p>
+          </div>
+          <form action="" className="login-form">
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button type="submit">Log in</button>
+          </form>
+
+          <p className="color-green">
+            Don't have an account?
+            <Link href="/register" className="color-green">
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
     </main>
