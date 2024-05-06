@@ -29,7 +29,6 @@
   --background-breadcrumb: #f4f4f4;
 }
 
-
 .pt-70 {
   padding-top: 70px;
 }
@@ -3307,4 +3306,13 @@ select {
   .pgategories-left {
     width: 100%;
   }
+}
+
+.color-green {
+  color: #3fe29e;
+}
+
+.filter-green {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%)
+    hue-rotate(74deg) brightness(96%) contrast(84%);
 }

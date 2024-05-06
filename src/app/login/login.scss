@@ -1,0 +1,19 @@
+@media screen and (max-width:768px) {
+    .login--desktop {
+        display: none;
+    }
+
+    .login--mobile {
+        display: block;
+    }
+}
+
+@media screen and (min-width:769px) {
+    .login--desktop {
+        display: block;
+    }
+
+    .login--mobile {
+        display: none;
+    }
+}

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Pcard from "../../../public/images/footer/Payment2.png";
 import "./footer.scss";
 import { footerLinks } from "./constants";
+import { usePathname } from "next/navigation";
 
 async function fetchData() {
   const response = await fetch(
@@ -15,7 +16,9 @@ async function fetchData() {
 }
 const Footer = () => {
   const [settings, setSettings] = useState({});
+  const pathname = usePathname();
 
+  console.log(pathname)
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
@@ -133,7 +136,14 @@ const Footer = () => {
           {footerLinks.map((link) => (
             <li key={link.name}>
               <Link href={link.path}>
-                <Image src={link.icon} height={20} alt={link.name} />
+                <Image
+                  src={link.icon}
+                  height={20}
+                  alt={link.name}
+                  className={
+                    pathname === link.path ? "footer-link active" : "footer-link"
+                  }
+                />
               </Link>
             </li>
           ))}

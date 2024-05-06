@@ -13,6 +13,9 @@ import { UisStar } from "@iconscout/react-unicons-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
+import favorite from "@/assets/icons/favorite.svg";
+import Image from "next/image";
+
 
 import { Autoplay } from "swiper/modules";
 
@@ -57,7 +60,7 @@ async function fetchData() {
   return data.output;
 }
 
-export default function MainPage() {
+export default function MainPage({ children }) {
   //const router=useRouter()
 
   const [data, setData] = useState({
@@ -79,6 +82,7 @@ export default function MainPage() {
   const [partnersSection, setPartnersSection] = useState(0);
   const [blogSection, setBlogSection] = useState(0);
   const [featuresSection, setFeaturesSection] = useState(0);
+  const [activeTab, setActiveTab] = useState("all");
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -103,6 +107,28 @@ export default function MainPage() {
   const brands = data.brands;
   const offers = data.offers;
   //const dealsProducts=data.dealsProducts;
+
+  const links = [
+    { title: "Profile", path: "../account/profile", icon: "UilUser" },
+    { title: "Orders", path: "../account/history", icon: "UilHistory" },
+    { title: "Security", path: "../account/security", icon: "UilShield" },
+  ];
+  const products = [
+    {
+      name: "all",
+      items: data?.featuredProducts,
+    },
+    {
+      name: "trending",
+      items: data?.trendingProducts,
+    },
+    {
+      name: "best sells",
+      items: data?.trendingProducts,
+    },
+  ];
+
+  const tabClickHandler = (name) => setActiveTab(name);
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
@@ -1765,22 +1791,64 @@ export default function MainPage() {
           </div>
 
           <Swiper slidesPerView={"auto"} spaceBetween={3}>
-            {trendingProducts?.map((cat) => (
-              <SwiperSlide key={cat.id} className="recommended-product-card">
+            {trendingProducts?.map((product) => (
+              <SwiperSlide
+                key={product.id}
+                className="recommended-product-card"
+              >
                 <Link href="#">
                   <div>
                     <figure>
-                      <img src={cat.mainImage} alt={cat.name} />
+                      <img src={product.mainImage} alt={product.name} />
                     </figure>
                     <div className="product-info">
-                      <p>{cat.name}</p>
-                      <span className="color-green">{`₤ ${cat.price}`}</span>
+                      <p>{product.name}</p>
+                      <span className="color-green">{`₤ ${product.price}`}</span>
                     </div>
                   </div>
                 </Link>
               </SwiperSlide>
             ))}
           </Swiper>
+        </section>
+        <section className="products">
+          <ul className="products-tabs-list">
+            {products.map((item) => (
+              <li
+                className={activeTab === item.name && "active-tab"}
+                onClick={() => tabClickHandler(item.name)}
+              >
+                {item.name}
+              </li>
+            ))}
+          </ul>
+          <div className="products-list">
+            {products
+              .find((item) => item.name === activeTab)
+              ?.items?.map((product) => (
+                <Link href="#">
+                  <div className="product-card">
+                    <figure>
+                      <img
+                        className="product-card-image"
+                        src={product.mainImage}
+                        alt={product.name}
+                      />
+                      <Image
+                        src={favorite}
+                        height={20}
+                        alt="add to favorites"
+                        className="favorite-icon"
+                      />
+                    </figure>
+                    <div className="product-info">
+                      <p>{product.name}</p>
+                      <span>{`₤ ${product.price}`}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
         </section>
       </div>
     </main>
