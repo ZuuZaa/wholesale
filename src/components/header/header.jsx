@@ -84,6 +84,7 @@ function Header() {
   const islogin = data?.isLogin;
 
   const showSeachBox = () => setIsSearchBoxOpen(true);
+  const hideSeachBox = () => setIsSearchBoxOpen(false);
 
   let logout = async (event) => {
     const response = await fetch(
@@ -124,14 +125,17 @@ function Header() {
   const handleInputChange = (event) => {
     setSearchKey(event.target.value);
   };
-
+  const handleSearchClick = () => {
+    window.location.href = "/search?search=" + searchKey;
+    setSearchKey("");
+    setIsSearchBoxOpen(false);
+  };
   const handleInputKeyDown = (event) => {
     if (event.keyCode === 13) {
-      window.location.href = "/search?search=" + searchKey;
-      setSearchKey("");
-      setIsSearchBoxOpen(false);
+      handleSearchClick();
     }
   };
+
   return (
     <div>
       <header className="header">
@@ -297,13 +301,7 @@ function Header() {
           </div>
           {isSearchBoxOpen && (
             <div className="px-2.5">
-              <div className="search-box flex px-4">
-                <Image
-                  src={icons.searchInput}
-                  width={15}
-                  height={15}
-                  alt="search"
-                />
+              <div className="search-box">
                 <input
                   type="text"
                   placeholder="Search for product"
@@ -311,6 +309,17 @@ function Header() {
                   onChange={handleInputChange}
                   onKeyDown={handleInputKeyDown}
                 />
+                <button className="btn-close" onClick={hideSeachBox}>
+                  x
+                </button>
+                <button className="btn-search" onClick={handleSearchClick}>
+                  <Image
+                    src={icons.search}
+                    width={15}
+                    height={15}
+                    alt="search"
+                  />
+                </button>
               </div>
             </div>
           )}
