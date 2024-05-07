@@ -294,9 +294,6 @@ export default function MainPage({ children }) {
       console.log(err);
     }
   };
-
-
-  console.log(window.screen.height);
   //change fav icon
   // const [isClicked, setIsClicked] = useState(false);
 
