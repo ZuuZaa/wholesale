@@ -1775,8 +1775,13 @@ export default function MainPage({ children }) {
           </div>
           <Swiper slidesPerView={"auto"} spaceBetween={12}>
             {categoryImages?.map((cat) => (
-              <SwiperSlide key={cat.id}>
-                <img src={cat.image} alt={cat.title} />
+              <SwiperSlide key={cat.categoryid}>
+                <div className="category-card">
+                  <figure>
+                    <img src={cat.image} alt={cat.title} />
+                    <figcaption>{cat.categoryname}</figcaption>
+                  </figure>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
@@ -1791,10 +1796,7 @@ export default function MainPage({ children }) {
 
           <Swiper slidesPerView={"auto"} spaceBetween={3}>
             {data.featuredProducts?.map((product) => (
-              <SwiperSlide
-                key={product.id}
-                className="product-card"
-              >
+              <SwiperSlide key={product.id} className="product-card">
                 <Link href="#">
                   <div>
                     <figure>
@@ -1841,7 +1843,7 @@ export default function MainPage({ children }) {
                           alt={product.name}
                           className="product-card-image"
                         />
-                        <Image src={favorite} className="favorite-icon"/>
+                        <Image src={favorite} className="favorite-icon" />
                       </figure>
                       <div className="product-info">
                         <p>{product.name}</p>

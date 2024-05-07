@@ -33,9 +33,43 @@
     .swiper-slide {
         width: 96px;
         height: 100px;
+        display: flex;
+        align-items: flex-end;
+
+        figure {
+            position: relative;
+            width: 98px;
+            height: 80px;
+            border: 1px solid #3FE29E;
+            border-radius: 20px;
+
+        }
 
         img {
-            border-radius: 20px;
+            position: absolute;
+            top: -20px;
+            right: 50%;
+            transform: translateX(50%);
+            z-index: 2;
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+        }
+
+        figcaption {
+            margin-top: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 17.64px;
+            text-align: center;
+            color: #828282;
+            height: 35px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            white-space: wrap;
+            text-overflow: ellipsis;
         }
     }
 }
