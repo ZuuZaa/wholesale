@@ -1,4 +1,7 @@
 .main-page--mobile {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
     padding-block: 41px 52px;
 }
 
@@ -59,7 +62,7 @@
     border: 0.3px solid #707070;
 
     figure {
-        height: calc((100vh - 553px) / 2);
+        height: 13vh;
 
         img {
             border-radius: 4px 4px 0 0;
@@ -144,11 +147,7 @@
     }
 
     .main-page--mobile {
-        display: block;
-
-        svg {
-            color: red;
-        }
+        display: flex;
     }
 
 }
