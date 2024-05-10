@@ -58,7 +58,16 @@ export default function ProductDetail() {
   const pathname = useParams();
   const id = pathname.id;
   const location = usePathname();
-  console.log(location);
+    const customReviews = [
+      {
+        id: 1,
+        text: "product overview product overview product overview product overview product",
+      },
+      {
+        id: 2,
+        text: "product overview product",
+      },
+    ];
 
   async function fetchData() {
     let token = "";
@@ -2585,7 +2594,7 @@ export default function ProductDetail() {
           </figure>
           <div className="product-details">
             <h3>{data.products[0]?.name}</h3>
-            <div className="review">
+            <div className="product-review">
               <span>{data.products[0]?.starCount.toFixed(1)}</span>
               <ul className="stars">
                 {Array.from({ length: 5 }).map((item) => (
@@ -2644,6 +2653,33 @@ export default function ProductDetail() {
               </SwiperSlide>
             ))}
           </Swiper>
+        </section>
+        <section className="review">
+          <div className="review-title flex justify-between">
+            <h3>Reviews</h3>
+            <Link href="#">read more</Link>
+          </div>
+          <ul className="reviews-list">
+            {customReviews.map((review) => (
+              <li className="review-item p-3 ">
+                <div className="flex gap-2">
+                  <ul className="stars">
+                    {Array.from({ length: 5 }).map((item) => (
+                      <li>
+                        <Image
+                          src={starIcon}
+                          className="star-icon"
+                          alt="star"
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="reviewer">**** *****</p>
+                </div>
+                <p className="review-text">{review.text}</p>
+              </li>
+            ))}
+          </ul>
         </section>
       </div>
     </main>
