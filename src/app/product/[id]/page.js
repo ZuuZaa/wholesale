@@ -2625,7 +2625,7 @@ export default function ProductDetail() {
                   passHref={true}
                 >
                   <div>
-                    <figure>
+                    <figure className="product-image">
                       <img
                         src={product.mainImage}
                         alt={product.name}

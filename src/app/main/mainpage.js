@@ -1774,7 +1774,7 @@ export default function MainPage({ children }) {
             {categoryImages?.map((cat) => (
               <SwiperSlide key={cat.categoryid}>
                 <div className="category-card">
-                  <figure>
+                  <figure className="category-image">
                     <img src={cat.image} alt={cat.title} />
                     <figcaption>{cat.categoryname}</figcaption>
                   </figure>
@@ -1800,7 +1800,7 @@ export default function MainPage({ children }) {
                   passHref={true}
                 >
                   <div>
-                    <figure>
+                    <figure className="product-image">
                       <img src={product.mainImage} alt={product.name} />
                     </figure>
                     <div className="product-info">
@@ -1842,13 +1842,17 @@ export default function MainPage({ children }) {
                     passHref={true}
                   >
                     <div>
-                      <figure>
+                      <figure className="product-image">
                         <img
                           src={product.mainImage}
                           alt={product.name}
                           className="product-card-image"
                         />
-                        <Image src={favorite} className="favorite-icon" alt="star"/>
+                        <Image
+                          src={favorite}
+                          className="favorite-icon"
+                          alt="star"
+                        />
                       </figure>
                       <div className="product-info">
                         <p>{product.name}</p>
