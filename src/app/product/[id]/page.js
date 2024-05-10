@@ -2576,14 +2576,14 @@ export default function ProductDetail() {
           </li>
           <li>{data.products[0]?.name}</li>
         </ul>
-        <section className="product-card">
-          <figure className="product-card-image">
+        <section className="product-main-info">
+          <figure className="product-image">
             <img
               src={data.products[0]?.mainImage}
               alt={data.products[0]?.name}
             />
           </figure>
-          <div className="product-card-details">
+          <div className="product-details">
             <h3>{data.products[0]?.name}</h3>
             <div className="review">
               <span>{data.products[0]?.starCount.toFixed(1)}</span>
@@ -2597,7 +2597,7 @@ export default function ProductDetail() {
               <span>{`${data.reviews.length} reviews`}</span>
             </div>
             <p className="color-green price">{`₤ ${data.products[0]?.price}`}</p>
-            <div className="card-actions">
+            <div className="actions">
               <button className="btn-secondary">Buy now</button>
               <button className="btn-success">Add to cart</button>
             </div>
