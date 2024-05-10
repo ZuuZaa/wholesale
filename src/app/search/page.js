@@ -80,11 +80,11 @@ export default function Search() {
     fetchDataAsync();
   }, []);
 
-  const products=data.products;
-  const attributeNames=data.attributeNames;
-  const attributeValues=data.attributeValues;
-  const searchWord=data.searchWord;
-  const searchCount=data.searchCount;
+  const products=data?.products;
+  const attributeNames=data?.attributeNames;
+  const attributeValues=data?.attributeValues;
+  const searchWord=data?.searchWord;
+  const searchCount=data?.searchCount;
   let addFavorite = async (event) => {
     let prodid=event.currentTarget.getAttribute('id');
     let status;
@@ -893,7 +893,7 @@ export default function Search() {
                           <button className='cf-clear-all-btn hover-red-bg flex justify-center gap-2 w-full font-bold text-base'><UilTrashAlt size='22' color='#333'/> CLEAR ALL</button>
                           
                           {
-                            attributeNames.map(attrname=>{
+                            attributeNames?.map(attrname=>{
                               return(
                           <Accordion open={open === attrname.id} className='mt-6 p-4' icon={<Icon id={attrname.id} open={open} />}>
                             <AccordionHeader onClick={() => handleOpen(attrname.id)} className='font-medium'>
@@ -965,7 +965,7 @@ export default function Search() {
 
                             {/*  */}
                             <div>
-                                <p className='m-0 text-sm'>Showing {products.length} results</p>
+                                <p className='m-0 text-sm'>Showing {products?.length} results</p>
                             </div>
 
                             {/*  */}
@@ -986,7 +986,7 @@ export default function Search() {
                         <div className='cp-main-products'>
                         <p>There are {searchCount} results for searching {searchWord}</p>
                         {
-                          products.length>0?(<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
+                          products?.length>0?(<div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8'>
                             
                           {
                             products.map(product=>{

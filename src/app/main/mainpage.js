@@ -1794,7 +1794,11 @@ export default function MainPage({ children }) {
           <Swiper slidesPerView={"auto"} spaceBetween={3}>
             {data.featuredProducts?.map((product) => (
               <SwiperSlide key={product.id} className="product-card">
-                <Link href="#">
+                <Link
+                  href={`product/${product.id}`}
+                  key={product.id}
+                  passHref={true}
+                >
                   <div>
                     <figure>
                       <img src={product.mainImage} alt={product.name} />
@@ -1832,7 +1836,11 @@ export default function MainPage({ children }) {
               ?.find((item) => item.name === activeTab)
               ?.items?.map((product) => (
                 <SwiperSlide key={product.id} className="product-card">
-                  <Link href="#">
+                  <Link
+                    href={`product/${product.id}`}
+                    key={product.id}
+                    passHref={true}
+                  >
                     <div>
                       <figure>
                         <img
@@ -1840,7 +1848,7 @@ export default function MainPage({ children }) {
                           alt={product.name}
                           className="product-card-image"
                         />
-                        <Image src={favorite} className="favorite-icon" />
+                        <Image src={favorite} className="favorite-icon" alt="star"/>
                       </figure>
                       <div className="product-info">
                         <p>{product.name}</p>
