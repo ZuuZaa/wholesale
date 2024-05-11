@@ -58,17 +58,34 @@ export default function ProductDetail() {
   const pathname = useParams();
   const id = pathname.id;
   const location = usePathname();
-    const customReviews = [
-      {
-        id: 1,
-        text: "product overview product overview product overview product overview product",
-      },
-      {
-        id: 2,
-        text: "product overview product",
-      },
-    ];
-
+  const customReviews = [
+    {
+      id: 1,
+      text: "product overview product overview product overview product overview product",
+    },
+    {
+      id: 2,
+      text: "product overview product",
+    },
+  ];
+  const productProperties = [
+    {
+      id: 1,
+      text: "Cleaning equipment",
+    },
+    {
+      id: 2,
+      text: "Dispenserrs",
+    },
+    {
+      id: 3,
+      text: "Waste management",
+    },
+    {
+      id: 4,
+      text: "Paper hygiene",
+    },
+  ];
   async function fetchData() {
     let token = "";
     let session_id = "";
@@ -2677,6 +2694,16 @@ export default function ProductDetail() {
                   <p className="reviewer">**** *****</p>
                 </div>
                 <p className="review-text">{review.text}</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section className="product-properties">
+          <ul className="product-property-list">
+            {productProperties.map((item) => (
+              <li className="product-property-item" key={item.id}>
+                <span className="dot"></span>
+                {item.text}
               </li>
             ))}
           </ul>
