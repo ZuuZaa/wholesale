@@ -1773,12 +1773,17 @@ export default function MainPage({ children }) {
           <Swiper slidesPerView={"auto"} spaceBetween={12}>
             {categoryImages?.map((cat) => (
               <SwiperSlide key={cat.categoryid}>
-                <div className="category-card">
-                  <figure className="category-image">
-                    <img src={cat.image} alt={cat.title} />
-                    <figcaption>{cat.categoryname}</figcaption>
-                  </figure>
-                </div>
+                <Link
+                  href={`/category/${cat.categoryid}`}
+                  passHref={true}
+                >
+                  <div className="category-card">
+                    <figure className="category-image">
+                      <img src={cat.image} alt={cat.title} />
+                      <figcaption>{cat.categoryname}</figcaption>
+                    </figure>
+                  </div>
+                </Link>
               </SwiperSlide>
             ))}
           </Swiper>

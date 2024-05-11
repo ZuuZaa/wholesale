@@ -3,6 +3,7 @@ import search from "@/assets/icons/search.svg";
 import searchInput from "@/assets/icons/search-input.svg";
 import chat from "@/assets/icons/chat.svg";
 import bell from "@/assets/icons/bell.svg";
+import chevron from "@/assets/icons/chevron.svg";
 
 export const navLinks = [
   {
@@ -54,5 +55,6 @@ export const icons = {
   search,
   searchInput,
   chat,
-  bell
+  bell,
+  chevron
 }

@@ -15,6 +15,7 @@ import UserImg from "../../../public/images/user.png";
 import Cartdropdown from "../layout/Cartdropdown";
 import { icons, navLinks } from "./constants";
 import "./header.scss";
+import { usePathname } from "next/navigation";
 
 let token = "";
 let session_id = "";
@@ -58,6 +59,9 @@ async function getHeader() {
 
 function Header() {
   let path = "";
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+  console.log(isHomePage, "home");
   if (typeof window !== "undefined") {
     path = window.location.pathname;
   }
@@ -268,9 +272,23 @@ function Header() {
         </div>
         <div className="header--mobile">
           <div className="flex justify-between items-center py-2 px-5">
-            <figure className="logo">
-              <Image src={icons.logo} width={46} alt="wsc logo" />
-            </figure>
+            <div className="flex gap-3 items-center ">
+              {!isHomePage && (
+                <Link href="/">
+                  <Image
+                    src={icons.chevron}
+                    width={8}
+                    height={18}
+                    alt="chevron"
+                    className="chevron"
+                  />
+                </Link>
+              )}
+
+              <figure className="logo">
+                <Image src={icons.logo} width={46} alt="wsc logo" />
+              </figure>
+            </div>
             <div className="flex gap-2.5">
               <Image
                 src={icons.search}
