@@ -21,7 +21,7 @@ export const footerLinks = [
   },
   {
     name: "profile",
-    path: "/account/profile",
+    path: "/profile",
     icon: user,
   },
 ];
