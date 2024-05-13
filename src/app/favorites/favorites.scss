@@ -1,0 +1,70 @@
+.wishlist--mobile {
+    padding: 50px 10px;
+    height: 100vh;
+    color: #454545;
+    background-color: #f1f1f1;
+
+    .page-header {
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 13.86px;
+        text-align: center;
+        margin-block: 10px;
+        padding-block: 10px;
+        border-radius: 8px;
+        box-shadow: 0px 2px 4px 0px #00000040;
+        background-color: #fff;
+    }
+
+    .filter {
+        font-size: 11px;
+        line-height: 13.86px;
+    }
+
+    .favorite-card {
+        display: grid;
+        grid-template-columns: 70px auto;
+        border-radius: 8px;
+        border: 1px solid #C9C9C9;
+        background-color: #fff;
+        box-shadow: 0px 2px 4px 0px #00000040;
+
+        .product-image {
+            height: 88px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 8px 0 0 8px;
+            }
+        }
+
+        .card-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            line-height: 17.64px;
+        }
+
+        .card-action {
+            display: grid;
+            grid-template-columns: 1fr 4fr;
+            align-items: flex-end;
+        }
+
+        .success-outlined {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 19.5px;
+            color: #3FE29E;
+            border-radius: 8px;
+            padding-block: 3px;
+            border: 1px solid #3FE29E;
+        }
+    }
+}
