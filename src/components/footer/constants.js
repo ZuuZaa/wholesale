@@ -16,7 +16,7 @@ export const footerLinks = [
   },
   {
     name: "basket",
-    path: "/account/history",
+    path: "/basket",
     icon: basket,
   },
   {

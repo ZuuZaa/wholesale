@@ -2,7 +2,6 @@
 import { React, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import {
   UilTrashAlt,
   UilTable,
@@ -31,7 +30,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import "./category.scss";
-import favorite from "@/assets/icons/favorite.svg";
+import ProductList from "./product-list";
 
 function Icon({ id, open }) {
   return (
@@ -1416,35 +1415,12 @@ export default function Category() {
             <li>{cat_name}</li>
           </ul>
         </section>
-        <section className="products-list">
-          {products.map((product) => (
-            <div className="product-card">
-              <Link
-                href={`/product/${product.id}`}
-                key={product.id}
-                passHref={true}
-              >
-                <div>
-                  <figure className="product-image">
-                    <img
-                      src={product.mainImage}
-                      alt={product.name}
-                      className="product-card-image"
-                    />
-                    <Image
-                      src={favorite}
-                      className="favorite-icon"
-                      alt="star"
-                    />
-                  </figure>
-                  <div className="product-info">
-                    <p>{product.name}</p>
-                    <span>{`₤ ${product.price}`}</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+        <section>
+          {products.length > 0 ? (
+            <ProductList products={products} />
+          ) : (
+            <p className="text-center py-5">There is no product in this category.</p>
+          )}
         </section>
       </div>
     </main>
