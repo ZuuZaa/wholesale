@@ -30,6 +30,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation, HashNavigation } from "swiper/modules";
 
 import "./main.scss";
+import Loading from "@/components/loading";
 
 async function fetchData() {
   let token = "";
@@ -62,6 +63,7 @@ async function fetchData() {
 export default function MainPage({ children }) {
   //const router=useRouter()
 
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
     features: [],
     blogs: [],
@@ -93,6 +95,7 @@ export default function MainPage({ children }) {
       setPartnersSection(fetchedData.settings[0].partnersSection);
       setBlogSection(fetchedData.settings[0].blogSection);
       setFeaturesSection(fetchedData.settings[0].featuresSection);
+      setIsLoading(false);
     }
     fetchDataAsync();
   }, []);
@@ -1751,95 +1754,53 @@ export default function MainPage({ children }) {
           </section>
         )}
       </div>
-      <div className="main-page--mobile">
-        <section className="banner">
-          <Swiper
-            autoplay={{ delay: 3500, disableOnInteraction: false }}
-            slidesPerView={"auto"}
-            spaceBetween={7}
-            modules={[Autoplay]}
-          >
-            {offers?.map((offer) => (
-              <SwiperSlide key={offer.id}>
-                <img src={offer.image} alt={offer.title} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
-        <section className="categories">
-          <div className="section-title">
-            <h4 className="section-title color-green">Categories</h4>
-          </div>
-          <Swiper slidesPerView={"auto"} spaceBetween={12}>
-            {categoryImages?.map((cat) => (
-              <SwiperSlide key={cat.categoryid}>
-                <Link
-                  href={`/category/${cat.categoryid}`}
-                  passHref={true}
-                >
-                  <div className="category-card">
-                    <figure className="category-image">
-                      <img src={cat.image} alt={cat.title} />
-                      <figcaption>{cat.categoryname}</figcaption>
-                    </figure>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
-        <section className="recommended">
-          <div className="section-title flex justify-between px-">
-            <h4 className="section-title color-green">New Products</h4>
-            <Link href="products/3" className="view-all-link color-green">
-              show all
-            </Link>
-          </div>
-
-          <Swiper slidesPerView={"auto"} spaceBetween={3}>
-            {data.featuredProducts?.map((product) => (
-              <SwiperSlide key={product.id} className="product-card">
-                <Link
-                  href={`product/${product.id}`}
-                  key={product.id}
-                  passHref={true}
-                >
-                  <div>
-                    <figure className="product-image">
-                      <img src={product.mainImage} alt={product.name} />
-                    </figure>
-                    <div className="product-info">
-                      <p>{product.name}</p>
-                      <span className="color-green">{`₤ ${product.price}`}</span>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="main-page--mobile">
+          <section className="banner">
+            <Swiper
+              autoplay={{ delay: 3500, disableOnInteraction: false }}
+              slidesPerView={"auto"}
+              spaceBetween={7}
+              modules={[Autoplay]}
+            >
+              {offers?.map((offer) => (
+                <SwiperSlide key={offer.id}>
+                  <img src={offer.image} alt={offer.title} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+          <section className="categories">
+            <div className="section-title">
+              <h4 className="section-title color-green">Categories</h4>
+            </div>
+            <Swiper slidesPerView={"auto"} spaceBetween={12}>
+              {categoryImages?.map((cat) => (
+                <SwiperSlide key={cat.categoryid}>
+                  <Link href={`/category/${cat.categoryid}`} passHref={true}>
+                    <div className="category-card">
+                      <figure className="category-image">
+                        <img src={cat.image} alt={cat.title} />
+                        <figcaption>{cat.categoryname}</figcaption>
+                      </figure>
                     </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
-        <section className="products">
-          <ul className="products-tabs-list">
-            {products.map(
-              (item) =>
-                item.visible && (
-                  <li
-                    className={activeTab === item.name && "active-tab"}
-                    onClick={() => tabClickHandler(item.name)}
-                  >
-                    {item.name}
-                  </li>
-                )
-            )}
-          </ul>
-          <Swiper
-            slidesPerView={"auto"}
-            spaceBetween={3}
-            className="products-list"
-          >
-            {products
-              ?.find((item) => item.name === activeTab)
-              ?.items?.map((product) => (
+                  </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+          <section className="recommended">
+            <div className="section-title flex justify-between px-">
+              <h4 className="section-title color-green">New Products</h4>
+              <Link href="products/3" className="view-all-link color-green">
+                show all
+              </Link>
+            </div>
+
+            <Swiper slidesPerView={"auto"} spaceBetween={3}>
+              {data.featuredProducts?.map((product) => (
                 <SwiperSlide key={product.id} className="product-card">
                   <Link
                     href={`product/${product.id}`}
@@ -1848,32 +1809,71 @@ export default function MainPage({ children }) {
                   >
                     <div>
                       <figure className="product-image">
-                        <img
-                          src={product.mainImage}
-                          alt={product.name}
-                          className="product-card-image"
-                        />
-                        <Image
-                          src={favorite}
-                          className="favorite-icon"
-                          alt="star"
-                        />
+                        <img src={product.mainImage} alt={product.name} />
                       </figure>
                       <div className="product-info">
                         <p>{product.name}</p>
-                        <span>{`₤ ${product.price}`}</span>
+                        <span className="color-green">{`₤ ${product.price}`}</span>
                       </div>
                     </div>
                   </Link>
                 </SwiperSlide>
               ))}
-          </Swiper>
-        </section>
-      </div>
+            </Swiper>
+          </section>
+          <section className="products">
+            <ul className="products-tabs-list">
+              {products.map(
+                (item) =>
+                  item.visible && (
+                    <li
+                      className={activeTab === item.name && "active-tab"}
+                      onClick={() => tabClickHandler(item.name)}
+                    >
+                      {item.name}
+                    </li>
+                  )
+              )}
+            </ul>
+            <Swiper
+              slidesPerView={"auto"}
+              spaceBetween={3}
+              className="products-list"
+            >
+              {products
+                ?.find((item) => item.name === activeTab)
+                ?.items?.map((product) => (
+                  <SwiperSlide key={product.id} className="product-card">
+                    <Link
+                      href={`product/${product.id}`}
+                      key={product.id}
+                      passHref={true}
+                    >
+                      <div>
+                        <figure className="product-image">
+                          <img
+                            src={product.mainImage}
+                            alt={product.name}
+                            className="product-card-image"
+                          />
+                          <Image
+                            src={favorite}
+                            className="favorite-icon"
+                            alt="star"
+                          />
+                        </figure>
+                        <div className="product-info">
+                          <p>{product.name}</p>
+                          <span>{`₤ ${product.price}`}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
-
-
-
-

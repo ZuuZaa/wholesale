@@ -61,7 +61,6 @@ function Header() {
   let path = "";
   const pathname = usePathname();
   const isHomePage = pathname === "/";
-  console.log(isHomePage, "home");
   if (typeof window !== "undefined") {
     path = window.location.pathname;
   }

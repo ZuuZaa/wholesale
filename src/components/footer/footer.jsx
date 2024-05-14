@@ -18,7 +18,6 @@ const Footer = () => {
   const [settings, setSettings] = useState({});
   const pathname = usePathname();
 
-  console.log(pathname)
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
