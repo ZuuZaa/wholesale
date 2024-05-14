@@ -54,7 +54,7 @@ const Busket = () => {
           <div className="basket-footer px-4 py-3">
             <div className="price">
               <p>Total</p>
-              <span className="color-green">{`₤ ${totalPrice}`}</span>
+              <span>{`₤ ${totalPrice}`}</span>
             </div>
             <button className="btn-success">
               continue

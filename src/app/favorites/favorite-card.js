@@ -22,7 +22,7 @@ const FavoriteCard = ({ product }) => {
             </button>
           </div>
           <div className="card-action">
-            <span className="color-green">{`₤ ${product.price}`}</span>
+            <span>{`₤ ${product.price}`}</span>
             <button className="success-outlined">
               Add to cart
             </button>

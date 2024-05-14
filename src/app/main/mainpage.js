@@ -1813,7 +1813,7 @@ export default function MainPage({ children }) {
                       </figure>
                       <div className="product-info">
                         <p>{product.name}</p>
-                        <span className="color-green">{`₤ ${product.price}`}</span>
+                        <span>{`₤ ${product.price}`}</span>
                       </div>
                     </div>
                   </Link>

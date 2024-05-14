@@ -51,7 +51,7 @@ const BasketCard = ({ product, updatePrice }) => {
                 +
               </button>
             </div>
-            <span className="color-green">{`₤ ${count * product.price}`}</span>
+            <span>{`₤ ${count * product.price}`}</span>
           </div>
         </div>
       </div>
