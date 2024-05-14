@@ -6,6 +6,9 @@
 
     .category-tabs-container {
         position: sticky;
+        top: 48px;
+        z-index: 4;
+        background-color: #f1f1f1cc;
     }
 
     .swiper {
@@ -32,7 +35,7 @@
 
     .breadcrumb {
         display: flex;
-        padding: 0 10px 10px;
+        padding: 0 15px 10px;
 
         li {
             font-size: 11px;
