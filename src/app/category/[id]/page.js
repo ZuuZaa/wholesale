@@ -1,5 +1,5 @@
 "use client";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
@@ -29,8 +29,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+import ProductListWithCategories from "@/components/product-list-with-categories";
 import "./category.scss";
-import ProductList from "./product-list";
+import Loading from "@/components/loading";
 
 function Icon({ id, open }) {
   return (
@@ -86,6 +87,7 @@ export default function Category() {
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
     products: [],
     categoryName: [],
@@ -101,6 +103,7 @@ export default function Category() {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setData(fetchedData);
+      setIsLoading(false);
     }
     fetchDataAsync();
   }, []);
@@ -1393,36 +1396,18 @@ export default function Category() {
           </div>
         </section>
       </div>
-      <div className="category--mobile">
-        <section>
-          <Swiper slidesPerView={"auto"} spaceBetween={12}>
-            {mainCategories?.map((cat) => (
-              <SwiperSlide
-                key={cat.id}
-                className="swiper-slide-active"
-                //
-              >
-                <Link href={`/category/${cat.id}`} passHref={true}>
-                  <div className="category-tab">{cat.name}</div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          <ul className="breadcrumb">
-            <li>
-              <Link href="/">Home &gt;</Link>
-            </li>
-            <li>{cat_name}</li>
-          </ul>
-        </section>
-        <section>
-          {products.length > 0 ? (
-            <ProductList products={products} />
-          ) : (
-            <p className="text-center py-5">There is no product in this category.</p>
-          )}
-        </section>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="category--mobile">
+          <ProductListWithCategories
+            categoryId={cat_id}
+            categoryName={cat_name}
+            categories={mainCategories}
+            products={products}
+          />
+        </div>
+      )}
     </main>
   );
 }

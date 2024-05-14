@@ -2,7 +2,6 @@ import Link from 'next/link';
 import Image from "next/image";
 import favorite from "@/assets/icons/favorite.svg";
 
-
 const ProductList = ({products}) => {
   return (
     <div className="products-list">
