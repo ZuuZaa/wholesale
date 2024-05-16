@@ -22,7 +22,9 @@ const Footer = () => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setSettings(fetchedData.settings[0]);
+      console.log(fetchedData)
     }
+
 
     fetchDataAsync();
   }, []);

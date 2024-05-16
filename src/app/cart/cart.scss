@@ -1,4 +1,4 @@
-.basket--mobile {
+.cart-page--mobile {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -43,6 +43,8 @@
 
         .product-image {
             height: 88px;
+            background-color: #d9d9d9;
+            border-radius: 8px 0 0 8px;
 
             img {
                 width: 100%;
@@ -135,4 +137,27 @@
     border-radius: 8px;
     box-shadow: 0px 2px 4px 0px #00000040;
     background-color: #fff;
+}
+
+
+@media screen and (max-width:768px) {
+    .cart-page--desktop {
+        display: none;
+    }
+
+    .cart-page--mobile {
+        display: flex;
+
+    }
+
+}
+
+@media screen and (min-width:769px) {
+    .cart-page--desktop {
+        display: block;
+    }
+
+    .cart-page--mobile {
+        display: none;
+    }
 }

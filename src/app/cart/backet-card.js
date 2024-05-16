@@ -31,12 +31,12 @@ const BasketCard = ({ product, updatePrice }) => {
       <div className="basket-card">
         <Link href={`/product/${product.id}`}>
           <figure className="product-image">
-            <img src={product.mainImage} alt={product.name} />
+            <img src={product.productImage} alt={product.productName} />
           </figure>
         </Link>
         <div className="card-info">
           <div className="flex justify-between gap-2">
-            <h5 className="product-name">{product.name}</h5>
+            <h5 className="product-name">{product.productName}</h5>
             <button>
               <Image src={trashbin} alt="delete product" />
             </button>
@@ -46,12 +46,12 @@ const BasketCard = ({ product, updatePrice }) => {
               <button className="btn-remove" onClick={remove}>
                 -
               </button>
-              <span className="count color-green">{count}</span>
+              <span className="count color-green">{product.quantity}</span>
               <button className="btn-add" onClick={add}>
                 +
               </button>
             </div>
-            <span>{`₤ ${count * product.price}`}</span>
+            <span>{`₤ ${product.total}`}</span>
           </div>
         </div>
       </div>
