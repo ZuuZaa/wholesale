@@ -15,7 +15,7 @@ import UserImg from "../../../public/images/user.png";
 import Cartdropdown from "../layout/Cartdropdown";
 import { icons, navLinks } from "./constants";
 import "./header.scss";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 let token = "";
 let session_id = "";
@@ -60,7 +60,15 @@ async function getHeader() {
 function Header() {
   let path = "";
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+
+
   const isHomePage = pathname === "/";
+  if (typeof window !== "undefined") {
+    path = window.location.pathname;
+  }
+  const isSearchPage = pathname === "/search";
   if (typeof window !== "undefined") {
     path = window.location.pathname;
   }
@@ -74,6 +82,10 @@ function Header() {
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
   const [searchKey, setSearchKey] = useState("");
 
+
+  const showSeachBox = () => setIsSearchBoxOpen(true);
+  const hideSeachBox = () => setIsSearchBoxOpen(false);
+
   useEffect(() => {
     async function fetchDataAsync() {
       const data = await getHeader();
@@ -86,8 +98,13 @@ function Header() {
   const totalQuantity = data?.header?.totalQuantity;
   const islogin = data?.isLogin;
 
-  const showSeachBox = () => setIsSearchBoxOpen(true);
-  const hideSeachBox = () => setIsSearchBoxOpen(false);
+
+
+  useEffect(() => {
+    setIsSearchBoxOpen(isSearchPage)
+    setSearchKey(search)
+  }, [isSearchPage]);
+
 
   let logout = async (event) => {
     const response = await fetch(

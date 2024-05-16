@@ -7,7 +7,7 @@ import "./product-list-with-categories.scss";
 const ProductListWithCategories = ({
   categories,
   categoryId,
-  categoryName, 
+  breadcrumbPath, 
   products,
 }) => {
   return (
@@ -17,7 +17,7 @@ const ProductListWithCategories = ({
         <li>
           <Link href="/">Home &gt;</Link>
         </li>
-        <li>{categoryName}</li>
+        <li>{breadcrumbPath}</li>
       </ul>
       {products.length > 0 ? (
         <ProductList products={products} />
