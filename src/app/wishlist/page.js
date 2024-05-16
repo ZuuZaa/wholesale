@@ -330,7 +330,6 @@ export default function Wishlist() {
       ) : (
         <div className="wishlist--mobile">
           <h2 className="page-header">Wishlist</h2>
-
           {favorites.length > 0 ? (
             <div>
               <div className="filter flex justify-end">
