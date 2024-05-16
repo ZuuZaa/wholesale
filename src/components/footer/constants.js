@@ -11,7 +11,7 @@ export const footerLinks = [
   },
   {
     name: "wishlist",
-    path: "/favorites",
+    path: "/wishlist",
     icon: bookmark,
   },
   {

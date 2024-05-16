@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import actions from "@/assets/icons/actions.svg";
 
+
 const FavoriteCard = ({ product }) => {
 
   return (

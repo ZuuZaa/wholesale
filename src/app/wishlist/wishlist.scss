@@ -68,3 +68,25 @@
         }
     }
 }
+
+@media screen and (max-width:768px) {
+    .wishlist--desktop {
+        display: none;
+    }
+
+    .wishlist--mobile {
+        display: block;
+
+    }
+
+}
+
+@media screen and (min-width:769px) {
+    .wishlist--desktop {
+        display: block;
+    }
+
+    .wishlist--mobile {
+        display: none;
+    }
+}
