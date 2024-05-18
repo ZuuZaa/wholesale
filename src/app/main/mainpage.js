@@ -56,7 +56,7 @@ async function fetchData() {
   );
 
   const data = await response.json();
-  console.log(data.output);
+  console.log(data.output, "data");
   return data.output;
 }
 
@@ -175,6 +175,14 @@ export default function MainPage({ children }) {
               },
             }
           );
+
+              async function fetchDataAsync() {
+                setIsLoading(true);
+                const fetchedData = await fetchData();
+                setData(fetchedData);
+                setIsLoading(false);
+              }
+              fetchDataAsync();
           const resp = await response.json();
           if (resp.status !== 400) {
             if (typeof localStorage !== "undefined") {
@@ -1858,8 +1866,20 @@ export default function MainPage({ children }) {
                           />
                           <Image
                             src={favorite}
-                            className="favorite-icon"
+                            className={
+                              !!product.favorite
+                                ? "favorite-icon favorite"
+                                : "favorite-icon"
+                            }
                             alt="star"
+                            id={product.favorite}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              console.log("favorite clicked");
+                              !!product.favorite
+                                ? removeFavorite
+                                : addFavorite;
+                            }}
                           />
                         </figure>
                         <div className="product-info">

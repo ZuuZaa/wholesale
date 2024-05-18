@@ -322,10 +322,21 @@ export default function Login() {
               Please login using account detail bellow
             </p>
           </div>
-          <form action="" className="login-form">
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+          <form action="" className="login-form" onSubmit={login}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <button type="submit">Log in</button>
+            <div className="message">{message ? <p>{message}</p> : null}</div>
           </form>
 
           <p className="color-green">

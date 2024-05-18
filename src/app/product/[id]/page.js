@@ -2627,10 +2627,14 @@ export default function ProductDetail() {
               <button className="btn-secondary">Buy now</button>
               <button className="btn-success">Add to cart</button>
             </div>
-            <button>
+            <button id={data.products[0]?.id} onClick={addFavorite}>
               <Image
                 src={favoriteIcon}
-                className="favorite-icon"
+                className={
+                  !!data.products[0]?.favorite
+                    ? "favorite-icon favorite"
+                    : "favorite-icon"
+                }
                 alt="favorite"
               />
             </button>
