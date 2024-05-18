@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   UilArrowRight,
@@ -137,6 +137,7 @@ export default function MainPage({ children }) {
     if (typeof localStorage !== "undefined") {
       token = localStorage.getItem("jwtToken");
     }
+    console.log(localStorage);
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/favorites/add-favorite",
@@ -153,7 +154,8 @@ export default function MainPage({ children }) {
         }
       );
       const resJson = await res.json();
-      console.log("response: ", resJson)
+
+      console.log("event: ", event);
       //if (res.status === 200) {
       status = resJson.status;
       if (status === 401) {
@@ -177,13 +179,13 @@ export default function MainPage({ children }) {
             }
           );
 
-              async function fetchDataAsync() {
-                setIsLoading(true);
-                const fetchedData = await fetchData();
-                setData(fetchedData);
-                setIsLoading(false);
-              }
-              fetchDataAsync();
+          async function fetchDataAsync() {
+            setIsLoading(true);
+            const fetchedData = await fetchData();
+            setData(fetchedData);
+            setIsLoading(false);
+          }
+          fetchDataAsync();
           const resp = await response.json();
           if (resp.status !== 400) {
             if (typeof localStorage !== "undefined") {
@@ -209,6 +211,7 @@ export default function MainPage({ children }) {
             fav_icons[i].nextSibling.style.display = "block";
           }
         }
+        event.target?.classList?.toggle("favorite");
       }
       //}
       //else
@@ -295,6 +298,7 @@ export default function MainPage({ children }) {
             fav_icons[i].previousSibling.style.display = "block";
           }
         }
+        event.target?.classList?.toggle("favorite");
         //setMessage("Added");
       }
       //}
@@ -1872,14 +1876,14 @@ export default function MainPage({ children }) {
                                 ? "favorite-icon favorite"
                                 : "favorite-icon"
                             }
-                            alt="star"
-                            id={product.favorite}
+                            alt="favorite"
+                            id={product.id}
                             onClick={(e) => {
                               e.preventDefault();
-                              console.log("favorite clicked");
                               !!product.favorite
-                                ? removeFavorite
-                                : addFavorite;
+                                ? removeFavorite(e)
+                                : addFavorite(e);
+                              console.log("favorite clicked", product.id, e);
                             }}
                           />
                         </figure>
