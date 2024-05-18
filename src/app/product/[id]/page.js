@@ -28,6 +28,7 @@ import { Navigation, HashNavigation } from "swiper/modules";
 
 import { Tabs, Tab } from "../Tabs";
 import Gallery from "../Gallery";
+import Loading from "@/components/loading";
 
 async function getHeader() {
   let token = "";
@@ -58,6 +59,8 @@ export default function ProductDetail() {
   const pathname = useParams();
   const id = pathname.id;
   const location = usePathname();
+  const [isLoading, setIsLoading] = useState(true);
+
   const customReviews = [
     {
       id: 1,
@@ -86,6 +89,7 @@ export default function ProductDetail() {
       text: "Paper hygiene",
     },
   ];
+
   async function fetchData() {
     let token = "";
     let session_id = "";
@@ -148,6 +152,7 @@ export default function ProductDetail() {
     userType: [],
   });
 
+
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
@@ -156,11 +161,9 @@ export default function ProductDetail() {
       document.getElementById("prod_desc").innerHTML = fetchedData1;
     }
     fetchDataAsync();
+    setIsLoading(false)
   }, []);
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   const products = data.products;
   const similarProducts = data.similarProducts;
   const reviews = data.reviews;
@@ -180,6 +183,7 @@ export default function ProductDetail() {
     header: [],
     isLogin: [],
   });
+
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await getHeader();
@@ -2590,129 +2594,145 @@ export default function ProductDetail() {
           </section>
         </section>
       </div>
-      <div className="product--mobile">
-        <ul className="breadcrumb">
-          <li>
-            <Link href="/">Home &gt;</Link>
-          </li>
-          <li>
-            <Link href={`/category/${data?.category[0]?.id}`}>
-              {data?.category[0]?.name} &gt;
-            </Link>
-          </li>
-          <li>{data.products[0]?.name}</li>
-        </ul>
-        <section className="product-main-info">
-          <figure className="product-image">
-            <img
-              src={data.products[0]?.mainImage}
-              alt={data.products[0]?.name}
-            />
-          </figure>
-          <div className="product-details">
-            <h3>{data.products[0]?.name}</h3>
-            <div className="product-review">
-              <span>{data.products[0]?.starCount.toFixed(1)}</span>
-              <ul className="stars">
-                {Array.from({ length: 5 }).map((item) => (
-                  <li>
-                    <Image src={starIcon} className="star-icon" alt="star" />
-                  </li>
-                ))}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="product--mobile">
+          {products.length > 0 ? (
+            <>
+              <ul className="breadcrumb">
+                <li>
+                  <Link href="/">Home &gt;</Link>
+                </li>
+                <li>
+                  <Link href={`/category/${data?.category[0]?.id}`}>
+                    {data?.category[0]?.name} &gt;
+                  </Link>
+                </li>
+                <li>{data.products[0]?.name}</li>
               </ul>
-              <span>{`${data.reviews.length} reviews`}</span>
-            </div>
-            <p className="color-green price">{`₤ ${data.products[0]?.price}`}</p>
-            <div className="actions">
-              <button className="btn-secondary">Buy now</button>
-              <button className="btn-success">Add to cart</button>
-            </div>
-            <button id={data.products[0]?.id} onClick={addFavorite}>
-              <Image
-                src={favoriteIcon}
-                className={
-                  !!data.products[0]?.favorite
-                    ? "favorite-icon favorite"
-                    : "favorite-icon"
-                }
-                alt="favorite"
-              />
-            </button>
-          </div>
-        </section>
-        <section className="similar-products">
-          <h3>Items You Might Like</h3>
-          <Swiper
-            slidesPerView={"auto"}
-            spaceBetween={3}
-            className="similar-products-list"
-          >
-            {data.similarProducts?.map((product) => (
-              <SwiperSlide key={product.id} className="product-card">
-                <Link
-                  href={`/product/${product.id}`}
-                  key={product.id}
-                  passHref={true}
-                >
-                  <div>
-                    <figure className="product-image">
-                      <img
-                        src={product.mainImage}
-                        alt={product.name}
-                        className="product-card-image"
-                      />
-                    </figure>
-                    <div className="product-info">
-                      <p>{product.name}</p>
-                      <span className="color-green">{`₤ ${product.price}`}</span>
-                      <div className="card-action">
-                        <button className="btn-success">Add to cart</button>
-                      </div>
-                    </div>
+              <section className="product-main-info">
+                <figure className="product-image">
+                  <img
+                    src={data.products[0]?.mainImage}
+                    alt={data.products[0]?.name}
+                  />
+                </figure>
+                <div className="product-details">
+                  <h3>{data.products[0]?.name}</h3>
+                  <div className="product-review">
+                    <span>{data.products[0]?.starCount.toFixed(1)}</span>
+                    <ul className="stars">
+                      {Array.from({ length: 5 }).map((item) => (
+                        <li>
+                          <Image
+                            src={starIcon}
+                            className="star-icon"
+                            alt="star"
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                    <span>{`${data.reviews.length} reviews`}</span>
                   </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </section>
-        <section className="review">
-          <div className="review-title flex justify-between">
-            <h3>Reviews</h3>
-            <Link href="#">read more</Link>
-          </div>
-          <ul className="reviews-list">
-            {customReviews.map((review) => (
-              <li className="review-item p-3 ">
-                <div className="flex gap-2">
-                  <ul className="stars">
-                    {Array.from({ length: 5 }).map((item) => (
-                      <li>
-                        <Image
-                          src={starIcon}
-                          className="star-icon"
-                          alt="star"
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="reviewer">**** *****</p>
+                  <p className="color-green price">{`₤ ${data.products[0]?.price}`}</p>
+                  <div className="actions">
+                    <button className="btn-secondary">Buy now</button>
+                    <button className="btn-success">Add to cart</button>
+                  </div>
+                  <button id={data.products[0]?.id} onClick={addFavorite}>
+                    <Image
+                      src={favoriteIcon}
+                      className={
+                        !!data.products[0]?.favorite
+                          ? "favorite-icon favorite"
+                          : "favorite-icon"
+                      }
+                      alt="favorite"
+                    />
+                  </button>
                 </div>
-                <p className="review-text">{review.text}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="product-properties">
-          <ul className="product-property-list">
-            {productProperties.map((item) => (
-              <li className="product-property-item" key={item.id}>
-                <span className="dot"></span>
-                {item.text}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+              </section>
+              <section className="similar-products">
+                <h3>Items You Might Like</h3>
+                <Swiper
+                  slidesPerView={"auto"}
+                  spaceBetween={3}
+                  className="similar-products-list"
+                >
+                  {data.similarProducts?.map((product) => (
+                    <SwiperSlide key={product.id} className="product-card">
+                      <Link
+                        href={`/product/${product.id}`}
+                        key={product.id}
+                        passHref={true}
+                      >
+                        <div>
+                          <figure className="product-image">
+                            <img
+                              src={product.mainImage}
+                              alt={product.name}
+                              className="product-card-image"
+                            />
+                          </figure>
+                          <div className="product-info">
+                            <p>{product.name}</p>
+                            <span className="color-green">{`₤ ${product.price}`}</span>
+                            <div className="card-action">
+                              <button className="btn-success">
+                                Add to cart
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </section>
+              <section className="review">
+                <div className="review-title flex justify-between">
+                  <h3>Reviews</h3>
+                  <Link href="#">read more</Link>
+                </div>
+                <ul className="reviews-list">
+                  {customReviews.map((review) => (
+                    <li className="review-item p-3 ">
+                      <div className="flex gap-2">
+                        <ul className="stars">
+                          {Array.from({ length: 5 }).map((item) => (
+                            <li>
+                              <Image
+                                src={starIcon}
+                                className="star-icon"
+                                alt="star"
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                        <p className="reviewer">**** *****</p>
+                      </div>
+                      <p className="review-text">{review.text}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+              <section className="product-properties">
+                <ul className="product-property-list">
+                  {productProperties.map((item) => (
+                    <li className="product-property-item" key={item.id}>
+                      <span className="dot"></span>
+                      {item.text}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </>
+          ) : (
+            <p className="text-center py-5">Product is not available.</p>
+          )}
+        </div>
+      )}
     </main>
   );
 }

@@ -108,14 +108,14 @@ export default function Category() {
     fetchDataAsync();
   }, []);
 
-  let products = data.products;
-  const categoryName = data.categoryName;
-  const attributeNames = data.attributeNames;
-  const attributeValues = data.attributeValues;
-  const mainCategory = data.mainCategory;
-  const subCategory = data.subCategory;
-  const mainCategories = data.mainCategories;
-  const subCategories = data.subCategories;
+  let products = data?.products;
+  const categoryName = data?.categoryName;
+  const attributeNames = data?.attributeNames;
+  const attributeValues = data?.attributeValues;
+  const mainCategory = data?.mainCategory;
+  const subCategory = data?.subCategory;
+  const mainCategories = data?.mainCategories;
+  const subCategories = data?.subCategories;
 
   console.log(products);
   let cat_name = "";

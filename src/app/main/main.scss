@@ -172,6 +172,7 @@
             text-transform: capitalize;
             padding: 8px 9px 4px;
             color: #454545;
+            cursor: pointer;
 
             &:is(.active-tab) {
                 font-weight: 600;

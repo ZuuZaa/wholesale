@@ -153,6 +153,7 @@ export default function MainPage({ children }) {
         }
       );
       const resJson = await res.json();
+      console.log("response: ", resJson)
       //if (res.status === 200) {
       status = resJson.status;
       if (status === 401) {
