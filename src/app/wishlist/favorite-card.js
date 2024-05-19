@@ -10,7 +10,7 @@ const FavoriteCard = ({ product }) => {
   return (
     <li key={product.id}>
       <div className="favorite-card">
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/product/${product.productId}`}>
           <figure className="product-image">
             <img src={product.mainImage} alt={product.name} />
           </figure>

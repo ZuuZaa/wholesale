@@ -152,7 +152,6 @@ export default function ProductDetail() {
     userType: [],
   });
 
-
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
@@ -161,7 +160,7 @@ export default function ProductDetail() {
       document.getElementById("prod_desc").innerHTML = fetchedData1;
     }
     fetchDataAsync();
-    setIsLoading(false)
+    setIsLoading(false);
   }, []);
 
   const products = data.products;
@@ -2604,11 +2603,14 @@ export default function ProductDetail() {
                 <li>
                   <Link href="/">Home &gt;</Link>
                 </li>
-                <li>
-                  <Link href={`/category/${data?.category[0]?.id}`}>
-                    {data?.category[0]?.name} &gt;
-                  </Link>
-                </li>
+                {data?.category?.length > 0 && (
+                  <li>
+                    <Link href={`/category/${data?.category[0]?.id}`}>
+                      {data?.category[0]?.name} &gt;
+                    </Link>
+                  </li>
+                )}
+
                 <li>{data.products[0]?.name}</li>
               </ul>
               <section className="product-main-info">
@@ -2653,43 +2655,46 @@ export default function ProductDetail() {
                   </button>
                 </div>
               </section>
-              <section className="similar-products">
-                <h3>Items You Might Like</h3>
-                <Swiper
-                  slidesPerView={"auto"}
-                  spaceBetween={3}
-                  className="similar-products-list"
-                >
-                  {data.similarProducts?.map((product) => (
-                    <SwiperSlide key={product.id} className="product-card">
-                      <Link
-                        href={`/product/${product.id}`}
-                        key={product.id}
-                        passHref={true}
-                      >
-                        <div>
-                          <figure className="product-image">
-                            <img
-                              src={product.mainImage}
-                              alt={product.name}
-                              className="product-card-image"
-                            />
-                          </figure>
-                          <div className="product-info">
-                            <p>{product.name}</p>
-                            <span className="color-green">{`₤ ${product.price}`}</span>
-                            <div className="card-action">
-                              <button className="btn-success">
-                                Add to cart
-                              </button>
+              {data.similarProducts.length > 0 && (
+                <section className="similar-products">
+                  <h3>Items You Might Like</h3>
+                  <Swiper
+                    slidesPerView={"auto"}
+                    spaceBetween={3}
+                    className="similar-products-list"
+                  >
+                    {data.similarProducts?.map((product) => (
+                      <SwiperSlide key={product.id} className="product-card">
+                        <Link
+                          href={`/product/${product.id}`}
+                          key={product.id}
+                          passHref={true}
+                        >
+                          <div>
+                            <figure className="product-image">
+                              <img
+                                src={product.mainImage}
+                                alt={product.name}
+                                className="product-card-image"
+                              />
+                            </figure>
+                            <div className="product-info">
+                              <p>{product.name}</p>
+                              <span>{`₤ ${product.price}`}</span>
+                              <div className="card-action">
+                                <button className="btn-success">
+                                  Add to cart
+                                </button>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Link>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </section>
+                        </Link>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </section>
+              )}
+
               <section className="review">
                 <div className="review-title flex justify-between">
                   <h3>Reviews</h3>

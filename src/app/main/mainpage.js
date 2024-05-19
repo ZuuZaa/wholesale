@@ -60,6 +60,8 @@ async function fetchData() {
   return data.output;
 }
 
+
+
 export default function MainPage({ children }) {
   //const router=useRouter()
 
@@ -85,18 +87,19 @@ export default function MainPage({ children }) {
   const [featuresSection, setFeaturesSection] = useState(0);
   const [activeTab, setActiveTab] = useState("best sellers");
 
+  async function fetchDataAsync() {
+    const fetchedData = await fetchData();
+    setData(fetchedData);
+    setBannerSection(fetchedData.settings[0].bannerSection);
+    setTrendCategSection(fetchedData.settings[0].trendCategSection);
+    setOffersSection(fetchedData.settings[0].offersSection);
+    setPartnersSection(fetchedData.settings[0].partnersSection);
+    setBlogSection(fetchedData.settings[0].blogSection);
+    setFeaturesSection(fetchedData.settings[0].featuresSection);
+    setIsLoading(false);
+  }
+
   useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setBannerSection(fetchedData.settings[0].bannerSection);
-      setTrendCategSection(fetchedData.settings[0].trendCategSection);
-      setOffersSection(fetchedData.settings[0].offersSection);
-      setPartnersSection(fetchedData.settings[0].partnersSection);
-      setBlogSection(fetchedData.settings[0].blogSection);
-      setFeaturesSection(fetchedData.settings[0].featuresSection);
-      setIsLoading(false);
-    }
     fetchDataAsync();
   }, []);
 
@@ -155,7 +158,8 @@ export default function MainPage({ children }) {
       );
       const resJson = await res.json();
 
-      console.log("event: ", event);
+      console.log("response add", resJson);
+
       //if (res.status === 200) {
       status = resJson.status;
       if (status === 401) {
@@ -211,6 +215,7 @@ export default function MainPage({ children }) {
             fav_icons[i].nextSibling.style.display = "block";
           }
         }
+        fetchDataAsync();
         event.target?.classList?.toggle("favorite");
       }
       //}
@@ -272,6 +277,7 @@ export default function MainPage({ children }) {
             }
           );
           const resp = await response.json();
+          console.log("response remove", resp);
           if (resp.status !== 400) {
             if (typeof localStorage !== "undefined") {
               localStorage.setItem("refreshToken", resp.output.refreshToken);
@@ -299,6 +305,8 @@ export default function MainPage({ children }) {
           }
         }
         event.target?.classList?.toggle("favorite");
+                fetchDataAsync();
+
         //setMessage("Added");
       }
       //}
@@ -942,6 +950,10 @@ export default function MainPage({ children }) {
     }
   };
 
+  const handleFavoriteClick = (event, favorite) => {
+    event.preventDefault();
+    !!favorite ? removeFavorite(event) : addFavorite(event);
+  };
   return (
     <main>
       <div className="main-page--desktop flex flex-col items-center justify-between ">
@@ -1878,13 +1890,9 @@ export default function MainPage({ children }) {
                             }
                             alt="favorite"
                             id={product.id}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              !!product.favorite
-                                ? removeFavorite(e)
-                                : addFavorite(e);
-                              console.log("favorite clicked", product.id, e);
-                            }}
+                            onClick={(e) =>
+                              handleFavoriteClick(e, product.favorite)
+                            }
                           />
                         </figure>
                         <div className="product-info">
