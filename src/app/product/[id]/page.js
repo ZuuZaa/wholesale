@@ -527,7 +527,7 @@ export default function ProductDetail() {
       token = localStorage.getItem("jwtToken");
       session_id = localStorage.getItem("sessionId");
     }
-    const quantity = event.currentTarget.previousSibling.value;
+    const quantity = event.currentTarget.previousSibling.value || 1;
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/add-to-cart",
@@ -2639,8 +2639,20 @@ export default function ProductDetail() {
                   </div>
                   <p className="color-green price">{`₤ ${data.products[0]?.price}`}</p>
                   <div className="actions">
-                    <button className="btn-secondary">Buy now</button>
-                    <button className="btn-success">Add to cart</button>
+                    <Link
+                      href="/checkout"
+                      type="button"
+                      className="btn btn-secondary"
+                    >
+                      Buy now
+                    </Link>
+                    <button
+                      className="btn btn-success"
+                      id={data.products[0]?.id}
+                      onClick={addCart}
+                    >
+                      Add to cart
+                    </button>
                   </div>
                   <button id={data.products[0]?.id} onClick={addFavorite}>
                     <Image
