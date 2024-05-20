@@ -36,8 +36,8 @@ const BasketCard = ({ product,updateCarts, updateTotalPrise }) => {
 
       if (res.status === 200) {
         const data = await res.json();
-        updateCarts(data.output.cart)
-        console.log("remove", data);
+        updateCarts(data.output.cart);
+        updateTotalPrise(data.output.subtotal.toFixed(2));
       }
     } catch (err) {
       console.log(err);
