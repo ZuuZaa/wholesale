@@ -178,22 +178,19 @@ let removeFavorite = async (event) => {
 
 export default function Wishlist() {
   //mainFunc();
-  const [data, setData] = useState({
-    favorites: [],
-  });
   const [isLoading, setIsLoading] = useState(true);
+  const [favorites, setFavorites] = useState([]);
+
+  const updateFavorites = (data) => setFavorites(data);
 
   useEffect(() => {
     async function fetchDataAsync() {
-      const fetchedData = await mainFunc();
-      setData(fetchedData);
+      const data = await mainFunc();
+      setFavorites(data.favorites);
       setIsLoading(false);
     }
     fetchDataAsync();
   }, []);
-
-  console.log(data);
-  const favorites = data.favorites;
 
   return (
     <main>
@@ -340,7 +337,10 @@ export default function Wishlist() {
               </div>
               <ul className="flex flex-col gap-2 py-2">
                 {favorites.map((item) => (
-                  <FavoriteCard product={item} />
+                  <FavoriteCard
+                    product={item}
+                    updateFavorites={updateFavorites}
+                  />
                 ))}
               </ul>
             </div>
