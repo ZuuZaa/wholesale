@@ -114,6 +114,8 @@
     }
 
     .btn-success {
+        display: grid;
+        place-items: center;
         font-size: 16px;
         font-weight: 600;
         line-height: 24px;

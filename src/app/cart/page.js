@@ -43,6 +43,7 @@ export default function Cart() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [carts, setCarts] = useState([])
 
   const [data, setData] = useState({
     cart: [],
@@ -52,21 +53,24 @@ export default function Cart() {
     isLogin: [],
   });
 
-  const updateTotalPrice = (price, action) => {
-    setTotalPrice((prev) => (action === "add" ? prev + price : prev - price));
-  };
+  const updateTotalPrise = (price) => setTotalPrice(price);
+
+  const updateCarts = (carts) => setCarts(carts);
+
 
   useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setIsLoading(false);
-    }
-
+      async function fetchDataAsync() {
+        const fetchedData = await fetchData();
+        setData(fetchedData);
+        setTotalPrice(fetchedData.subtotal.toFixed(2));
+        setCarts(fetchedData.cart)
+        setIsLoading(false);
+      }
     fetchDataAsync();
+    
   }, []);
 
-  const carts = data.cart;
+  
   const subtotal = data.subtotal;
   const userType = data.userType;
   const isLogin = data.isLogin;
@@ -393,7 +397,11 @@ export default function Cart() {
             {carts.length > 0 ? (
               <ul className="basket-list">
                 {carts.map((item) => (
-                  <BasketCard product={item} updatePrice={updateTotalPrice} />
+                  <BasketCard
+                    product={item}
+                    updateCarts={updateCarts}
+                    updateTotalPrise={updateTotalPrise}
+                  />
                 ))}
               </ul>
             ) : (
@@ -404,11 +412,11 @@ export default function Cart() {
               <h4 className="price-details__title">Price details</h4>
               <div className="flex justify-between">
                 <span>Cart total</span>
-                <span>{`₤ ${subtotal}`}</span>
+                <span>{`₤ ${totalPrice}`}</span>
               </div>
               <div className="flex justify-between">
                 <span>Total payable</span>
-                <span>{`₤ ${subtotal}`}</span>
+                <span>{`₤ ${totalPrice}`}</span>
               </div>
             </div>
           </section>
@@ -416,9 +424,11 @@ export default function Cart() {
             <div className="basket-footer px-4 py-3">
               <div className="price">
                 <p>Total</p>
-                <span>{`₤ ${subtotal}`}</span>
+                <span>{`₤ ${totalPrice}`}</span>
               </div>
-              <button className="btn-success">continue</button>
+              <Link href="/checkout" className="btn btn-success">
+                continue
+              </Link>
             </div>
           </section>
         </div>

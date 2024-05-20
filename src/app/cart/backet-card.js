@@ -3,28 +3,89 @@
 import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const BasketCard = ({ product, updatePrice }) => {
-  let [count, setCount] = useState(product.count);
+const BasketCard = ({ product,updateCarts, updateTotalPrise }) => {
+  let [count, setCount] = useState(product.quantity);
+  let [price, setPrise] = useState(product.total.toFixed(2));
+
+  let token = "";
+  let session_id = "";
+  if (typeof localStorage !== "undefined") {
+    token = localStorage.getItem("jwtToken");
+    session_id = localStorage.getItem("sessionId");
+  }
+
+  let removeFromCart = async () => {
+    try {
+      const res = await fetch(
+        "https://api.wscshop.co.uk/api/cart/remove-from-cart",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            CartId: product.id,
+            SessionId: session_id,
+          }),
+        }
+      );
+
+      if (res.status === 200) {
+        const data = await res.json();
+        updateCarts(data.output.cart)
+        console.log("remove", data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  let updateCart = async (quantity) => {
+    try {
+      const res = await fetch(
+        "https://api.wscshop.co.uk/api/cart/update-cart",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            ProductId: product.productId,
+            Quantity: quantity,
+            SessionId: session_id,
+          }),
+        }
+      );
+
+      if (res.status === 200) {
+        const data = await res.json();
+        const updatedProduct = data.output.cart.find(
+          (item) => item.productId === product.productId
+        );
+        setCount(updatedProduct.quantity);
+        setPrise(updatedProduct.total.toFixed(2));
+        updateTotalPrise(data.output.subtotal.toFixed(2));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const add = () => {
-    if (count < 10) {
-      setCount(++count);
-      updatePrice(product.price, "add");
-    }
+    updateCart(++count);
   };
 
   const remove = () => {
     if (count > 1) {
-      setCount(--count);
-      updatePrice(product.price, "remove");
+      updateCart(--count);
     }
   };
-
-  useEffect(() => {
-    updatePrice(product.price, "add");
-  }, []);
 
   return (
     <li key={product.id}>
@@ -37,7 +98,7 @@ const BasketCard = ({ product, updatePrice }) => {
         <div className="card-info">
           <div className="flex justify-between gap-2">
             <h5 className="product-name">{product.productName}</h5>
-            <button>
+            <button onClick={removeFromCart}>
               <Image src={trashbin} alt="delete product" />
             </button>
           </div>
@@ -46,12 +107,12 @@ const BasketCard = ({ product, updatePrice }) => {
               <button className="btn-remove" onClick={remove}>
                 -
               </button>
-              <span className="count color-green">{product.quantity}</span>
+              <span className="count color-green">{count}</span>
               <button className="btn-add" onClick={add}>
                 +
               </button>
             </div>
-            <span>{`₤ ${product.total}`}</span>
+            <span>{`₤ ${price}`}</span>
           </div>
         </div>
       </div>

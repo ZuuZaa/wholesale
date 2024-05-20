@@ -98,7 +98,7 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
                   }),
                 });
                 const resJson = await res.json();
-                  
+                  console.log("decrement", resJson);
                   if (res.status === 200) {
                     
                     document.getElementById("subtotal").textContent="£"+resJson.output.subtotal.toFixed(2)

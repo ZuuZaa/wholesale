@@ -137,7 +137,6 @@ export default function ProductDetail() {
       }
     );
     const data = await response.json();
-    console.log(data.output);
     return data.output;
   }
   const [data, setData] = useState({
