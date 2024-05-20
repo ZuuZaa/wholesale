@@ -519,14 +519,14 @@ export default function ProductDetail() {
     }
   };
   let addCart = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
+    let prodid = event?.currentTarget?.getAttribute("id");
     let token = "";
     let session_id = "";
     if (typeof localStorage !== "undefined") {
       token = localStorage.getItem("jwtToken");
       session_id = localStorage.getItem("sessionId");
     }
-    const quantity = event.currentTarget.previousSibling.value || 1;
+    const quantity = event?.currentTarget?.previousSibling?.value || 1;
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/add-to-cart",
@@ -2693,7 +2693,11 @@ export default function ProductDetail() {
                               <p>{product.name}</p>
                               <span>{`₤ ${product.price}`}</span>
                               <div className="card-action">
-                                <button className="btn-success">
+                                <button
+                                  className="btn-success"
+                                  id={product.productId}
+                                  onClick={addCart}
+                                >
                                   Add to cart
                                 </button>
                               </div>
