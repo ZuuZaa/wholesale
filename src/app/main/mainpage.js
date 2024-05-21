@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 
-
 import { Autoplay } from "swiper/modules";
 
 // Import Swiper React components
@@ -59,8 +58,6 @@ async function fetchData() {
   console.log(data.output, "data");
   return data.output;
 }
-
-
 
 export default function MainPage({ children }) {
   //const router=useRouter()
@@ -303,7 +300,7 @@ export default function MainPage({ children }) {
           }
         }
         event.target?.classList?.toggle("favorite");
-                fetchDataAsync();
+        fetchDataAsync();
 
         //setMessage("Added");
       }
@@ -947,7 +944,6 @@ export default function MainPage({ children }) {
       console.log(err);
     }
   };
-
 
   return (
     <main>
@@ -1803,6 +1799,7 @@ export default function MainPage({ children }) {
                     <div className="category-card">
                       <figure className="category-image">
                         <img src={cat.image} alt={cat.title} />
+                        
                         <figcaption>{cat.categoryname}</figcaption>
                       </figure>
                     </div>
@@ -1818,7 +1815,6 @@ export default function MainPage({ children }) {
                 show all
               </Link>
             </div>
-
             <Swiper slidesPerView={"auto"} spaceBetween={3}>
               {data.featuredProducts?.map((product) => (
                 <SwiperSlide key={product.id} className="product-card-slide">
