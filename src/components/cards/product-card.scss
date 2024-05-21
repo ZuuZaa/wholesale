@@ -55,6 +55,10 @@
             .favorite-icon {
                 width: 10px;
                 height: 15px;
+                border-radius: 0;
+                    &:is(.favorite) {
+                        filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
+                    }
             }
         }
 
@@ -79,9 +83,5 @@
             &:hover {
                 background: hsl(155, 74%, 47%);
             }
-        }
-
-        .favorite-icon:is(.favorite) {
-            filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
         }
     }
