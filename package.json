@@ -33,6 +33,7 @@
     "react-paginate": "^8.2.0",
     "sass": "^1.76.0",
     "stripe": "^15.3.0",
+    "styled-components": "^6.1.11",
     "sweetalert-react": "^0.4.4",
     "sweetalert2": "^11.6.13",
     "swiper": "^11.0.5"

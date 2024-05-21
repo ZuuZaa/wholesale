@@ -2,9 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import favorite from "@/assets/icons/favorite.svg";
-import "./product-card.scss";
+import { StyledProductCard } from "./product-card.styled";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, cardHeight }) => {
   const favoriteRef = useRef(null);
   let token = "";
   let session_id = "";
@@ -89,11 +89,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <Link
-      href={`product/${product.productId}`}
+      href={`/product/${product.productId}`}
       key={product.id}
       passHref={true}
     >
-      <div className="product-card">
+      <StyledProductCard height={cardHeight}>
         <figure className="product-image">
           <img
             src={product.mainImage}
@@ -126,7 +126,7 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-      </div>
+      </StyledProductCard>
     </Link>
   );
 };
