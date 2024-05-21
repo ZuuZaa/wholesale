@@ -62,7 +62,8 @@ const ProductCard = ({ product }) => {
     !!product.favorite ? removeFromFavorites() : addToFavorites();
   };
 
-  const addToCart = async () => {
+  const addToCart = async (event) => {
+    event.preventDefault();
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/add-to-cart",
