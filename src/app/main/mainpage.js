@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   UilArrowRight,
@@ -13,8 +13,7 @@ import { UisStar } from "@iconscout/react-unicons-solid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
-import favorite from "@/assets/icons/favorite.svg";
-import Image from "next/image";
+
 
 import { Autoplay } from "swiper/modules";
 
@@ -31,6 +30,7 @@ import { Pagination, Navigation, HashNavigation } from "swiper/modules";
 
 import "./main.scss";
 import Loading from "@/components/loading";
+import ProductCard from "@/components/cards/product-card";
 
 async function fetchData() {
   let token = "";
@@ -215,8 +215,6 @@ export default function MainPage({ children }) {
             fav_icons[i].nextSibling.style.display = "block";
           }
         }
-        fetchDataAsync();
-        event.target?.classList?.toggle("favorite");
       }
       //}
       //else
@@ -950,10 +948,7 @@ export default function MainPage({ children }) {
     }
   };
 
-  const handleFavoriteClick = (event, favorite) => {
-    event.preventDefault();
-    !!favorite ? removeFavorite(event) : addFavorite(event);
-  };
+
   return (
     <main>
       <div className="main-page--desktop flex flex-col items-center justify-between ">
@@ -1826,22 +1821,8 @@ export default function MainPage({ children }) {
 
             <Swiper slidesPerView={"auto"} spaceBetween={3}>
               {data.featuredProducts?.map((product) => (
-                <SwiperSlide key={product.id} className="product-card">
-                  <Link
-                    href={`product/${product.id}`}
-                    key={product.id}
-                    passHref={true}
-                  >
-                    <div>
-                      <figure className="product-image">
-                        <img src={product.mainImage} alt={product.name} />
-                      </figure>
-                      <div className="product-info">
-                        <p>{product.name}</p>
-                        <span>{`₤ ${product.price}`}</span>
-                      </div>
-                    </div>
-                  </Link>
+                <SwiperSlide key={product.id} className="product-card-slide">
+                  <ProductCard product={product} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -1868,39 +1849,8 @@ export default function MainPage({ children }) {
               {products
                 ?.find((item) => item.name === activeTab)
                 ?.items?.map((product) => (
-                  <SwiperSlide key={product.id} className="product-card">
-                    <Link
-                      href={`product/${product.id}`}
-                      key={product.id}
-                      passHref={true}
-                    >
-                      <div>
-                        <figure className="product-image">
-                          <img
-                            src={product.mainImage}
-                            alt={product.name}
-                            className="product-card-image"
-                          />
-                          <Image
-                            src={favorite}
-                            className={
-                              !!product.favorite
-                                ? "favorite-icon favorite"
-                                : "favorite-icon"
-                            }
-                            alt="favorite"
-                            id={product.id}
-                            onClick={(e) =>
-                              handleFavoriteClick(e, product.favorite)
-                            }
-                          />
-                        </figure>
-                        <div className="product-info">
-                          <p>{product.name}</p>
-                          <span>{`₤ ${product.price}`}</span>
-                        </div>
-                      </div>
-                    </Link>
+                  <SwiperSlide key={product.id} className="product-card-slide">
+                    <ProductCard product={product} />
                   </SwiperSlide>
                 ))}
             </Swiper>

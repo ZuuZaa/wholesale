@@ -20,7 +20,7 @@ const ProductList = ({products}) => {
                   alt={product.name}
                   className="product-card-image"
                 />
-                <Image src={favorite} className="favorite-icon" alt="star" />
+                <Image src={favorite} id={product.productId} className="favorite-icon" alt="favorite"  />
               </figure>
               <div className="product-info">
                 <p>{product.name}</p>
