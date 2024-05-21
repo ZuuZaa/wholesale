@@ -1,5 +1,4 @@
 
-import Link from "next/link";
 import CategoryTabs from "./category-tabs";
 import ProductList from "./product-list";
 import "./product-list-with-categories.scss";
@@ -7,18 +6,11 @@ import "./product-list-with-categories.scss";
 const ProductListWithCategories = ({
   categories,
   categoryId,
-  breadcrumbPath, 
   products,
 }) => {
   return (
     <div className="categories-products-container">
       <CategoryTabs categories={categories} categoryId={categoryId} />
-      <ul className="breadcrumb">
-        <li>
-          <Link href="/">Home &gt;</Link>
-        </li>
-        <li>{breadcrumbPath}</li>
-      </ul>
       {products.length > 0 ? (
         <ProductList products={products} />
       ) : (

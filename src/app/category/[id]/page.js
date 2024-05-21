@@ -1402,7 +1402,6 @@ export default function Category() {
         <div className="category--mobile">
           <ProductListWithCategories
             categoryId={cat_id}
-            breadcrumbPath={cat_name}
             categories={mainCategories}
             products={products}
           />

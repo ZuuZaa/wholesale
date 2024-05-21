@@ -33,34 +33,6 @@
         }
     }
 
-    .breadcrumb {
-        display: flex;
-        padding: 0 15px 10px;
-
-        li {
-            font-size: 11px;
-            font-weight: 300;
-            line-height: 13.86px;
-            white-space: nowrap;
-            text-transform: lowercase;
-            white-space: nowrap;
-
-            &:not(:first-child) {
-                margin-left: 3px;
-            }
-
-            &:last-child {
-                font-weight: 500;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            &::first-letter {
-                text-transform: capitalize;
-            }
-        }
-    }
-
     .products-list {
         display: grid;
         gap: 8px;
