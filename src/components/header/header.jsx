@@ -11,6 +11,7 @@ import {
   UilComparison,
 } from "@iconscout/react-unicons";
 
+
 import UserImg from "../../../public/images/user.png";
 import Cartdropdown from "../layout/Cartdropdown";
 import { icons, navLinks } from "./constants";
@@ -290,7 +291,7 @@ function Header() {
           <div className="flex justify-between items-center py-2 px-5">
             <div className="flex gap-3 items-center ">
               {!isHomePage && (
-                <Link href="/">
+                <button onClick={() => window.history.back()}>
                   <Image
                     src={icons.chevron}
                     width={8}
@@ -298,7 +299,7 @@ function Header() {
                     alt="chevron"
                     className="chevron"
                   />
-                </Link>
+                </button>
               )}
 
               <figure className="logo">
