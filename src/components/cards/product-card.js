@@ -101,7 +101,7 @@ const ProductCard = ({ product, cardHeight }) => {
             className="product-card-image"
           />
           <button
-            className="btn-favorute"
+            className="btn-favorite"
             id={product.id}
             onClick={handleFavoriteClick}
           >

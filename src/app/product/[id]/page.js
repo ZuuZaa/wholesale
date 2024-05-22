@@ -29,6 +29,7 @@ import { Navigation, HashNavigation } from "swiper/modules";
 import { Tabs, Tab } from "../Tabs";
 import Gallery from "../Gallery";
 import Loading from "@/components/loading";
+import ProductCard from "@/components/cards/product-card";
 
 async function getHeader() {
   let token = "";
@@ -2613,7 +2614,7 @@ export default function ProductDetail() {
                 <li>{data.products[0]?.name}</li>
               </ul>
               <section className="product-main-info">
-                <figure className="product-image">
+                <figure className="product-main-image">
                   <img
                     src={data.products[0]?.mainImage}
                     alt={data.products[0]?.name}
@@ -2675,35 +2676,11 @@ export default function ProductDetail() {
                     className="similar-products-list"
                   >
                     {data.similarProducts?.map((product) => (
-                      <SwiperSlide key={product.id} className="product-card">
-                        <Link
-                          href={`/product/${product.id}`}
-                          key={product.id}
-                          passHref={true}
-                        >
-                          <div>
-                            <figure className="product-image">
-                              <img
-                                src={product.mainImage}
-                                alt={product.name}
-                                className="product-card-image"
-                              />
-                            </figure>
-                            <div className="product-info">
-                              <p>{product.name}</p>
-                              <span>{`₤ ${product.price}`}</span>
-                              <div className="card-action">
-                                <button
-                                  className="btn-success"
-                                  id={product.productId}
-                                  onClick={addCart}
-                                >
-                                  Add to cart
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
+                      <SwiperSlide
+                        key={product.id}
+                        className="product-card-slide"
+                      >
+                        <ProductCard product={product} cardHeight="160px" />
                       </SwiperSlide>
                     ))}
                   </Swiper>

@@ -5,15 +5,35 @@ export const StyledProductCard = styled.div`
   border: 0.3px solid #707070;
 
   .product-image {
+    position: relative;
     height: ${({ height }) => height || "13vh"};
     background-color: #d9d9d9;
     border-radius: 4px 4px 0 0;
 
-    img {
+    img:not(.star-icon, .favorite-icon) {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 4px 4px 0 0;
+    }
+
+    .btn-favorite {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      z-index: 2;
+      border: none;
+      outline: none;
+    }
+
+    .favorite-icon {
+      width: 10px;
+      height: 15px;
+
+      &:is(.favorite) {
+        filter: brightness(0) saturate(100%) invert(99%) sepia(100%)
+          saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
+      }
     }
   }
 
@@ -38,29 +58,6 @@ export const StyledProductCard = styled.div`
       font-size: 13px;
       font-weight: 500;
       line-height: 18.2px;
-    }
-  }
-
-  .product-image {
-    position: relative;
-
-    .btn-favorute {
-      position: absolute;
-      top: 7px;
-      right: 7px;
-      z-index: 2;
-      border: none;
-      outline: none;
-    }
-
-    .favorite-icon {
-      width: 10px;
-      height: 15px;
-      border-radius: 0;
-      &:is(.favorite) {
-        filter: brightness(0) saturate(100%) invert(99%) sepia(100%)
-          saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
-      }
     }
   }
 

@@ -1,1 +1,1 @@
-export {default} from './card-with-faverite-button'
+export {default} from './product-card'
