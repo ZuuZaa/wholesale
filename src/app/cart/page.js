@@ -43,7 +43,7 @@ export default function Cart() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [carts, setCarts] = useState([])
+  const [carts, setCarts] = useState([]);
 
   const [data, setData] = useState({
     cart: [],
@@ -57,20 +57,17 @@ export default function Cart() {
 
   const updateCarts = (carts) => setCarts(carts);
 
-
   useEffect(() => {
-      async function fetchDataAsync() {
-        const fetchedData = await fetchData();
-        setData(fetchedData);
-        setTotalPrice(fetchedData.subtotal.toFixed(2));
-        setCarts(fetchedData.cart)
-        setIsLoading(false);
-      }
+    async function fetchDataAsync() {
+      const fetchedData = await fetchData();
+      setData(fetchedData);
+      setTotalPrice(fetchedData.subtotal.toFixed(2));
+      setCarts(fetchedData.cart);
+      setIsLoading(false);
+    }
     fetchDataAsync();
-    
   }, []);
 
-  
   const subtotal = data.subtotal;
   const userType = data.userType;
   const isLogin = data.isLogin;
@@ -407,7 +404,8 @@ export default function Cart() {
             ) : (
               <p className="text-center py-5">Your basket is empty.</p>
             )}
-
+          </section>
+          <section className="basket-footer">
             <div className="price-details">
               <h4 className="price-details__title">Price details</h4>
               <div className="flex justify-between">
@@ -419,9 +417,7 @@ export default function Cart() {
                 <span>{`₤ ${totalPrice}`}</span>
               </div>
             </div>
-          </section>
-          <section>
-            <div className="basket-footer px-4 py-3">
+            <div className="basket-action px-4 py-3">
               <div className="price">
                 <p>Total</p>
                 <span>{`₤ ${totalPrice}`}</span>

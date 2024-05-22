@@ -5,7 +5,7 @@ import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
 import { useState } from "react";
 
-const BasketCard = ({ product,updateCarts, updateTotalPrise }) => {
+const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
   let [count, setCount] = useState(product.quantity);
   let [price, setPrise] = useState(product.total.toFixed(2));
 
@@ -90,7 +90,7 @@ const BasketCard = ({ product,updateCarts, updateTotalPrise }) => {
   return (
     <li key={product.id}>
       <div className="basket-card">
-        <Link href={`/product/${product.id}`}>
+        <Link href={`/product/${product.productId}`}>
           <figure className="product-image">
             <img src={product.productImage} alt={product.productName} />
           </figure>
