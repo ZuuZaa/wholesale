@@ -1799,7 +1799,7 @@ export default function MainPage({ children }) {
                     <div className="category-card">
                       <figure className="category-image">
                         <img src={cat.image} alt={cat.title} />
-                        
+
                         <figcaption>{cat.categoryname}</figcaption>
                       </figure>
                     </div>

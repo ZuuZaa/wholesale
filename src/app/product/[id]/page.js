@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import starIcon from "@/assets/icons/star.svg";
-import favoriteIcon from "@/assets/icons/favorite.svg";
 import "./product.scss";
 
 import Pcard from "../../../../public/images/footer/Payment2.png";
@@ -30,6 +29,7 @@ import { Tabs, Tab } from "../Tabs";
 import Gallery from "../Gallery";
 import Loading from "@/components/loading";
 import ProductCard from "@/components/cards/product-card";
+import FavoriteIcon from "@/components/favorite-icon/favorite-icon";
 
 async function getHeader() {
   let token = "";
@@ -2621,7 +2621,14 @@ export default function ProductDetail() {
                   />
                 </figure>
                 <div className="product-details">
-                  <h3>{data.products[0]?.name}</h3>
+                  <div className="flex justify-between">
+                    <h3>{data.products[0]?.name}</h3>
+                    <FavoriteIcon
+                      productId={data.products[0]?.productId}
+                      isFavorite={data.products[0]?.favorite}
+                    />
+                  </div>
+
                   <div className="product-review">
                     <span>{data.products[0]?.starCount.toFixed(1)}</span>
                     <ul className="stars">
@@ -2637,7 +2644,9 @@ export default function ProductDetail() {
                     </ul>
                     <span>{`${data.reviews.length} reviews`}</span>
                   </div>
-                  <p className="color-green price">{`₤ ${data.products[0]?.price}`}</p>
+                  <p className="color-green price">{`₤ ${data.products[0]?.price.toFixed(
+                    2
+                  )}`}</p>
                   <div className="actions">
                     <Link
                       href="/checkout"
@@ -2654,17 +2663,6 @@ export default function ProductDetail() {
                       Add to cart
                     </button>
                   </div>
-                  <button id={data.products[0]?.id} onClick={addFavorite}>
-                    <Image
-                      src={favoriteIcon}
-                      className={
-                        !!data.products[0]?.favorite
-                          ? "favorite-icon favorite"
-                          : "favorite-icon"
-                      }
-                      alt="favorite"
-                    />
-                  </button>
                 </div>
               </section>
               {data.similarProducts.length > 0 && (

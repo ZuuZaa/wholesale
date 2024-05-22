@@ -1,0 +1,29 @@
+  .product-image-container {
+    position: relative;
+  }
+
+  .btn-favorite {
+    border: none;
+    outline: none;
+
+    .favorite-icon {
+      width: 15px;
+      height: 20px;
+    }
+
+    &:is(.absolute-position) {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      z-index: 2;
+
+      .favorite-icon {
+        width: 10px;
+        height: 15px;
+      }
+    }
+  }
+
+  .favorite-icon:is(.favorite) {
+    filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
+  }

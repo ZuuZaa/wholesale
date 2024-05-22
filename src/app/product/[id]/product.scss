@@ -102,16 +102,6 @@
             line-height: 28px;
         }
 
-        button:has(.favorite-icon) {
-            position: absolute;
-            top: 25px;
-            right: 25px;
-        }
-
-        .favorite-icon:is(.favorite) {
-            filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
-        }
-
         .actions {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
