@@ -30,6 +30,7 @@ import Gallery from "../Gallery";
 import Loading from "@/components/loading";
 import ProductCard from "@/components/cards/product-card";
 import FavoriteIcon from "@/components/favorite-icon/favorite-icon";
+import Counter from "@/components/counter";
 
 async function getHeader() {
   let token = "";
@@ -2616,7 +2617,7 @@ export default function ProductDetail() {
               <section className="product-main-info">
                 <figure className="product-main-image">
                   <img
-                    src={data.products[0]?.mainImage}
+                    src={data.products[0]?.catImage}
                     alt={data.products[0]?.name}
                   />
                 </figure>
@@ -2648,13 +2649,7 @@ export default function ProductDetail() {
                     2
                   )}`}</p>
                   <div className="actions">
-                    <Link
-                      href="/checkout"
-                      type="button"
-                      className="btn btn-secondary"
-                    >
-                      Buy now
-                    </Link>
+                    <Counter product={data.products[0]} />
                     <button
                       className="btn btn-success"
                       id={data.products[0]?.id}

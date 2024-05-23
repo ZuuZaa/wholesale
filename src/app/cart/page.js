@@ -7,8 +7,8 @@ import { UilTimesCircle } from "@iconscout/react-unicons";
 import CounterInput from "./CounterInput";
 import MethodModal from "./Method";
 import Loading from "@/components/loading";
-import BasketCard from "./backet-card";
 import "./cart.scss";
+import BasketCard from "@/components/cards/basket-card";
 
 let token = "";
 let session_id = "";

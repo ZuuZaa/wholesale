@@ -10,9 +10,9 @@ import {
   UilTimesCircle,
 } from "@iconscout/react-unicons";
 import Loading from "@/components/loading";
-import FavoriteCard from "./favorite-card";
 import chevron from "@/assets/icons/chevron-down.svg";
 import "./wishlist.scss";
+import FavoriteCard from "@/components/cards/favorite-card";
 
 const mainFunc = async () => {
   let status;

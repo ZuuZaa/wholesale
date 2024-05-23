@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
+import './favorite-card.scss';
 
 const FavoriteCard = ({ product, updateFavorites }) => {
   let token = "";
