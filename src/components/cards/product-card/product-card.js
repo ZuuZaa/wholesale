@@ -49,7 +49,7 @@ const ProductCard = ({ product, cardHeight }) => {
         >
           <figure className="product-image">
             <img
-              src={product.mainImage}
+              src={product.catImage}
               alt={product.name}
               className="product-card-image"
             />
