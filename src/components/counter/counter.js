@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
 import { useState } from "react";
-import './counter.scss';
+import "./counter.scss";
 
-const Counter = ({product}) => {
+const Counter = ({ product }) => {
   let [count, setCount] = useState(product.quantity);
-  console.log("product", product)
 
   let token = "";
   let session_id = "";
@@ -32,11 +31,9 @@ const Counter = ({product}) => {
           }),
         }
       );
-
       if (res.status === 200) {
         const data = await res.json();
-        console.log(data.output.cart);
-        setCount(data.output.cart.quantity);
+        setCount(data.output.cart[0].quantity);
       }
     } catch (err) {
       console.log(err);
@@ -44,15 +41,14 @@ const Counter = ({product}) => {
   };
 
   const add = () => {
-    updateCart(++count);
+    updateCart(count + 1);
   };
 
   const remove = () => {
     if (count > 1) {
-      updateCart(--count);
+      updateCart(count - 1);
     }
   };
-
 
   return (
     <div className="card-actions">
@@ -65,6 +61,6 @@ const Counter = ({product}) => {
       </button>
     </div>
   );
-}
+};
 
 export default Counter;
