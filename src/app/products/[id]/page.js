@@ -23,6 +23,7 @@ import {
 } from "@material-tailwind/react";
 import "./products.scss";
 import { ProductList } from "@/components/product-list";
+import Loading from "@/components/loading";
 
 function Icon({ id, open }) {
   return (
@@ -46,6 +47,7 @@ function Icon({ id, open }) {
 }
 
 export default function Products() {
+  const [isLoading, setIsLoading] = useState(true);
   const pathname = useParams();
   const id = pathname.id;
   async function fetchData() {
@@ -90,6 +92,8 @@ export default function Products() {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setData(fetchedData);
+      setIsLoading(false);
+
     }
     fetchDataAsync();
   }, []);
@@ -1354,9 +1358,13 @@ export default function Products() {
           </div>
         </section>
       </div>
-      <div className="products-page--mobile">
-        <ProductList products={products} />
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="products-page--mobile">
+          <ProductList products={products} />
+        </div>
+      )}
     </main>
   );
 }
