@@ -597,7 +597,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-        <div className="contact">
+        {/* <div className="contact">
           <button className="btn-with-icon">
             <Image src={icons.chat} width={22} height={22} alt="contact" />
             <span>Contact</span>
@@ -606,9 +606,9 @@ export default function Profile() {
             <Image src={icons.pack} width={22} height={22} alt="package" />
             <span>Reorder</span>
           </button>
-        </div>
+        </div> */}
         <div className="links">
-          <ul className="main-links flex flex-col gap-3 pb-4">
+          {/* <ul className="main-links flex flex-col gap-3 pb-4">
             <li className="flex items-center gap-4">
               <Image src={icons.pack} width={22} height={22} alt="orders" />
               <span>My orders</span>
@@ -631,7 +631,7 @@ export default function Profile() {
               />
               <span>Return requests</span>
             </li>
-          </ul>
+          </ul> */}
           <ul className="flex flex-col gap-3 pl-9 pt-4">
             <li>
               <Link href="#">About us</Link>
@@ -643,11 +643,14 @@ export default function Profile() {
               <Link href="#">Privacy policy</Link>
             </li>
             <li>
+              <Link href="#">Delivery</Link>
+            </li>
+            <li>
               <Link href="#">Sign out</Link>
             </li>
           </ul>
         </div>
-        <div className="questions">
+        {/* <div className="questions">
           <ul>
             <li className="flex items-center gap-4 p-3">
               <Image
@@ -667,7 +670,7 @@ export default function Profile() {
         <div className="sosial-links flex gap-4">
           <Image src={icons.instagram} width={22} height={22} alt="question" />
           <Image src={icons.whatsap} width={22} height={22} alt="question" />
-        </div>
+        </div> */}
       </div>
     </main>
   );

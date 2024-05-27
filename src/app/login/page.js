@@ -339,12 +339,12 @@ export default function Login() {
             <div className="message">{message ? <p>{message}</p> : null}</div>
           </form>
 
-          <p className="color-green">
+          {/* <p className="color-green">
             Don't have an account?
             <Link href="/register" className="color-green">
               Sign up
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </main>

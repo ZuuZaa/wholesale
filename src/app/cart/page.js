@@ -16,10 +16,6 @@ if (typeof localStorage !== "undefined") {
   token = localStorage.getItem("jwtToken");
   session_id = localStorage.getItem("sessionId");
 }
-// useEffect(() => {
-//     const token = localStorage.getItem("jwtToken");
-//     const session_id=localStorage.getItem("sessionId");
-// })
 
 const params = new URLSearchParams();
 params.append("SessionId", session_id);
@@ -71,9 +67,10 @@ export default function Cart() {
   const subtotal = data.subtotal;
   const userType = data.userType;
   const isLogin = data.isLogin;
-  // if(carts.count>0){
-  //     setShowResults(true);
-  // }
+  if (!isLogin) {
+    window.location.href = "/login";
+  }
+
   let removeCart = async (event) => {
     let cartid = event.currentTarget.getAttribute("id");
     console.log(cartid);
