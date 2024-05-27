@@ -1,0 +1,26 @@
+.products-page--mobile {
+    padding-block: 50px;
+    background-color: #f1f1f1;
+}
+
+
+@media screen and (max-width:768px) {
+    .products-page--desktop {
+        display: none;
+    }
+
+    .products-page--mobile {
+        display: block;
+    }
+
+}
+
+@media screen and (min-width:769px) {
+    .products-page--desktop {
+        display: block;
+    }
+
+    .products-page--mobile {
+        display: none;
+    }
+}

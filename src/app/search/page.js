@@ -22,8 +22,8 @@ import {
 } from "@material-tailwind/react";
 
 import "./search.scss";
-import ProductListWithCategories from "@/components/product-list-with-categories";
 import Loading from "@/components/loading";
+import ProductListWithCategories from "@/components/product-list";
 
 function Icon({ id, open }) {
   return (

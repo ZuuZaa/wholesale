@@ -1,11 +1,9 @@
 import ProductCard from "@/components/cards/product-card";
-import CategoryTabs from "./category-tabs";
-import "./product-list-with-categories.scss";
+import "./product-list.scss";
 
-const ProductListWithCategories = ({ categories, categoryId, products }) => {
+export const ProductList = ({ products }) => {
   return (
-    <div className="categories-products-container">
-      <CategoryTabs categories={categories} categoryId={categoryId} />
+    <>
       {products.length > 0 ? (
         <div className="products-list">
           {products.map((product) => (
@@ -17,8 +15,6 @@ const ProductListWithCategories = ({ categories, categoryId, products }) => {
           There is no product in this category.
         </p>
       )}
-    </div>
+    </>
   );
 };
-
-export default ProductListWithCategories;

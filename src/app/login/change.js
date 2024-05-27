@@ -64,9 +64,9 @@ const Modal = ({ isOpen, onClose, email, children }) => {
                     <label className='text-sm'>Confirm Password</label>
                     <input className='' type='password' placeholder='Confirm Password' value={conf_pass} onChange={(e) => setConfPass(e.target.value)}/>
                   </div>
-                  <div class='mt-5 flex gap-3 justify-center'>
-                    <button class="account-page-btn-success link-design1 inline-block border-none font-bold">Send</button>
-                    <span class="account-page-btn link-design1 inline-block border-none font-bold cursor-pointer" onClick={onClose}>Cancel</span>
+                  <div className='mt-5 flex gap-3 justify-center'>
+                    <button className="account-page-btn-success link-design1 inline-block border-none font-bold">Send</button>
+                    <span className="account-page-btn link-design1 inline-block border-none font-bold cursor-pointer" onClick={onClose}>Cancel</span>
                   </div>
                   <div className="message">{message ? <p>{message}</p> : null}</div>
                 </form>

@@ -29,9 +29,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import ProductListWithCategories from "@/components/product-list-with-categories";
 import "./category.scss";
 import Loading from "@/components/loading";
+import ProductListWithCategories from "@/components/product-list";
 
 function Icon({ id, open }) {
   return (
@@ -758,7 +758,6 @@ export default function Category() {
       const resJson = await res.json();
 
       if (res.status === 200) {
-
         update_button.parentElement.innerHTML =
           '<input class="cart_quant cart_quant_update" type="number" min="1" max="10000" value="' +
           quantity +

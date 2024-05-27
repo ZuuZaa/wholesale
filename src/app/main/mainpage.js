@@ -113,16 +113,19 @@ export default function MainPage({ children }) {
       name: "best sellers",
       items: data?.bestSellProducts,
       visible: true,
+      link: "/products/2",
     },
     {
       name: "special offers",
       items: data?.dealsProducts,
       visible: !!offersSection,
+      link: "/products/0",
     },
     {
       name: "trending",
       items: data?.trendingProducts,
       visible: !!trendCategSection,
+      link: "/products/3",
     },
   ];
 
@@ -1004,7 +1007,6 @@ export default function MainPage({ children }) {
                 navigation={true}
                 modules={[Navigation, HashNavigation]}
               >
-
                 {categoryImages.map((catimg) => {
                   return (
                     <SwiperSlide className="zoom-img categories-swiper-item text-center">
@@ -1778,9 +1780,9 @@ export default function MainPage({ children }) {
             </Swiper>
           </section>
           <section className="recommended">
-            <div className="section-title flex justify-between px-">
+            <div className="section-title flex justify-between">
               <h4 className="section-title color-green">New Products</h4>
-              <Link href="products/3" className="view-all-link color-green">
+              <Link href="products/1" className="view-all-link color-green">
                 show all
               </Link>
             </div>
@@ -1793,19 +1795,24 @@ export default function MainPage({ children }) {
             </Swiper>
           </section>
           <section className="products">
-            <ul className="products-tabs-list">
-              {products.map(
-                (item) =>
-                  item.visible && (
-                    <li
-                      className={activeTab === item.name && "active-tab"}
-                      onClick={() => tabClickHandler(item.name)}
-                    >
-                      {item.name}
-                    </li>
-                  )
-              )}
-            </ul>
+            <div className="products-tabs-list flex justify-between items-center">
+              <ul className="tabs">
+                {products.map(
+                  (item) =>
+                    item.visible && (
+                      <li
+                        className={activeTab === item.name && "active-tab"}
+                        onClick={() => tabClickHandler(item.name)}
+                      >
+                        {item.name}
+                      </li>
+                    )
+                )}
+              </ul>
+              <Link href={products.find(item => item.name === activeTab)?.link || "#"} className="color-green">
+                show all
+              </Link>
+            </div>
             <Swiper
               slidesPerView={"auto"}
               spaceBetween={3}

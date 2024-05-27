@@ -256,9 +256,9 @@ export default function Login() {
                   Forgot Your Password?
                 </span>
 
-                <div class="mt-5">
+                <div className="mt-5">
                   <button
-                    class="account-page-btn link-design1 inline-block border-none font-bold"
+                    className="account-page-btn link-design1 inline-block border-none font-bold"
                     onClick={handleLogin}
                   >
                     Sign In
@@ -286,9 +286,9 @@ export default function Login() {
                       onChange={(e) => setEmailForg(e.target.value)}
                     />
                   </div>
-                  <div class="mt-5 flex gap-3 items-center justify-center">
-                    {/* <button class="account-page-btn-cancel link-design1-cancel inline-block border-none font-bold">Cancel</button> */}
-                    <button class="account-page-btn-success link-design1 inline-block border-none font-bold">
+                  <div className="mt-5 flex gap-3 items-center justify-center">
+                    {/* <button className="account-page-btn-cancel link-design1-cancel inline-block border-none font-bold">Cancel</button> */}
+                    <button className="account-page-btn-success link-design1 inline-block border-none font-bold">
                       Send
                     </button>
                   </div>

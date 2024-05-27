@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledProductCard = styled.div`
   border-radius: 4px;
   border: 0.3px solid #707070;
+  background-color: #fff;
 
   .product-image {
     height: ${({ height }) => height || "13vh"};

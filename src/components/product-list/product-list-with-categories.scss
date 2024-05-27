@@ -33,25 +33,4 @@
         }
     }
 
-    .products-list {
-        display: grid;
-        gap: 8px;
-        padding: 10px;
-    }
-
-}
-
-
-
-@media screen and (max-width:524px) {
-    .products-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-}
-
-@media screen and (min-width:525px) {
-    .products-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
 }
