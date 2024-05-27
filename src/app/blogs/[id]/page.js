@@ -184,8 +184,6 @@ export default function Blogs() {
                   }}
                   navigation={true}
                   modules={[ Navigation, HashNavigation]}
-                  onSlideChange={() => console.log('slide change')}
-                  onSwiper={(swiper) => console.log(swiper)}
                 >
 
                   {

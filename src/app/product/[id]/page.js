@@ -53,7 +53,6 @@ async function getHeader() {
     }
   );
   const data = await response.json();
-  console.log("getheader", data.output);
   return data.output;
 }
 
@@ -62,6 +61,7 @@ export default function ProductDetail() {
   const id = pathname.id;
   const location = usePathname();
   const [isLoading, setIsLoading] = useState(true);
+  let [count, setCount] = useState(0);
 
   const customReviews = [
     {
@@ -115,7 +115,6 @@ export default function ProductDetail() {
       }
     );
     const data = await response.json();
-    console.log("data", data.output);
     return data.output;
   }
 
@@ -193,6 +192,51 @@ export default function ProductDetail() {
   }, []);
 
   const isLogin = dataHeader.isLogin;
+
+  const updateQuantity = async (quantity) => {
+    let token = "";
+    let session_id = "";
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+      session_id = localStorage.getItem("sessionId");
+    }
+
+    try {
+      const res = await fetch(
+        "https://api.wscshop.co.uk/api/cart/update-cart",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            ProductId: data.products[0].productId,
+            Quantity: quantity,
+            SessionId: session_id,
+          }),
+        }
+      );
+
+      if (res.status === 200) {
+        const data = await res.json();
+        setCount(data.output.cart[0].quantity);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const add = () => {
+    updateQuantity(count + 1);
+  };
+
+  const remove = () => {
+    if (count > 1) {
+      updateQuantity(count - 1);
+    }
+  };
 
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
@@ -528,7 +572,7 @@ export default function ProductDetail() {
       token = localStorage.getItem("jwtToken");
       session_id = localStorage.getItem("sessionId");
     }
-    const quantity = event?.currentTarget?.previousSibling?.value || 1;
+    const quantity = event?.currentTarget?.previousSibling?.value || count;
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/add-to-cart",
@@ -2649,7 +2693,15 @@ export default function ProductDetail() {
                     2
                   )}`}</p>
                   <div className="actions">
-                    <Counter product={data.products[0]} />
+                    <div className="card-actions">
+                      <button className="btn-remove" onClick={remove}>
+                        -
+                      </button>
+                      <span className="count color-green">{count}</span>
+                      <button className="btn-add" onClick={add}>
+                        +
+                      </button>
+                    </div>
                     <button
                       className="btn btn-success"
                       id={data.products[0]?.id}

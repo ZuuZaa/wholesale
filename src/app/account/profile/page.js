@@ -60,7 +60,6 @@ export default function Profile() {
             },
           }
         );
-        console.log(response);
         const resp = await response.json();
 
         if (resp.status !== 400) {
@@ -115,7 +114,6 @@ export default function Profile() {
         setVoen(fetchedData.user[0].voen);
         setBirthdate(fetchedData?.user[0]?.birthDate?.split("T")[0]);
         setGender(fetchedData.user[0].gender);
-        console.log(data, "profile data");
       } catch (error) {
         console.log(error);
       }
@@ -126,7 +124,6 @@ export default function Profile() {
 
   const users = data.user;
   const user = users[0];
-  console.log(user);
 
   const [userId, setUserId] = useState(0);
   const [firstname, setFirstName] = useState("");

@@ -55,12 +55,10 @@ async function fetchData() {
   );
 
   const data = await response.json();
-  console.log(data.output, "data");
   return data.output;
 }
 
 export default function MainPage({ children }) {
-  //const router=useRouter()
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
@@ -137,7 +135,6 @@ export default function MainPage({ children }) {
     if (typeof localStorage !== "undefined") {
       token = localStorage.getItem("jwtToken");
     }
-    console.log(localStorage);
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/favorites/add-favorite",
@@ -155,7 +152,6 @@ export default function MainPage({ children }) {
       );
       const resJson = await res.json();
 
-      console.log("response add", resJson);
 
       //if (res.status === 200) {
       status = resJson.status;
@@ -204,7 +200,6 @@ export default function MainPage({ children }) {
           console.log("error");
         }
       } else {
-        //console.log("success favorite")
         var fav_icons = document.querySelectorAll(".fav_icon_reg");
         for (let i = 0; i < fav_icons.length; i++) {
           if (fav_icons[i].getAttribute("id") == prodid) {
@@ -272,7 +267,6 @@ export default function MainPage({ children }) {
             }
           );
           const resp = await response.json();
-          console.log("response remove", resp);
           if (resp.status !== 400) {
             if (typeof localStorage !== "undefined") {
               localStorage.setItem("refreshToken", resp.output.refreshToken);
@@ -328,8 +322,6 @@ export default function MainPage({ children }) {
       session_id = localStorage.getItem("sessionId");
     }
     const quantity = event.currentTarget.previousSibling.value;
-    console.log(prodid);
-    console.log(quantity);
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/add-to-cart",
@@ -348,12 +340,10 @@ export default function MainPage({ children }) {
         }
       );
 
-      //console.log(cart_id)
 
       if (res.status === 200) {
         const resJson = await res.json();
         const cart_id = resJson.output.cart[0].id;
-        //console.log("success add to cart")
         var add_cart_btns = document.querySelectorAll(".add_cart_btn");
         for (let i = 0; i < add_cart_btns.length; i++) {
           if (add_cart_btns[i].getAttribute("id") == prodid) {
@@ -461,7 +451,6 @@ export default function MainPage({ children }) {
 
       if (res.status === 200) {
         const resJson = await res.json();
-        //console.log("success remove cart")
         var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
         for (let i = 0; i < min_plus_btns.length; i++) {
           if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -473,7 +462,6 @@ export default function MainPage({ children }) {
             //min_plus_btns[i].remove();
           }
         }
-        //console.log(document.querySelectorAll(".add_cart_btn"))
         var add_btns = document.querySelectorAll(".add_cart_btn");
         for (let i = 0; i < add_btns.length; i++) {
           add_btns[i].addEventListener("click", addCart);
@@ -540,7 +528,6 @@ export default function MainPage({ children }) {
     }
     let quantity = event.currentTarget.parentElement.previousSibling.value;
     quantity++;
-    //console.log(quantity)
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/update-cart",
@@ -561,7 +548,6 @@ export default function MainPage({ children }) {
 
       if (res.status === 200) {
         const resJson = await res.json();
-        //console.log("success plus cart")
         var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
         for (let i = 0; i < min_plus_btns.length; i++) {
           if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -625,7 +611,6 @@ export default function MainPage({ children }) {
     }
     let quantity = event.currentTarget.parentElement.previousSibling.value;
     quantity--;
-    //console.log(quantity)
     if (quantity > 0) {
       try {
         const res = await fetch(
@@ -647,7 +632,6 @@ export default function MainPage({ children }) {
 
         if (res.status === 200) {
           const resJson = await res.json();
-          //console.log("success minus cart")
           var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
           for (let i = 0; i < min_plus_btns.length; i++) {
             if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -719,7 +703,6 @@ export default function MainPage({ children }) {
 
         if (res.status === 200) {
           const resJson = await res.json();
-          //console.log("success remove cart")
           var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
           for (let i = 0; i < min_plus_btns.length; i++) {
             if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -731,13 +714,11 @@ export default function MainPage({ children }) {
               //min_plus_btns[i].remove();
             }
           }
-          //console.log(document.querySelectorAll(".add_cart_btn"))
           var add_btns = document.querySelectorAll(".add_cart_btn");
           for (let i = 0; i < add_btns.length; i++) {
             add_btns[i].addEventListener("click", addCart);
           }
           var cart = resJson.output.cart;
-          //console.log(cart.length)
           if (cart.length == 0) {
             document.getElementById("cart_drop").style.display = "none";
             document.getElementById("cart_quantity").style.display = "none";
@@ -839,8 +820,6 @@ export default function MainPage({ children }) {
 
       if (res.status === 200) {
         const resJson = await res.json();
-        //console.log("success plus cart")
-        //console.log(update_button)
         update_button.parentElement.innerHTML =
           '<input class="cart_quant cart_quant_update" type="number" min="1" max="10000" value="' +
           quantity +
@@ -938,7 +917,6 @@ export default function MainPage({ children }) {
 
       if (res.status === 200) {
         const resJson = await res.json();
-        //console.log("success add compare")
       }
     } catch (err) {
       console.log(err);
@@ -1026,8 +1004,6 @@ export default function MainPage({ children }) {
                 navigation={true}
                 modules={[Navigation, HashNavigation]}
               >
-                {/* onSlideChange={() => console.log('slide change')}
-                      onSwiper={(swiper) => console.log(swiper)}> */}
 
                 {categoryImages.map((catimg) => {
                   return (
@@ -1123,7 +1099,6 @@ export default function MainPage({ children }) {
               navigation={true}
               modules={[Navigation, HashNavigation]}
             >
-              {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
               {trendingProducts.map((product) => {
                 const items = [];
 
@@ -1374,8 +1349,6 @@ export default function MainPage({ children }) {
                 hashNavigation={{ watchState: true }}
                 navigation={true}
                 modules={[Navigation, HashNavigation]}
-                // onSlideChange={() => console.log('slide change')}
-                //  onSwiper={(swiper) => console.log(swiper)}
               >
                 {brands.map((brand) => {
                   return (
@@ -1427,7 +1400,6 @@ export default function MainPage({ children }) {
               navigation={true}
               modules={[Navigation, HashNavigation]}
             >
-              {/* onSlideChange={() => console.log('slide change')} onSwiper={(swiper) => console.log(swiper)}> */}
               {bestSellProducts.map((product) => {
                 const items = [];
 
@@ -1690,8 +1662,6 @@ export default function MainPage({ children }) {
                 }}
                 navigation={true}
                 modules={[Navigation, HashNavigation]}
-                //onSlideChange={() => console.log('slide change')}
-                //onSwiper={(swiper) => console.log(swiper)}
               >
                 {blogs.map((blog) => {
                   return (

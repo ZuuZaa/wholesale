@@ -80,7 +80,6 @@ export default function Category() {
       }
     );
     const data = await response.json();
-    console.log(data.output, "data");
     return data.output;
   }
   const [open, setOpen] = useState(0);
@@ -117,7 +116,6 @@ export default function Category() {
   const mainCategories = data?.mainCategories;
   const subCategories = data?.subCategories;
 
-  console.log(products);
   let cat_name = "";
   let cat_id = 0;
 
@@ -180,7 +178,6 @@ export default function Category() {
           console.log("error");
         }
       } else {
-        console.log("success favorite");
         var fav_icons = document.querySelectorAll(".fav_icon_reg");
         for (let i = 0; i < fav_icons.length; i++) {
           if (fav_icons[i].getAttribute("id") == prodid) {
@@ -259,7 +256,6 @@ export default function Category() {
           console.log("error");
         }
       } else {
-        console.log("success remove from favorite");
         var fav_icons = document.querySelectorAll(".fav_icon_solid");
         for (let i = 0; i < fav_icons.length; i++) {
           if (fav_icons[i].getAttribute("id") == prodid) {
@@ -303,10 +299,8 @@ export default function Category() {
       );
       const resJson = await res.json();
       const cart_id = resJson.output.cart[0].id;
-      console.log(cart_id);
 
       if (res.status === 200) {
-        console.log("success add to cart");
         var add_cart_btns = document.querySelectorAll(".add_cart_btn");
         for (let i = 0; i < add_cart_btns.length; i++) {
           if (add_cart_btns[i].getAttribute("id") == prodid) {
@@ -410,7 +404,6 @@ export default function Category() {
       const resJson = await res.json();
 
       if (res.status === 200) {
-        console.log("success remove cart");
         var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
         for (let i = 0; i < min_plus_btns.length; i++) {
           if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -482,7 +475,6 @@ export default function Category() {
     const session_id = localStorage.getItem("sessionId");
     let quantity = event.currentTarget.parentElement.previousSibling.value;
     quantity++;
-    console.log(quantity);
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/update-cart",
@@ -503,7 +495,6 @@ export default function Category() {
       const resJson = await res.json();
 
       if (res.status === 200) {
-        console.log("success plus cart");
         var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
         for (let i = 0; i < min_plus_btns.length; i++) {
           if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -585,7 +576,6 @@ export default function Category() {
         const resJson = await res.json();
 
         if (res.status === 200) {
-          console.log("success minus cart");
           var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
           for (let i = 0; i < min_plus_btns.length; i++) {
             if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -657,7 +647,6 @@ export default function Category() {
         const resJson = await res.json();
 
         if (res.status === 200) {
-          console.log("success remove cart");
           var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
           for (let i = 0; i < min_plus_btns.length; i++) {
             if (min_plus_btns[i].getAttribute("id") == cartid) {
@@ -769,8 +758,7 @@ export default function Category() {
       const resJson = await res.json();
 
       if (res.status === 200) {
-        console.log("success plus cart");
-        console.log(update_button);
+
         update_button.parentElement.innerHTML =
           '<input class="cart_quant cart_quant_update" type="number" min="1" max="10000" value="' +
           quantity +
@@ -896,7 +884,6 @@ export default function Category() {
       );
       const resJson = await res.json();
       setData(resJson.output);
-      console.log(products);
     } catch (err) {
       console.log(err);
     }
@@ -912,14 +899,12 @@ export default function Category() {
       newArray.push(val);
       setMyArray(newArray);
     } else {
-      console.log("remove");
       newArray.splice(index, 1);
       setMyArray(newArray);
     }
   };
 
   let productFiltering = async () => {
-    console.log(newArray);
     const token = localStorage.getItem("jwtToken");
     const session_id = localStorage.getItem("sessionId");
     const min_price = parseFloat(document.getElementById("min_price").value);
@@ -943,11 +928,9 @@ export default function Category() {
           }),
         }
       );
-      console.log(res);
       const resJson = await res.json();
       setData(resJson.output);
       //products=resJson.output.products
-      //console.log(resJson)
     } catch (err) {
       console.log(err);
     }

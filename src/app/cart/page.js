@@ -74,7 +74,6 @@ export default function Cart() {
   // if(carts.count>0){
   //     setShowResults(true);
   // }
-  console.log(data, "carts");
   let removeCart = async (event) => {
     let cartid = event.currentTarget.getAttribute("id");
     console.log(cartid);
@@ -100,8 +99,6 @@ export default function Cart() {
 
       if (res.status === 200) {
         const resJson = await res.json();
-        console.log(resJson);
-        //setData(resJson.output)
 
         remove_btn.parentElement.remove();
         document.getElementById("subtotal").textContent =

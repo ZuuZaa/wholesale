@@ -56,7 +56,6 @@ const mainFunc=async () => {
                   'Authorization': 'Bearer ' + token
               },
           })
-          console.log(response)
           const resp = await response.json();
           
           if(resp.status !== 400) {
@@ -106,11 +105,8 @@ const mainFunc1 = async () => {
       }
       )
        const resp = await response.json();
-       //console.log(resp)
        status=resp.status
        fav_data=resp.output
-       //console.log(fav_data)
-       //return resp.output;
   }
 
   await fetchData()
@@ -372,7 +368,6 @@ const [data, setData] = useState({
         AddressId:address
     }),
     });
-    console.log(res.status)
     if(res.status==200){
     window.location.href="/success?payment_type=2"
     }

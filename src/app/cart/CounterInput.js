@@ -9,7 +9,6 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
         session_id=localStorage.getItem("sessionId");
     }
     const handleIncrement = async (event) => {
-      //console.log(event.currentTarget.parentElement.parentElement.previousSibling)
       
         if (count < max) {
             setCount(prevCount => prevCount + 1);
@@ -17,8 +16,6 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
             let price=event.currentTarget.parentElement.parentElement.previousSibling.textContent.split('£')[1]
             let total=price*quant
             event.currentTarget.parentElement.parentElement.nextSibling.textContent="£"+total.toFixed(2)
-            
-            console.log(price)
             try {
                 const res = await fetch("https://api.wscshop.co.uk/api/cart/update-cart", {
                   method: "POST",
@@ -98,7 +95,6 @@ const CounterInput = ({ initialValue , min , max, id  }) => {
                   }),
                 });
                 const resJson = await res.json();
-                  console.log("decrement", resJson);
                   if (res.status === 200) {
                     
                     document.getElementById("subtotal").textContent="£"+resJson.output.subtotal.toFixed(2)

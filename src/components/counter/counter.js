@@ -13,7 +13,7 @@ const Counter = ({ product }) => {
     session_id = localStorage.getItem("sessionId");
   }
 
-  let updateCart = async (quantity) => {
+  const updateQuantity = async (quantity) => {
     try {
       const res = await fetch(
         "https://api.wscshop.co.uk/api/cart/update-cart",
@@ -41,12 +41,12 @@ const Counter = ({ product }) => {
   };
 
   const add = () => {
-    updateCart(count + 1);
+    updateQuantity(count + 1);
   };
 
   const remove = () => {
     if (count > 1) {
-      updateCart(count - 1);
+      updateQuantity(count - 1);
     }
   };
 

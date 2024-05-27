@@ -891,8 +891,6 @@ export default function Search() {
     let sorting = event.currentTarget.value;
     const token = localStorage.getItem("jwtToken");
     const session_id = localStorage.getItem("sessionId");
-    console.log(sorting);
-    console.log(searchWord);
     try {
       const res = await fetch("https://api.wscshop.co.uk/api/search/sorting", {
         method: "POST",
@@ -961,8 +959,6 @@ export default function Search() {
       console.log(res);
       const resJson = await res.json();
       setData(resJson.output);
-      //products=resJson.output.products
-      //console.log(resJson)
     } catch (err) {
       console.log(err);
     }

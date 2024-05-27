@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 
@@ -18,9 +18,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 //     },
 //   ];
 
-const Gallery = ({prod_id}) => {
-   
-   
+const Gallery = ({ prod_id }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -28,24 +26,23 @@ const Gallery = ({prod_id}) => {
     const fetchImages = async () => {
       try {
         const params = new URLSearchParams();
-        params.append('Id',prod_id)
-        const response = await fetch(`https://api.wscshop.co.uk/api/details/get-images?${params.toString()}`);
+        params.append("Id", prod_id);
+        const response = await fetch(
+          `https://api.wscshop.co.uk/api/details/get-images?${params.toString()}`
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch images');
+          throw new Error("Failed to fetch images");
         }
         const data = await response.json();
         setImages(data.output);
       } catch (error) {
-        console.error('Error fetching images:', error);
+        console.error("Error fetching images:", error);
       }
     };
 
     fetchImages(); // Call the fetchImages function
   }, []);
-  //console.log(images)
-  return (
-    <ImageGallery items={images} />
-  )
-}
+  return <ImageGallery items={images} />;
+};
 
-export default Gallery
+export default Gallery;
