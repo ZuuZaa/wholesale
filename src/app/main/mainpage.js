@@ -1755,7 +1755,9 @@ export default function MainPage({ children }) {
             >
               {offers?.map((offer) => (
                 <SwiperSlide key={offer.id}>
-                  <img src={offer.image} alt={offer.title} />
+                  <figure className="banner-image">
+                    <img src={offer.image} alt={offer.title} />
+                  </figure>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -1809,7 +1811,12 @@ export default function MainPage({ children }) {
                     )
                 )}
               </ul>
-              <Link href={products.find(item => item.name === activeTab)?.link || "#"} className="color-green">
+              <Link
+                href={
+                  products.find((item) => item.name === activeTab)?.link || "#"
+                }
+                className="color-green"
+              >
                 show all
               </Link>
             </div>
