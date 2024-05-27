@@ -93,7 +93,10 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
       <div className="basket-card">
         <Link href={`/product/${product.productId}`}>
           <figure className="product-image">
-            <img src={product.productImage} alt={product.productName} />
+            <img
+              src={product.productImage}
+              alt={product.productName}
+            />
           </figure>
         </Link>
         <div className="card-info">

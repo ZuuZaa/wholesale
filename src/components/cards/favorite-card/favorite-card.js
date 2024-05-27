@@ -69,7 +69,10 @@ const FavoriteCard = ({ product, updateFavorites }) => {
       <div className="favorite-card">
         <Link href={`/product/${product.productId}`}>
           <figure className="product-image">
-            <img src={product.mainImage} alt={product.name} />
+            <img
+              src={product.mainImage}
+              alt={product.name}
+            />
           </figure>
         </Link>
         <div className="card-info">

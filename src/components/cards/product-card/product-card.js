@@ -49,7 +49,8 @@ const ProductCard = ({ product, cardHeight }) => {
         >
           <figure className="product-image">
             <img
-              src={product.catImage}
+              src={product.mainImage}
+              onError={(e) => e.target.src = product.catImage}
               alt={product.name}
               className="product-card-image"
             />
