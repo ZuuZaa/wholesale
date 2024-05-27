@@ -193,6 +193,32 @@ export default function Profile() {
       console.log(err);
     }
   };
+
+  let logout = async () => {
+    let token = "";
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+    }
+    const response = await fetch(
+      "https://api.wscshop.co.uk/api/account/logout",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    if (response.status == 200 && typeof localStorage !== "undefined") {
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("refreshToken");
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+    }
+  };
+
   return (
     <main>
       <div className="profile--desktop">
@@ -645,9 +671,7 @@ export default function Profile() {
             <li>
               <Link href="#">Delivery</Link>
             </li>
-            <li>
-              <Link href="#">Sign out</Link>
-            </li>
+            <li onClick={logout} className="sign-out-link">Sign out</li>
           </ul>
         </div>
         {/* <div className="questions">

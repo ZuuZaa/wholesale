@@ -73,6 +73,18 @@
         border-bottom: 0.6px solid #828282;
     }
 
+    .sign-out-link {
+        cursor: pointer;
+    }
+
+    .links {
+        li:hover {
+            color: #3FE29E;
+            transition: ease .2s;
+        }
+    }
+
+
     .questions {
         background-color: #fff;
         border-radius: 8px;
