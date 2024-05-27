@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
 import { useState } from "react";
-import './basket.scss';
+import "./basket.scss";
 
 const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
   let [count, setCount] = useState(product.quantity);
@@ -95,6 +95,9 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
           <figure className="product-image">
             <img
               src={product.productImage}
+              onError={(e) =>
+                product.catImage && (e.target.src = product.catImage)
+              }
               alt={product.productName}
             />
           </figure>

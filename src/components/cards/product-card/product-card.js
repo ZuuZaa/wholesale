@@ -9,7 +9,7 @@ const ProductCard = ({ product, cardHeight }) => {
     token = localStorage.getItem("jwtToken");
     session_id = localStorage.getItem("sessionId");
   }
-
+console.log("card",product.catImage, product.catImage ?? product.mainImage);
   const addToCart = async (event) => {
     event.preventDefault();
     try {
@@ -50,7 +50,7 @@ const ProductCard = ({ product, cardHeight }) => {
           <figure className="product-image">
             <img
               src={product.mainImage}
-              onError={(e) => e.target.src = product.catImage}
+              onError={(e) => product.catImage && (e.target.src = product.catImage)}
               alt={product.name}
               className="product-card-image"
             />

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
-import './favorite-card.scss';
+import "./favorite-card.scss";
 
 const FavoriteCard = ({ product, updateFavorites }) => {
   let token = "";
@@ -58,7 +58,7 @@ const FavoriteCard = ({ product, updateFavorites }) => {
         }
       );
       const resJson = await res.json();
-      updateFavorites(resJson.output.favorites)
+      updateFavorites(resJson.output.favorites);
     } catch (err) {
       console.log(err);
     }
@@ -71,6 +71,9 @@ const FavoriteCard = ({ product, updateFavorites }) => {
           <figure className="product-image">
             <img
               src={product.mainImage}
+              onError={(e) =>
+                product.catImage && (e.target.src = product.catImage)
+              }
               alt={product.name}
             />
           </figure>
