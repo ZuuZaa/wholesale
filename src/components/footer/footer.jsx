@@ -7,24 +7,43 @@ import "./footer.scss";
 import { footerLinks } from "./constants";
 import { usePathname } from "next/navigation";
 
+let token = "";
+let session_id = "";
+if (typeof localStorage !== "undefined") {
+  token = localStorage.getItem("jwtToken");
+  session_id = localStorage.getItem("sessionId");
+}
+
 async function fetchData() {
+  const params = new URLSearchParams();
+  params.append("SessionId", session_id);
   const response = await fetch(
-    "https://api.wscshop.co.uk/api/layout/get-footer"
+    `https://api.wscshop.co.uk/api/layout/get-footer?${params.toString()}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json, text/plain",
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + token,
+      },
+    }
   );
   const data = await response.json();
   return data.output;
 }
+
 const Footer = () => {
   const [settings, setSettings] = useState({});
+  const [totalQuantity, setTotalQuantity] = useState(0);
   const pathname = usePathname();
 
   useEffect(() => {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setSettings(fetchedData.settings[0]);
-      console.log(fetchedData)
+      setTotalQuantity(fetchedData.totalQuantity);
+      console.log(totalQuantity);
     }
-
 
     fetchDataAsync();
   }, []);
@@ -137,14 +156,21 @@ const Footer = () => {
           {footerLinks.map((link) => (
             <li key={link.name}>
               <Link href={link.path}>
-                <Image
-                  src={link.icon}
-                  height={20}
-                  alt={link.name}
-                  className={
-                    pathname === link.path ? "footer-link active" : "footer-link"
-                  }
-                />
+                <figure className="footer-link-wrapper">
+                  <Image
+                    src={link.icon}
+                    height={20}
+                    alt={link.name}
+                    className={
+                      pathname === link.path
+                        ? "footer-link active"
+                        : "footer-link"
+                    }
+                  />
+                  {link.name === "basket" && totalQuantity !== 0 && (
+                    <span>{totalQuantity}</span>
+                  )}
+                </figure>
               </Link>
             </li>
           ))}
