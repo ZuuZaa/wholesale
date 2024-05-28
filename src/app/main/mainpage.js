@@ -119,7 +119,7 @@ export default function MainPage({ children }) {
       name: "special offers",
       items: data?.dealsProducts,
       visible: !!offersSection,
-      link: "/products/0",
+      link: "/products/4",
     },
     {
       name: "trending",
