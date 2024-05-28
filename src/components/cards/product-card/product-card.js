@@ -9,7 +9,6 @@ const ProductCard = ({ product, cardHeight }) => {
     token = localStorage.getItem("jwtToken");
     session_id = localStorage.getItem("sessionId");
   }
-console.log("card",product.catImage, product.catImage ?? product.mainImage);
   const addToCart = async (event) => {
     event.preventDefault();
     try {
