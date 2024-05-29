@@ -18,7 +18,7 @@ async function fetchData() {
   const params = new URLSearchParams();
   params.append("SessionId", session_id);
   const response = await fetch(
-    `https://api.wscshop.co.uk/api/layout/get-footer?${params.toString()}`,
+    `https://api.wscshop.co.uk/api/layout/get-footer`,
     {
       method: "GET",
       headers: {

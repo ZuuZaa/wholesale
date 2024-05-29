@@ -572,6 +572,9 @@ export default function ProductDetail() {
       token = localStorage.getItem("jwtToken");
       session_id = localStorage.getItem("sessionId");
     }
+    if (token === null) {
+      window.location.href = "/login";
+    }
     const quantity = event?.currentTarget?.previousSibling?.value || count;
     try {
       const res = await fetch(

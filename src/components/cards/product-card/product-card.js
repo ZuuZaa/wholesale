@@ -11,9 +11,14 @@ const ProductCard = ({ product, cardHeight }) => {
   }
   const addToCart = async (event) => {
     event.preventDefault();
+
+    if (token === null) {
+      window.location.href = "/login";
+    }
+
     try {
       const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/add-to-cart",
+        `https://api.wscshop.co.uk/api/cart/add-to-cart`,
         {
           method: "POST",
           headers: {
@@ -28,7 +33,6 @@ const ProductCard = ({ product, cardHeight }) => {
           }),
         }
       );
-      const resJson = await res.json();
     } catch (err) {
       console.log(err);
     }
@@ -49,7 +53,9 @@ const ProductCard = ({ product, cardHeight }) => {
           <figure className="product-image">
             <img
               src={product.mainImage}
-              onError={(e) => product.catImage && (e.target.src = product.catImage)}
+              onError={(e) =>
+                product.catImage && (e.target.src = product.catImage)
+              }
               alt={product.name}
               className="product-card-image"
             />
