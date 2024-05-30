@@ -1,0 +1,56 @@
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 8px;
+}
+
+.checkout-footer {
+    position: fixed;
+    right: 0;
+    bottom: 42px;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color: #fff;
+    border-top: 0.5px solid #828282;
+    border-bottom: 0.5px solid #828282;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.btn-success {
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    background: #3FE29E;
+    color: #fff;
+
+    &:hover {
+        background: hsl(155, 74%, 47%);
+    }
+}
+
+@media screen and (max-width:768px) {
+    .checkout-page--desktop {
+        display: none;
+    }
+
+    .checkout-page--mobile {
+        display: block;
+    }
+}
+
+@media screen and (min-width:769px) {
+    .checkout-page--desktop {
+        display: block;
+    }
+
+    .checkout-page--mobile {
+        display: none;
+    }
+}

@@ -7,6 +7,7 @@ import "./profile.scss";
 import { icons } from "./constans";
 import Link from "next/link";
 import Image from "next/image";
+import CardFrame from "@/components/cards/card-frame";
 
 export default function Profile() {
   const fetchData = async () => {
@@ -602,27 +603,29 @@ export default function Profile() {
       </div>
 
       <div className="profile--mobile">
-        <div className="profile-header">
-          <div className="profile-info">
-            <div className="profile-photo"></div>
-            <div>
-              <p className="user-name">
-                {user?.firstName || "NAME"} {user?.lastName || "SURNAME"}
-              </p>
-              <p className="user-email">{user?.email}</p>
+        <CardFrame>
+          <div className="profile-header">
+            <div className="profile-info">
+              <div className="profile-photo"></div>
+              <div>
+                <p className="user-name">
+                  {user?.firstName || "NAME"} {user?.lastName || "SURNAME"}
+                </p>
+                <p className="user-email">{user?.email}</p>
+              </div>
+            </div>
+            <div className="flex justify-center items-center">
+              <button>
+                <Image
+                  src={icons.bell}
+                  width={15}
+                  height={15}
+                  alt="notification"
+                />
+              </button>
             </div>
           </div>
-          <div className="flex justify-center items-center">
-            <button>
-              <Image
-                src={icons.bell}
-                width={15}
-                height={15}
-                alt="notification"
-              />
-            </button>
-          </div>
-        </div>
+        </CardFrame>
         {/* <div className="contact">
           <button className="btn-with-icon">
             <Image src={icons.chat} width={22} height={22} alt="contact" />
@@ -633,7 +636,7 @@ export default function Profile() {
             <span>Reorder</span>
           </button>
         </div> */}
-        <div className="links">
+        <CardFrame>
           {/* <ul className="main-links flex flex-col gap-3 pb-4">
             <li className="flex items-center gap-4">
               <Image src={icons.pack} width={22} height={22} alt="orders" />
@@ -671,9 +674,11 @@ export default function Profile() {
             <li>
               <Link href="#">Delivery</Link>
             </li>
-            <li onClick={logout} className="sign-out-link">Sign out</li>
+            <li onClick={logout} className="sign-out-link">
+              Sign out
+            </li>
           </ul>
-        </div>
+        </CardFrame>
         {/* <div className="questions">
           <ul>
             <li className="flex items-center gap-4 p-3">

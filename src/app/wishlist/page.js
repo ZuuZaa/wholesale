@@ -13,6 +13,7 @@ import Loading from "@/components/loading";
 import chevron from "@/assets/icons/chevron-down.svg";
 import "./wishlist.scss";
 import FavoriteCard from "@/components/cards/favorite-card";
+import MobilePageLayout from "@/components/layout/mobile-page-layout";
 
 const mainFunc = async () => {
   let status;
@@ -326,27 +327,28 @@ export default function Wishlist() {
         <Loading />
       ) : (
         <div className="wishlist--mobile">
-          <h2 className="page-header">Wishlist</h2>
-          {favorites.length > 0 ? (
-            <div>
-              <div className="filter flex justify-end">
-                <button className="flex gap-2 items-center">
-                  <span>Sort by</span>
-                  <Image src={chevron} alt="filter" />
-                </button>
+          <MobilePageLayout title="Wishlist">
+            {favorites.length > 0 ? (
+              <div>
+                <div className="filter flex justify-end">
+                  <button className="flex gap-2 items-center">
+                    <span>Sort by</span>
+                    <Image src={chevron} alt="filter" />
+                  </button>
+                </div>
+                <ul className="flex flex-col gap-2 py-2">
+                  {favorites.map((item) => (
+                    <FavoriteCard
+                      product={item}
+                      updateFavorites={updateFavorites}
+                    />
+                  ))}
+                </ul>
               </div>
-              <ul className="flex flex-col gap-2 py-2">
-                {favorites.map((item) => (
-                  <FavoriteCard
-                    product={item}
-                    updateFavorites={updateFavorites}
-                  />
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <p className="text-center py-5">There is no favorite product!</p>
-          )}
+            ) : (
+              <p className="text-center py-5">There is no favorite product!</p>
+            )}
+          </MobilePageLayout>
         </div>
       )}
     </main>

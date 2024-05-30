@@ -9,6 +9,7 @@ import MethodModal from "./Method";
 import Loading from "@/components/loading";
 import "./cart.scss";
 import BasketCard from "@/components/cards/basket-card";
+import MobilePageLayout from "@/components/layout/mobile-page-layout";
 
 let token = "";
 let session_id = "";
@@ -383,8 +384,7 @@ export default function Cart() {
         <Loading />
       ) : (
         <div className="cart-page--mobile">
-          <section className="px-3">
-            <h2 className="page-header">My Basket</h2>
+          <MobilePageLayout title="My Basket">
             {carts.length > 0 ? (
               <ul className="basket-list">
                 {carts.map((item) => (
@@ -398,7 +398,7 @@ export default function Cart() {
             ) : (
               <p className="text-center py-5">Your basket is empty.</p>
             )}
-          </section>
+          </MobilePageLayout>
           <section className="basket-footer">
             <div className="price-details">
               <h4 className="price-details__title">Price details</h4>
@@ -414,7 +414,7 @@ export default function Cart() {
             <div className="basket-action px-4 py-3">
               <div className="price">
                 <p>Total</p>
-                <span>{`₤ ${totalPrice}`}</span>
+                <span>{`₤${totalPrice}`}</span>
               </div>
               <Link href="/checkout" className="btn btn-success">
                 continue
