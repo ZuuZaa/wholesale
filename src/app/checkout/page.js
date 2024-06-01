@@ -11,6 +11,8 @@ import CheckoutForm from "./CheckoutForm";
 import "./checkout.scss";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import CardFrame from "@/components/cards/card-frame";
+import location from "@/assets/icons/location.svg";
+import payment from "@/assets/icons/payment.svg";
 
 const mainFunc = async () => {
   let status;
@@ -165,6 +167,9 @@ const mainFunc1 = async () => {
 export default function Checkout() {
   // Shipping Address Adding Form
   const [addressForm, setaddressForm] = useState(false);
+  const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(false);
+  const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(false);
+  const [activeButton, setActiveButton] = useState("delivery");
   const toggleAddressForm = () => {
     setaddressForm(!addressForm);
   };
@@ -203,6 +208,11 @@ export default function Checkout() {
     useState(null);
   const [selectedShippingOption, setSelectedShippingOption] = useState(null);
   const [selectedBillingOption, setSelectedBillingOption] = useState(null);
+
+  const handleDeliveryClick = () =>
+    setDeliveryDropdownIsOpen(!deliveryDropdownIsOpen);
+  const handlePaymentClick = () =>
+    setPaymentDropdownIsOpen(!paymentDropdownIsOpen);
 
   const handleOptionChange = (event) => {
     const selectedValue = event.target.value;
@@ -325,6 +335,7 @@ export default function Checkout() {
   const subtotal = data.subtotal;
   const discount = data.discount;
   const total = data.total;
+  const deliveryFee = 0;
   let publish_key = "";
   let secret_key = "";
   data.stripeDetails.map((stripe) => {
@@ -872,15 +883,132 @@ export default function Checkout() {
       <div className="checkout-page--mobile">
         <MobilePageLayout title="Checkout">
           <div className="card-container">
-            <CardFrame>delivery</CardFrame>
-            <CardFrame>payment</CardFrame>
-            <CardFrame>order</CardFrame>
+            <CardFrame>
+              <div className="card-title flex items-center gap-2 py-2">
+                <Image src={location} alt="delivery" />
+                <h3>Delivery</h3>
+              </div>
+              <div className="dropdown-container">
+                <div className="card-actions py-2 border-top">
+                  <button
+                    className={
+                      deliveryDropdownIsOpen
+                        ? "btn btn-success"
+                        : "btn btn-secondary"
+                    }
+                    onClick={handleDeliveryClick}
+                    name="delivery"
+                  >
+                    Delivery
+                  </button>
+                  <button className="btn btn-secondary" name="collection">
+                    Collection
+                  </button>
+                </div>
+                <div
+                  className={
+                    deliveryDropdownIsOpen
+                      ? "dropdown-content open"
+                      : "dropdown-content"
+                  }
+                >
+                  <div className="add-address flex justify-between py-2 border-top">
+                    <p>Shipping address</p>
+                    <button>+</button>
+                  </div>
+                  <ul className="address-list">
+                    <li className="border-top py-2">
+                      <p className="flex items-center gap-2">
+                        <span className="disk active"></span>
+                        Home
+                      </p>
+                      <ul>
+                        <li className="pl-5 py-1">Address</li>
+                        <li className="pl-5 py-1">Address</li>
+                        <li className="pl-5 py-1">Address</li>
+                      </ul>
+                    </li>
+                    <li className="border-top py-2">
+                      <p className="flex items-center gap-2">
+                        <span className="disk"></span>
+                        Office
+                      </p>
+                      <ul>
+                        <li className="pl-5 py-1">Address</li>
+                        <li className="pl-5 py-1">Address</li>
+                        <li className="pl-5 py-1">Address</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardFrame>
+            <CardFrame>
+              <div className="card-title flex items-center gap-2 py-2">
+                <Image src={payment} alt="payment" />
+                <h3>Payment</h3>
+              </div>
+              <div className="dropdown-container">
+                <div className="card-actions py-2 border-top">
+                  <button
+                    className={
+                      paymentDropdownIsOpen
+                        ? "btn btn-success"
+                        : "btn btn-secondary"
+                    }
+                    onClick={handlePaymentClick}
+                    name="delivery"
+                  >
+                    Cash/ Bank Transfer
+                  </button>
+                  <button className="btn btn-secondary" name="collection">
+                    Card
+                  </button>
+                </div>
+                <div
+                  className={
+                    paymentDropdownIsOpen
+                      ? "dropdown-content open"
+                      : "dropdown-content"
+                  }
+                >
+                  <textarea
+                    name="cash-input"
+                    className="cash-input py-2"
+                    rows="6"
+                  />
+                </div>
+              </div>
+            </CardFrame>
+            <CardFrame>
+              <div className="order-summary">
+                <h3 className="py-2">Order Summary</h3>
+                <ul className="border-top">
+                  <li className="flex justify-between py-1">
+                    <p>Subtotal</p>
+                    <span>{`₤${subtotal}`}</span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <p>Discount</p>
+                    <span>{`₤${discount}`}</span>
+                  </li>
+                  <li className="flex justify-between py-1">
+                    <p>Delivery fee</p>
+                    <span>{`₤${deliveryFee}`}</span>
+                  </li>
+                  <li className="flex justify-between py-2 border-top">
+                    <p>Total</p>
+                    <span>{`₤${total}`}</span>
+                  </li>
+                </ul>
+              </div>
+            </CardFrame>
           </div>
         </MobilePageLayout>
         <div className="checkout-footer px-4 py-3">
           <div className="price">
             <p>Total</p>
-            <span className="color-green">{`₤${subtotal}`}</span>
+            <span>{`₤${total}`}</span>
           </div>
           <Link href="/checkout" className="btn btn-success">
             Order now
