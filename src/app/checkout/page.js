@@ -1010,9 +1010,9 @@ export default function Checkout() {
             <p>Total</p>
             <span>{`₤${total}`}</span>
           </div>
-          <Link href="/checkout" className="btn btn-success">
+          <button onClick={cashPayment} className="btn btn-success">
             Order now
-          </Link>
+          </button>
         </div>
       </div>
     </main>
