@@ -6,6 +6,7 @@ import { UilCheck, UilInfo, UilMap, UilEnvelope } from '@iconscout/react-unicons
 import Image from 'next/image';
 
 import Tick from '../../../public/images/tick.png';
+import './success.scss'
 
 const mainFunc=async () => {
   let status;
@@ -130,40 +131,56 @@ export default function Success() {
   
   return (
     <main>
-
         {/* Breadcrumb */}
-        <div className='breadcrumb-wrapper py-12'>
-          <div className='custom-container mx-auto'>
+        <div className="breadcrumb-wrapper py-12">
+          <div className="custom-container mx-auto">
             <div className="flex" aria-label="Breadcrumb">
               <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-
                 <li className="inline-flex items-center">
-                  <a href="/" className="inline-flex items-center text-sm font-medium"> Home </a>
+                  <a
+                    href="/"
+                    className="inline-flex items-center text-sm font-medium"
+                  >
+                    {" "}
+                    Home{" "}
+                  </a>
                 </li>
 
                 <li>
                   <div className="flex items-center">
-                    <a href="#" className="ms-1 text-sm font-medium md:ms-2 flex items-center">Success</a>
+                    <a
+                      href="#"
+                      className="ms-1 text-sm font-medium md:ms-2 flex items-center"
+                    >
+                      Success
+                    </a>
                   </div>
                 </li>
-
               </ol>
             </div>
           </div>
         </div>
-        
-        {/* Success  Section */}
-        <section className='login-register-main-section mt-5'>
-          <div className='custom-container mx-auto'>
-            <div className='account-lr-wrap mx-auto p-8 text-center'>
-                <Image src={Tick} width={200} height={200} className='success-page-icon object-cover w-full h-full' alt='Product'/>
-                <h4 className='account-page-title'>Order Completed!</h4>
-                <p className='mb-8'>Thanks for your order! We received your order request, we'll be in touch shortly.</p>
-            </div>
-          </div> 
-        </section>
 
+        {/* Success  Section */}
+        <section className="login-register-main-section mt-5">
+          <div className="custom-container mx-auto">
+            <div className="account-lr-wrap mx-auto p-8 text-center">
+              <Image
+                src={Tick}
+                width={200}
+                height={200}
+                className="success-page-icon object-cover w-full h-full"
+                alt="Product"
+              />
+              <h4 className="account-page-title">Order Completed!</h4>
+              <p className="mb-8">
+                Thanks for your order! We received your order request, we'll be
+                in touch shortly.
+              </p>
+            </div>
+          </div>
+        </section>
     </main>
-  )
+  );
 }
 

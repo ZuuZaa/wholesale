@@ -201,10 +201,10 @@ export default function Checkout() {
   }
 
   // Radio Buttons
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("option2");
   const [selectedShippingAddressOption, setSelectedShippingAddressOption] =
-    useState(null);
-  const [selectedShippingOption, setSelectedShippingOption] = useState(null);
+    useState("0");
+  const [selectedShippingOption, setSelectedShippingOption] = useState("2");
   const [selectedBillingOption, setSelectedBillingOption] = useState(null);
 
   const handlePaymentClick = () =>
@@ -296,6 +296,9 @@ export default function Checkout() {
       setData(fetchedData);
       const fetchedData1 = await mainFunc1();
       setClientSecret(fetchedData1);
+      if (fetchedData.userAddress.length != 0) {
+        setSelectedShippingAddressOption(fetchedData.userAddress[0].id);
+      }
     }
     fetchDataAsync();
     let payment = "";
@@ -314,14 +317,6 @@ export default function Checkout() {
     ) {
       shipping = localStorage.getItem("shipping");
       setSelectedShippingOption(shipping);
-    }
-    let address = "";
-    if (
-      typeof localStorage !== "undefined" &&
-      localStorage.getItem("address") !== null
-    ) {
-      address = localStorage.getItem("address");
-      setSelectedShippingAddressOption(address);
     }
   }, []);
 
@@ -390,8 +385,8 @@ export default function Checkout() {
         },
         body: JSON.stringify({
           PaymentType: 2,
-          ShippingType: shipping,
-          AddressId: address,
+          ShippingType: selectedShippingOption,
+          AddressId: selectedShippingAddressOption,
         }),
       }
     );
@@ -400,7 +395,7 @@ export default function Checkout() {
     }
   };
 
-    console.log(userAddress);
+  console.log(userAddress);
 
   return (
     <main>
@@ -888,11 +883,7 @@ export default function Checkout() {
               </div>
               <div className="dropdown-container">
                 <div className="card-actions py-2 border-top">
-                  <button
-                    className="btn btn-success"
-                  >
-                    Delivery
-                  </button>
+                  <button className="btn btn-success">Delivery</button>
                   <button className="btn btn-secondary" disabled="true">
                     Collection
                   </button>
@@ -989,16 +980,16 @@ export default function Checkout() {
               </div>
             </CardFrame>
           </div>
-        </MobilePageLayout>
-        <div className="checkout-footer px-4 py-3">
-          <div className="price">
-            <p>Total</p>
-            <span>{`₤${total}`}</span>
+          <div className="checkout-footer total-bottom px-4 py-3">
+            <div className="price">
+              <p>Total</p>
+              <span>{`₤${total}`}</span>
+            </div>
+            <button onClick={cashPayment} className="btn btn-success">
+              Order now
+            </button>
           </div>
-          <button onClick={cashPayment} className="btn btn-success">
-            Order now
-          </button>
-        </div>
+        </MobilePageLayout>
       </div>
     </main>
   );

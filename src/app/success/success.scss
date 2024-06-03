@@ -1,0 +1,24 @@
+@media screen and (max-width:768px) {
+    .breadcrumb-wrapper {
+        display: none;
+    }
+
+    .login-register-main-section {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-inline: 10px;
+    }
+
+    .account-lr-wrap {
+        border-radius: 8px;
+    }
+}
+
+
+@media screen and (min-width:769px) {
+    .breadcrumb-wrapper {
+        display: block;
+    }
+}

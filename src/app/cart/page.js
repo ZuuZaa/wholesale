@@ -398,29 +398,29 @@ export default function Cart() {
             ) : (
               <p className="text-center py-5">Your basket is empty.</p>
             )}
+            <section className="basket-footer total-bottom">
+              <div className="price-details">
+                <h4 className="price-details__title">Price details</h4>
+                <div className="flex justify-between">
+                  <span>Cart total</span>
+                  <span>{`₤ ${totalPrice}`}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Total payable</span>
+                  <span>{`₤ ${totalPrice}`}</span>
+                </div>
+              </div>
+              <div className="basket-action px-4 py-3">
+                <div className="price">
+                  <p>Total</p>
+                  <span>{`₤${totalPrice}`}</span>
+                </div>
+                <Link href="/checkout" className="btn btn-success">
+                  continue
+                </Link>
+              </div>
+            </section>
           </MobilePageLayout>
-          <section className="basket-footer">
-            <div className="price-details">
-              <h4 className="price-details__title">Price details</h4>
-              <div className="flex justify-between">
-                <span>Cart total</span>
-                <span>{`₤ ${totalPrice}`}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total payable</span>
-                <span>{`₤ ${totalPrice}`}</span>
-              </div>
-            </div>
-            <div className="basket-action px-4 py-3">
-              <div className="price">
-                <p>Total</p>
-                <span>{`₤${totalPrice}`}</span>
-              </div>
-              <Link href="/checkout" className="btn btn-success">
-                continue
-              </Link>
-            </div>
-          </section>
         </div>
       )}
     </main>
