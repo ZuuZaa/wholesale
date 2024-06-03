@@ -168,7 +168,7 @@ export default function Checkout() {
   // Shipping Address Adding Form
   const [addressForm, setaddressForm] = useState(false);
   const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(true);
-  const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(false);
+  const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(true);
   const toggleAddressForm = () => {
     setaddressForm(!addressForm);
   };
@@ -924,34 +924,34 @@ export default function Checkout() {
                     <p>Shipping address</p>
                     <button>+</button>
                   </div> */}
-                  {
-                    userAddress.length > 0 ? (                  <ul className="address-list">
-                    <li className="border-top py-2">
-                      <p className="flex items-center gap-2">
-                        <span className="disk active"></span>
-                        Home
-                      </p>
-                      <ul>
-                        <li className="pl-5 py-1">Address</li>
-                        <li className="pl-5 py-1">Address</li>
-                        <li className="pl-5 py-1">Address</li>
-                      </ul>
-                    </li>
-                    <li className="border-top py-2">
-                      <p className="flex items-center gap-2">
-                        <span className="disk"></span>
-                        Office
-                      </p>
-                      <ul>
-                        <li className="pl-5 py-1">Address</li>
-                        <li className="pl-5 py-1">Address</li>
-                        <li className="pl-5 py-1">Address</li>
-                      </ul>
-                    </li>
-                  </ul>) :
-                  <p>No address data</p>
-                  }
-
+                  {userAddress.length > 0 ? (
+                    <ul className="address-list">
+                      <li className="border-top py-2">
+                        <p className="flex items-center gap-2">
+                          <span className="disk active"></span>
+                          Home
+                        </p>
+                        <ul>
+                          <li className="pl-5 py-1">Address</li>
+                          <li className="pl-5 py-1">Address</li>
+                          <li className="pl-5 py-1">Address</li>
+                        </ul>
+                      </li>
+                      <li className="border-top py-2">
+                        <p className="flex items-center gap-2">
+                          <span className="disk"></span>
+                          Office
+                        </p>
+                        <ul>
+                          <li className="pl-5 py-1">Address</li>
+                          <li className="pl-5 py-1">Address</li>
+                          <li className="pl-5 py-1">Address</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  ) : (
+                    <p>No address data</p>
+                  )}
                 </div>
               </div>
             </CardFrame>
@@ -968,7 +968,7 @@ export default function Checkout() {
                         ? "btn btn-success"
                         : "btn btn-secondary"
                     }
-                    onClick={handlePaymentClick}
+                   // onClick={handlePaymentClick}
                   >
                     Cash/ Bank Transfer
                   </button>
@@ -976,13 +976,7 @@ export default function Checkout() {
                     Card
                   </button>
                 </div>
-                <div
-                  className={
-                    paymentDropdownIsOpen
-                      ? "dropdown-content open"
-                      : "dropdown-content"
-                  }
-                >
+                <div className="dropdown-content open">
                   <textarea
                     name="cash-input"
                     className="cash-input py-2"
