@@ -156,6 +156,7 @@ export default function ProductDetail() {
     async function fetchDataAsync() {
       const fetchedData = await fetchData();
       setData(fetchedData);
+      setCount(fetchedData.products[0].quantity);
       const fetchedData1 = await fetchData1();
       document.getElementById("prod_desc").innerHTML = fetchedData1;
     }
