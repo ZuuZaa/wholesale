@@ -167,6 +167,7 @@ const mainFunc1 = async () => {
 export default function Checkout() {
   // Shipping Address Adding Form
   const [addressForm, setaddressForm] = useState(false);
+  const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(true);
   const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(false);
   const toggleAddressForm = () => {
     setaddressForm(!addressForm);
@@ -227,6 +228,14 @@ export default function Checkout() {
     setSelectedBillingOption(selectedBillingValue);
   };
 
+  const handleDeliveryClick = () => {
+    setDeliveryDropdownIsOpen(true);
+    setSelectedShippingOption("1");
+  };
+  const handleCollectionClick = () => {
+    setDeliveryDropdownIsOpen(false);
+    setSelectedShippingOption("2");
+  };
   //   Form Elements
   const [formData, setFormData] = useState({
     addressTitle: "",
@@ -395,7 +404,7 @@ export default function Checkout() {
     }
   };
 
-  console.log(userAddress);
+  console.log("address", userAddress);
 
   return (
     <main>
@@ -883,17 +892,40 @@ export default function Checkout() {
               </div>
               <div className="dropdown-container">
                 <div className="card-actions py-2 border-top">
-                  <button className="btn btn-success">Delivery</button>
-                  <button className="btn btn-secondary" disabled="true">
+                  <button
+                    className={
+                      deliveryDropdownIsOpen
+                        ? "btn btn-success"
+                        : "btn btn-secondary"
+                    }
+                    onClick={handleDeliveryClick}
+                  >
+                    Delivery
+                  </button>
+                  <button
+                    className={
+                      deliveryDropdownIsOpen
+                        ? "btn btn-secondary"
+                        : "btn btn-success"
+                    }
+                    onClick={handleCollectionClick}
+                  >
                     Collection
                   </button>
                 </div>
-                <div className="dropdown-content open">
+                <div
+                  className={
+                    deliveryDropdownIsOpen
+                      ? "dropdown-content open"
+                      : "dropdown-content"
+                  }
+                >
                   {/* <div className="add-address flex justify-between py-2 border-top">
                     <p>Shipping address</p>
                     <button>+</button>
                   </div> */}
-                  <ul className="address-list">
+                  {
+                    userAddress.length > 0 ? (                  <ul className="address-list">
                     <li className="border-top py-2">
                       <p className="flex items-center gap-2">
                         <span className="disk active"></span>
@@ -916,7 +948,10 @@ export default function Checkout() {
                         <li className="pl-5 py-1">Address</li>
                       </ul>
                     </li>
-                  </ul>
+                  </ul>) :
+                  <p>No address data</p>
+                  }
+
                 </div>
               </div>
             </CardFrame>
