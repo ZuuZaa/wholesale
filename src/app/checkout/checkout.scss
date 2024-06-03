@@ -20,22 +20,6 @@
         line-height: 18px;
     }
 
-    .btn-success {
-        display: grid;
-        place-items: center;
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 24px;
-        text-transform: capitalize;
-        border-radius: 8px;
-        background: #3FE29E;
-        color: #fff;
-
-        &:hover {
-            background: hsl(155, 74%, 47%);
-        }
-    }
-
     .border-top {
         border-top: 0.6px solid #828282;
     }
@@ -63,12 +47,17 @@
     }
 
 
-    .btn-secondary {
+    .btn-secondary{
         border: 0.5px solid #454545;
-
-        &:hover {
-            background-color: hsla(0, 0%, 95%);
+        
+            &:not(:disabled):hover {
+                background-color: hsla(0, 0%, 95%);
+            }
+        &:disabled {
+            opacity: .5;
+            cursor: not-allowed;
         }
+
     }
 
     .btn-success {

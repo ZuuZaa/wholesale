@@ -167,9 +167,7 @@ const mainFunc1 = async () => {
 export default function Checkout() {
   // Shipping Address Adding Form
   const [addressForm, setaddressForm] = useState(false);
-  const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(false);
   const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(false);
-  const [activeButton, setActiveButton] = useState("delivery");
   const toggleAddressForm = () => {
     setaddressForm(!addressForm);
   };
@@ -209,8 +207,6 @@ export default function Checkout() {
   const [selectedShippingOption, setSelectedShippingOption] = useState(null);
   const [selectedBillingOption, setSelectedBillingOption] = useState(null);
 
-  const handleDeliveryClick = () =>
-    setDeliveryDropdownIsOpen(!deliveryDropdownIsOpen);
   const handlePaymentClick = () =>
     setPaymentDropdownIsOpen(!paymentDropdownIsOpen);
 
@@ -403,6 +399,8 @@ export default function Checkout() {
       window.location.href = "/success?payment_type=2";
     }
   };
+
+    console.log(userAddress);
 
   return (
     <main>
@@ -891,31 +889,19 @@ export default function Checkout() {
               <div className="dropdown-container">
                 <div className="card-actions py-2 border-top">
                   <button
-                    className={
-                      deliveryDropdownIsOpen
-                        ? "btn btn-success"
-                        : "btn btn-secondary"
-                    }
-                    onClick={handleDeliveryClick}
-                    name="delivery"
+                    className="btn btn-success"
                   >
                     Delivery
                   </button>
-                  <button className="btn btn-secondary" name="collection">
+                  <button className="btn btn-secondary" disabled="true">
                     Collection
                   </button>
                 </div>
-                <div
-                  className={
-                    deliveryDropdownIsOpen
-                      ? "dropdown-content open"
-                      : "dropdown-content"
-                  }
-                >
-                  <div className="add-address flex justify-between py-2 border-top">
+                <div className="dropdown-content open">
+                  {/* <div className="add-address flex justify-between py-2 border-top">
                     <p>Shipping address</p>
                     <button>+</button>
-                  </div>
+                  </div> */}
                   <ul className="address-list">
                     <li className="border-top py-2">
                       <p className="flex items-center gap-2">
@@ -957,11 +943,10 @@ export default function Checkout() {
                         : "btn btn-secondary"
                     }
                     onClick={handlePaymentClick}
-                    name="delivery"
                   >
                     Cash/ Bank Transfer
                   </button>
-                  <button className="btn btn-secondary" name="collection">
+                  <button className="btn btn-secondary" disabled="true">
                     Card
                   </button>
                 </div>
