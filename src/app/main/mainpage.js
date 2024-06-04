@@ -1773,7 +1773,7 @@ export default function MainPage({ children }) {
                     <div className="category-card">
                       <figure className="category-image">
                         <img src={cat.mobImage} alt={cat.name} />
-                        <figcaption>{cat.name}</figcaption>
+                        <figcaption>{cat.name.toLowerCase()}</figcaption>
                       </figure>
                     </div>
                   </Link>
