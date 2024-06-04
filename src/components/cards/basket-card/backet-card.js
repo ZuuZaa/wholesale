@@ -5,10 +5,12 @@ import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
 import { useState } from "react";
 import "./basket.scss";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
   let [count, setCount] = useState(product.quantity);
   let [price, setPrise] = useState(product.total.toFixed(2));
+  const { setTotalQuantity } = useTotalQuantity();
 
   let token = "";
   let session_id = "";
@@ -39,6 +41,7 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
         const data = await res.json();
         updateCarts(data.output.cart);
         updateTotalPrise(data.output.subtotal.toFixed(2));
+        setTotalQuantity(data.output.totalQuantity);
       }
     } catch (err) {
       console.log(err);
