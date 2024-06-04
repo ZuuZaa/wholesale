@@ -637,12 +637,16 @@ export default function Profile() {
           </button>
         </div> */}
         <CardFrame>
-          {/* <ul className="main-links flex flex-col gap-3 pb-4">
-            <li className="flex items-center gap-4">
-              <Image src={icons.pack} width={22} height={22} alt="orders" />
-              <span>My orders</span>
+          <ul className="main-links flex flex-col gap-3 pb-4">
+            <li>
+              <Link href="/account/history">
+                <figure className="flex items-center gap-4">
+                  <Image src={icons.pack} width={22} height={22} alt="orders" />
+                  <figcaption>My orders</figcaption>
+                </figure>
+              </Link>
             </li>
-            <li className="flex items-center gap-4">
+            {/* <li className="flex items-center gap-4">
               <Image
                 src={icons.location}
                 width={22}
@@ -659,8 +663,8 @@ export default function Profile() {
                 alt="return"
               />
               <span>Return requests</span>
-            </li>
-          </ul> */}
+            </li> */}
+          </ul>
           <ul className="flex flex-col gap-3 pl-9 pt-4">
             <li>
               <Link href="/contact">Contact us</Link>
