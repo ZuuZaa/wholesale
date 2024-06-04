@@ -13,6 +13,7 @@ import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import CardFrame from "@/components/cards/card-frame";
 import location from "@/assets/icons/location.svg";
 import payment from "@/assets/icons/payment.svg";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const mainFunc = async () => {
   let status;
@@ -172,6 +173,15 @@ export default function Checkout() {
   const toggleAddressForm = () => {
     setaddressForm(!addressForm);
   };
+  const { setTotalQuantity } = useTotalQuantity();
+
+  let token = "";
+  if (typeof localStorage !== "undefined") {
+    token = localStorage.getItem("jwtToken");
+  }
+  if (token === null) {
+    window.location.href = "/login";
+  }
 
   let ShippingAddressBtn;
 
@@ -400,11 +410,10 @@ export default function Checkout() {
       }
     );
     if (res.status == 200) {
+      setTotalQuantity(0);
       window.location.href = "/success?payment_type=2";
     }
   };
-
-  console.log("address", userAddress);
 
   return (
     <main>
