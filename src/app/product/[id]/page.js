@@ -73,24 +73,6 @@ export default function ProductDetail() {
       text: "product overview product",
     },
   ];
-  const productProperties = [
-    {
-      id: 1,
-      text: "Cleaning equipment",
-    },
-    {
-      id: 2,
-      text: "Dispenserrs",
-    },
-    {
-      id: 3,
-      text: "Waste management",
-    },
-    {
-      id: 4,
-      text: "Paper hygiene",
-    },
-  ];
 
   async function fetchData() {
     let token = "";
@@ -2765,16 +2747,16 @@ export default function ProductDetail() {
                   </ul>
                 </section>
               )}
-              <section className="product-properties">
+              {/* <section className="product-properties">
                 <ul className="product-property-list">
-                  {productProperties.map((item) => (
+                  {categories.map((item) => (
                     <li className="product-property-item" key={item.id}>
                       <span className="dot"></span>
                       {item.text}
                     </li>
                   ))}
                 </ul>
-              </section>
+              </section> */}
             </>
           ) : (
             <p className="text-center py-5">Product is not available.</p>
