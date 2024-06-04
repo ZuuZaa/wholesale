@@ -17,3 +17,26 @@ export const icons = {
   instagram,
   whatsap,
 };
+
+export const infoLinks = [
+  {
+    path: "contact",
+    text: "Contact us",
+  },
+  {
+    path: "terms",
+    text: "Terms of use",
+  },
+  {
+    path: "privacy",
+    text: "Privacy policy",
+  },
+  {
+    path: "refund",
+    text: "Refund Policy",
+  },
+  {
+    path: "delivery",
+    text: "Delivery",
+  },
+];

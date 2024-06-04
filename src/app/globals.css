@@ -3316,3 +3316,11 @@ select {
   filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%)
     hue-rotate(74deg) brightness(96%) contrast(84%);
 }
+
+.info-page {
+    padding: 70px 10px;
+    a {
+      color: blue;
+      text-decoration: underline;
+    }
+}

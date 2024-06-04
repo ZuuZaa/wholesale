@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import Menu from "../menu";
 import "./profile.scss";
-import { icons } from "./constans";
+import { icons, infoLinks } from "./constans";
 import Link from "next/link";
 import Image from "next/image";
 import CardFrame from "@/components/cards/card-frame";
@@ -666,18 +666,12 @@ export default function Profile() {
             </li> */}
           </ul>
           <ul className="flex flex-col gap-3 pl-9 pt-4">
-            <li>
-              <Link href="/contact">Contact us</Link>
-            </li>
-            <li>
-              <Link href="#">Terms of use</Link>
-            </li>
-            <li>
-              <Link href="#">Privacy policy</Link>
-            </li>
-            <li>
-              <Link href="#">Delivery</Link>
-            </li>
+            {infoLinks.map((link) => (
+              <li key={link.path}>
+                <Link href={`/${link.path}`}>{link.text}</Link>
+              </li>
+            ))}
+
             <li onClick={logout} className="sign-out-link">
               Sign out
             </li>
