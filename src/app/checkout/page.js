@@ -932,12 +932,14 @@ export default function Checkout() {
                           Home
                         </p>
                         <ul>
-                          <li className="pl-5 py-1">Address</li>
-                          <li className="pl-5 py-1">Address</li>
-                          <li className="pl-5 py-1">Address</li>
+                          {userAddress.map((address) => (
+                            <li key={address.id} className="pl-5 py-1">
+                              {address.adressLine2}
+                            </li>
+                          ))}
                         </ul>
                       </li>
-                      <li className="border-top py-2">
+                      {/* <li className="border-top py-2">
                         <p className="flex items-center gap-2">
                           <span className="disk"></span>
                           Office
@@ -947,7 +949,7 @@ export default function Checkout() {
                           <li className="pl-5 py-1">Address</li>
                           <li className="pl-5 py-1">Address</li>
                         </ul>
-                      </li>
+                      </li> */}
                     </ul>
                   ) : (
                     <p>No address data</p>
@@ -968,7 +970,7 @@ export default function Checkout() {
                         ? "btn btn-success"
                         : "btn btn-secondary"
                     }
-                   // onClick={handlePaymentClick}
+                    // onClick={handlePaymentClick}
                   >
                     Cash/ Bank Transfer
                   </button>

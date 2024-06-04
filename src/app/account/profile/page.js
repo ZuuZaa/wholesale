@@ -637,7 +637,7 @@ export default function Profile() {
           </button>
         </div> */}
         <CardFrame>
-          <ul className="main-links flex flex-col gap-3 pb-4">
+          {/*<ul className="main-links flex flex-col gap-3 pb-4">
             <li>
               <Link href="/account/history">
                 <figure className="flex items-center gap-4">
@@ -646,7 +646,7 @@ export default function Profile() {
                 </figure>
               </Link>
             </li>
-            {/* <li className="flex items-center gap-4">
+             <li className="flex items-center gap-4">
               <Image
                 src={icons.location}
                 width={22}
@@ -663,9 +663,10 @@ export default function Profile() {
                 alt="return"
               />
               <span>Return requests</span>
-            </li> */}
-          </ul>
-          <ul className="flex flex-col gap-3 pl-9 pt-4">
+            </li> 
+          </ul>*/}
+          {/* TODO: pt-4 classname */}
+          <ul className="flex flex-col gap-3 pl-9">
             {infoLinks.map((link) => (
               <li key={link.path}>
                 <Link href={`/${link.path}`}>{link.text}</Link>
