@@ -318,13 +318,13 @@ function Header() {
                 }}
                 onClick={showSeachBox}
               />
-              <Image
+              {/* <Image
                 src={icons.chat}
                 width={25}
                 height={25}
                 alt="help chat"
                 style={{ cursor: "pointer" }}
-              />
+              /> */}
               <Image
                 src={icons.bell}
                 width={25}
