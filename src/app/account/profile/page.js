@@ -663,7 +663,7 @@ export default function Profile() {
           </ul> */}
           <ul className="flex flex-col gap-3 pl-9 pt-4">
             <li>
-              <Link href="#">About us</Link>
+              <Link href="/contact">Contact us</Link>
             </li>
             <li>
               <Link href="#">Terms of use</Link>
