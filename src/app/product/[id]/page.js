@@ -2693,7 +2693,7 @@ export default function ProductDetail() {
                     </ul>
                     <span>{`${data.reviews.length} reviews`}</span>
                   </div>
-                  <p className="color-green price">{`₤ ${data.products[0]?.price.toFixed(
+                  <p className="price">{`₤ ${data.products[0]?.price.toFixed(
                     2
                   )}`}</p>
                   <div className="actions">
@@ -2735,34 +2735,36 @@ export default function ProductDetail() {
                   </Swiper>
                 </section>
               )}
+              {reviews.length > 0 && (
+                <section className="review">
+                  <div className="review-title flex justify-between">
+                    <h3>Reviews</h3>
+                    <Link href="#">read more</Link>
+                  </div>
 
-              <section className="review">
-                <div className="review-title flex justify-between">
-                  <h3>Reviews</h3>
-                  <Link href="#">read more</Link>
-                </div>
-                <ul className="reviews-list">
-                  {customReviews.map((review) => (
-                    <li className="review-item p-3 ">
-                      <div className="flex gap-2">
-                        <ul className="stars">
-                          {Array.from({ length: 5 }).map((item) => (
-                            <li>
-                              <Image
-                                src={starIcon}
-                                className="star-icon"
-                                alt="star"
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                        <p className="reviewer">**** *****</p>
-                      </div>
-                      <p className="review-text">{review.text}</p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+                  <ul className="reviews-list">
+                    {customReviews.map((review) => (
+                      <li className="review-item p-3 ">
+                        <div className="flex gap-2">
+                          <ul className="stars">
+                            {Array.from({ length: 5 }).map((item) => (
+                              <li>
+                                <Image
+                                  src={starIcon}
+                                  className="star-icon"
+                                  alt="star"
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                          <p className="reviewer">**** *****</p>
+                        </div>
+                        <p className="review-text">{review.text}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
               <section className="product-properties">
                 <ul className="product-property-list">
                   {productProperties.map((item) => (

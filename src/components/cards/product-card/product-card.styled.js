@@ -36,7 +36,7 @@ export const StyledProductCard = styled.div`
     }
 
     span {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
       line-height: 18.2px;
     }
@@ -50,9 +50,9 @@ export const StyledProductCard = styled.div`
     button {
       width: 100%;
       max-width: 100px;
-      padding: 5px 14px;
+      padding: 4px 12px;
       border-radius: 18px;
-      font-size: 9px;
+      font-size: 12px;
       font-weight: 500;
       line-height: 13.5px;
       box-shadow: 0px 1px 2px 0px #0000000d;

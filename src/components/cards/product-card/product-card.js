@@ -63,7 +63,7 @@ const ProductCard = ({ product, cardHeight }) => {
         </FavoriteImageContainer>
         <div className="product-info">
           <p>{product.name}</p>
-          <div className="flex justify-between items-center gap-3">
+          <div className="flex justify-between items-center gap-3 mt-1">
             <span>{`₤${product.price}`}</span>
             <div className="card-action">
               <button className="btn-success" onClick={addToCart}>
