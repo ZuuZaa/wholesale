@@ -46,7 +46,6 @@ const Footer = () => {
       const fetchedData = await fetchData();
       setSettings(fetchedData.settings[0]);
       setTotalQuantity(fetchedData.totalQuantity);
-      console.log(totalQuantity);
     }
 
     fetchDataAsync();

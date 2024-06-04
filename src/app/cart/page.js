@@ -10,6 +10,7 @@ import Loading from "@/components/loading";
 import "./cart.scss";
 import BasketCard from "@/components/cards/basket-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
+import searchIcon from "@/assets/icons/search.svg";
 
 let token = "";
 let session_id = "";
@@ -41,6 +42,8 @@ export default function Cart() {
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [carts, setCarts] = useState([]);
+  const [filteredCarts, setFilteredCarts] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
 
   const [data, setData] = useState({
     cart: [],
@@ -53,6 +56,17 @@ export default function Cart() {
   const updateTotalPrise = (price) => setTotalPrice(price);
 
   const updateCarts = (carts) => setCarts(carts);
+
+  const handleInputChange = (event) => {
+    setSearchKey(event.target.value.toLowerCase());
+  };
+
+  const handleSearch = () => {
+    const filteredCarts = carts?.filter((item) =>
+      item.productName.toLowerCase().includes(searchKey)
+    );
+    setFilteredCarts(filteredCarts);
+  };
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -386,15 +400,43 @@ export default function Cart() {
         <div className="cart-page--mobile">
           <MobilePageLayout title="My Basket">
             {carts.length > 0 ? (
-              <ul className="basket-list">
-                {carts.map((item) => (
-                  <BasketCard
-                    product={item}
-                    updateCarts={updateCarts}
-                    updateTotalPrise={updateTotalPrise}
+              <>
+                <div className="basket-search-box">
+                  <figure className="flex justify-center items-center">
+                    <Image
+                      src={searchIcon}
+                      width={15}
+                      height={15}
+                      alt="search"
+                    />
+                  </figure>
+                  <input
+                    type="text"
+                    placeholder="search in basket"
+                    value={searchKey}
+                    onChange={handleInputChange}
+                    onKeyDown={handleSearch}
                   />
-                ))}
-              </ul>
+                </div>
+
+                <ul className="basket-list">
+                  {searchKey
+                    ? filteredCarts.map((item) => (
+                        <BasketCard
+                          product={item}
+                          updateCarts={updateCarts}
+                          updateTotalPrise={updateTotalPrise}
+                        />
+                      ))
+                    : carts.map((item) => (
+                        <BasketCard
+                          product={item}
+                          updateCarts={updateCarts}
+                          updateTotalPrise={updateTotalPrise}
+                        />
+                      ))}
+                </ul>
+              </>
             ) : (
               <p className="text-center py-5">Your basket is empty.</p>
             )}
