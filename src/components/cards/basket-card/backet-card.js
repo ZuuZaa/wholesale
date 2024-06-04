@@ -119,7 +119,7 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
                 +
               </button>
             </div>
-            <span>{`₤ ${price}`}</span>
+            <span>{`₤${price}`}</span>
           </div>
         </div>
       </div>
