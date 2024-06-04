@@ -4,8 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
 import "./favorite-card.scss";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const FavoriteCard = ({ product, updateFavorites }) => {
+  const { setTotalQuantity } = useTotalQuantity();
+
   let token = "";
   let session_id = "";
   if (typeof localStorage !== "undefined") {
@@ -31,11 +34,10 @@ const FavoriteCard = ({ product, updateFavorites }) => {
           }),
         }
       );
-      // const data = await res.json();
-      // console.log(resJson.output);
-
-      // if (res.status === 200) {
-      // }
+      if (res.status === 200) {
+        const data = await res.json();
+        setTotalQuantity(data.output.totalQuantity);
+      }
     } catch (err) {
       console.log(err);
     }

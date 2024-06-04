@@ -11,12 +11,12 @@ import {
   UilComparison,
 } from "@iconscout/react-unicons";
 
-
 import UserImg from "../../../public/images/user.png";
 import Cartdropdown from "../layout/Cartdropdown";
 import { icons, navLinks } from "./constants";
 import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 let token = "";
 let session_id = "";
@@ -63,7 +63,7 @@ function Header() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
-
+  const { totalQuantity, setTotalQuantity } = useTotalQuantity();
 
   const isHomePage = pathname === "/";
   if (typeof window !== "undefined") {
@@ -83,7 +83,6 @@ function Header() {
   const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
   const [searchKey, setSearchKey] = useState("");
 
-
   const showSeachBox = () => setIsSearchBoxOpen(true);
   const hideSeachBox = () => setIsSearchBoxOpen(false);
 
@@ -92,20 +91,18 @@ function Header() {
       const data = await getHeader();
       setData(data);
       setSettings(data.header.settings[0]);
+      setTotalQuantity(data.header.totalQuantity);
     }
     fetchDataAsync();
   }, []);
 
-  const totalQuantity = data?.header?.totalQuantity;
+  // const totalQuantity = data?.header?.totalQuantity;
   const islogin = data?.isLogin;
 
-
-
   useEffect(() => {
-    setIsSearchBoxOpen(isSearchPage)
-    setSearchKey(search)
+    setIsSearchBoxOpen(isSearchPage);
+    setSearchKey(search);
   }, [isSearchPage]);
-
 
   let logout = async (event) => {
     const response = await fetch(

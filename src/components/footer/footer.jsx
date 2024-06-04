@@ -6,6 +6,7 @@ import Pcard from "../../../public/images/footer/Payment2.png";
 import "./footer.scss";
 import { footerLinks } from "./constants";
 import { usePathname } from "next/navigation";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 let token = "";
 let session_id = "";
@@ -34,8 +35,11 @@ async function fetchData() {
 
 const Footer = () => {
   const [settings, setSettings] = useState({});
-  const [totalQuantity, setTotalQuantity] = useState(0);
+    const { totalQuantity, setTotalQuantity } =
+      useTotalQuantity();
+
   const pathname = usePathname();
+
 
   useEffect(() => {
     async function fetchDataAsync() {

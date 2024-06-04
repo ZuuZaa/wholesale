@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { StyledProductCard } from "./product-card.styled";
 import FavoriteImageContainer from "@/components/favorite-icon/favorite-image-container";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const ProductCard = ({ product, cardHeight }) => {
+  const { setTotalQuantity } = useTotalQuantity();
   let token = "";
   let session_id = "";
   if (typeof localStorage !== "undefined") {
@@ -33,6 +35,10 @@ const ProductCard = ({ product, cardHeight }) => {
           }),
         }
       );
+      if (res.status === 200) {
+        const data = await res.json();
+        setTotalQuantity(data.output.totalQuantity);
+      }
     } catch (err) {
       console.log(err);
     }
