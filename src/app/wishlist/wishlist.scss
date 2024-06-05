@@ -5,6 +5,22 @@
         line-height: 13.86px;
     }
 
+    .wishlist-search-box {
+        display: grid;
+        grid-template-columns: 36px auto;
+        border: 0.4px solid #828282;
+        border-radius: 2px;
+        color: #828282;
+        background-color: #fff;
+
+        input {
+            height: 36px;
+            outline: none;
+            padding-left: 0;
+        }
+
+    }
+
 }
 
 @media screen and (max-width:768px) {

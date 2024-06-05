@@ -14,6 +14,7 @@ import chevron from "@/assets/icons/chevron-down.svg";
 import "./wishlist.scss";
 import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
+import searchIcon from "@/assets/icons/search.svg";
 
 const mainFunc = async () => {
   let status;
@@ -181,8 +182,18 @@ export default function Wishlist() {
   //mainFunc();
   const [isLoading, setIsLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
+  const [filteredCarts, setFilteredCarts] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
 
   const updateFavorites = (data) => setFavorites(data);
+
+  const handleInputChange = (event) => {
+    setSearchKey(event.target.value.toLowerCase());
+    const filteredCarts = favorites?.filter((item) =>
+      item.name.toLowerCase().includes(searchKey.trim())
+    );
+    setFilteredCarts(filteredCarts);
+  };
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -329,22 +340,39 @@ export default function Wishlist() {
         <div className="wishlist--mobile">
           <MobilePageLayout title="Wishlist">
             {favorites.length > 0 ? (
-              <div>
-                <div className="filter flex justify-end">
-                  <button className="flex gap-2 items-center">
-                    <span>Sort by</span>
-                    <Image src={chevron} alt="filter" />
-                  </button>
+              <>
+                <div className="wishlist-search-box">
+                  <figure className="flex justify-center items-center">
+                    <Image
+                      src={searchIcon}
+                      width={15}
+                      height={15}
+                      alt="search"
+                    />
+                  </figure>
+                  <input
+                    type="text"
+                    placeholder="search in favorites"
+                    value={searchKey}
+                    onChange={handleInputChange}
+                  />
                 </div>
                 <ul className="flex flex-col gap-2 py-2">
-                  {favorites.map((item) => (
-                    <FavoriteCard
-                      product={item}
-                      updateFavorites={updateFavorites}
-                    />
-                  ))}
+                  {searchKey
+                    ? filteredCarts.map((item) => (
+                        <FavoriteCard
+                          product={item}
+                          updateFavorites={updateFavorites}
+                        />
+                      ))
+                    : favorites.map((item) => (
+                        <FavoriteCard
+                          product={item}
+                          updateFavorites={updateFavorites}
+                        />
+                      ))}
                 </ul>
-              </div>
+              </>
             ) : (
               <p className="text-center py-5">There is no favorite product!</p>
             )}
