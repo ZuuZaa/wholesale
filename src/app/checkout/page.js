@@ -935,30 +935,43 @@ export default function Checkout() {
                   </div> */}
                   {userAddress.length > 0 ? (
                     <ul className="address-list">
-                      <li className="border-top py-2">
-                        <p className="flex items-center gap-2">
-                          <span className="disk active"></span>
-                          Home
-                        </p>
-                        <ul>
-                          {userAddress.map((address) => (
-                            <li key={address.id} className="pl-5 py-1">
-                              {address.adressLine2}
-                            </li>
-                          ))}
-                        </ul>
-                      </li>
-                      {/* <li className="border-top py-2">
-                        <p className="flex items-center gap-2">
-                          <span className="disk"></span>
-                          Office
-                        </p>
-                        <ul>
-                          <li className="pl-5 py-1">Address</li>
-                          <li className="pl-5 py-1">Address</li>
-                          <li className="pl-5 py-1">Address</li>
-                        </ul>
-                      </li> */}
+                      {userAddress.map((address) => {
+                        return (
+                          <div
+                            className="shipping-address-items p-5 border rounded-md my-6"
+                            style={{
+                              border:
+                                selectedShippingAddressOption == address.id
+                                  ? "2px solid #333"
+                                  : "1px solid #e5e7eb",
+                            }}
+                          >
+                            <div className="title flex gap-3 items-center">
+                              <input
+                                type="radio"
+                                id="shp-address-item-1"
+                                name="shippingaddressopt"
+                                value={address.id}
+                                checked={
+                                  selectedShippingAddressOption == address.id
+                                }
+                                onChange={handleShippingAddressOptionChange}
+                                className=""
+                              />
+                              <label htmlFor="shp-address-item-1">
+                                {address.title}
+                              </label>
+                            </div>
+                            <h6>{address.adressLine1}</h6>
+                            <h6>{address.adressLine2}</h6>
+                            <h6>
+                              {address.city}, {address.country}
+                            </h6>
+                            <h6>{address.phone}</h6>
+                            <h6>{address.postcode}</h6>
+                          </div>
+                        );
+                      })}
                     </ul>
                   ) : (
                     <p>No address data</p>
