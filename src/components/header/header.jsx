@@ -17,6 +17,7 @@ import { icons, navLinks } from "./constants";
 import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useTotalQuantity } from "@/context/total-quantity-context";
+import NotificationBox from "@/components/notifigation-box";
 
 let token = "";
 let session_id = "";
@@ -322,13 +323,7 @@ function Header() {
                 alt="help chat"
                 style={{ cursor: "pointer" }}
               /> */}
-              <Image
-                src={icons.bell}
-                width={25}
-                height={25}
-                alt="notification"
-                style={{ cursor: "pointer" }}
-              />
+              <NotificationBox />
             </div>
           </div>
           {isSearchBoxOpen && (

@@ -8,6 +8,7 @@ import { icons, infoLinks } from "./constans";
 import Link from "next/link";
 import Image from "next/image";
 import CardFrame from "@/components/cards/card-frame";
+import NotificationBox from "@/components/notifigation-box";
 
 export default function Profile() {
   const fetchData = async () => {
@@ -615,14 +616,7 @@ export default function Profile() {
               </div>
             </div>
             <div className="flex justify-center items-center">
-              <button>
-                <Image
-                  src={icons.bell}
-                  width={15}
-                  height={15}
-                  alt="notification"
-                />
-              </button>
+              <NotificationBox iconSize={15} />
             </div>
           </div>
         </CardFrame>
