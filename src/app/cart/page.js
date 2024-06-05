@@ -59,11 +59,8 @@ export default function Cart() {
 
   const handleInputChange = (event) => {
     setSearchKey(event.target.value.toLowerCase());
-  };
-
-  const handleSearch = () => {
     const filteredCarts = carts?.filter((item) =>
-      item.productName.toLowerCase().includes(searchKey)
+      item.productName.toLowerCase().includes(searchKey.trim())
     );
     setFilteredCarts(filteredCarts);
   };
@@ -415,7 +412,6 @@ export default function Cart() {
                     placeholder="search in basket"
                     value={searchKey}
                     onChange={handleInputChange}
-                    onKeyDown={handleSearch}
                   />
                 </div>
 
