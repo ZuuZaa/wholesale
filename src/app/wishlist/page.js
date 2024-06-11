@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   UilInfo,
   UilStar,
@@ -14,7 +13,7 @@ import chevron from "@/assets/icons/chevron-down.svg";
 import "./wishlist.scss";
 import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
-import searchIcon from "@/assets/icons/search.svg";
+import SearchBar from "@/components/search-bar";
 
 const mainFunc = async () => {
   let status;
@@ -189,11 +188,14 @@ export default function Wishlist() {
 
   const handleInputChange = (event) => {
     setSearchKey(event.target.value.toLowerCase());
+  };
+
+  useEffect(() => {
     const filteredCarts = favorites?.filter((item) =>
       item.name.toLowerCase().includes(searchKey.trim())
     );
     setFilteredCarts(filteredCarts);
-  };
+  }, [searchKey]);
 
   useEffect(() => {
     async function fetchDataAsync() {
@@ -341,22 +343,10 @@ export default function Wishlist() {
           <MobilePageLayout title="Wishlist">
             {favorites.length > 0 ? (
               <>
-                <div className="wishlist-search-box">
-                  <figure className="flex justify-center items-center">
-                    <Image
-                      src={searchIcon}
-                      width={15}
-                      height={15}
-                      alt="search"
-                    />
-                  </figure>
-                  <input
-                    type="text"
-                    placeholder="search in favorites"
-                    value={searchKey}
-                    onChange={handleInputChange}
-                  />
-                </div>
+                <SearchBar
+                  searchKey={searchKey}
+                  handleInputChange={handleInputChange}
+                />
                 <ul className="flex flex-col gap-2 py-2">
                   {searchKey
                     ? filteredCarts.map((item) => (

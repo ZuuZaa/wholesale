@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { UilTimesCircle } from "@iconscout/react-unicons";
 import CounterInput from "./CounterInput";
 import MethodModal from "./Method";
@@ -10,7 +9,7 @@ import Loading from "@/components/loading";
 import "./cart.scss";
 import BasketCard from "@/components/cards/basket-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
-import searchIcon from "@/assets/icons/search.svg";
+import SearchBar from "@/components/search-bar";
 
 let token = "";
 let session_id = "";
@@ -398,22 +397,10 @@ export default function Cart() {
           <MobilePageLayout title="My Basket">
             {carts.length > 0 ? (
               <>
-                <div className="basket-search-box">
-                  <figure className="flex justify-center items-center">
-                    <Image
-                      src={searchIcon}
-                      width={15}
-                      height={15}
-                      alt="search"
-                    />
-                  </figure>
-                  <input
-                    type="text"
-                    placeholder="search in basket"
-                    value={searchKey}
-                    onChange={handleInputChange}
-                  />
-                </div>
+                <SearchBar
+                  searchKey={searchKey}
+                  handleInputChange={handleInputChange}
+                />
 
                 <ul className="basket-list">
                   {searchKey

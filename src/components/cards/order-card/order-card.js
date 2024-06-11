@@ -17,13 +17,16 @@ const OrderCard = ({ order }) => {
     <div className="order-card">
       <div className="order-card-title flex justify-between items-center mb-3">
         <h3 className="order-id">ID:{order?.id}</h3>
-        <span className="order-status">{ORDER_STATUS[order?.status]?.name}</span>
+        <span className="order-status">
+          {ORDER_STATUS[order?.status]?.name}
+        </span>
       </div>
-      <h4 className="order-total">Total: ₤{order?.total}</h4>
-      <p>Credit: ₤{order?.credit}</p>
-      <p>{order?.addressLine1}</p>
-      <p>{dateFormat(order?.soldDate)}</p>
-
+      <div className="felx column gap-2">
+        <h4 className="order-total">Total: ₤{order?.total}</h4>
+        <p>Credit: ₤{order?.credit}</p>
+        <p>{order?.addressLine1}</p>
+        <p>{dateFormat(order?.soldDate)}</p>
+      </div>
       <Link className="details-link color-green" href="#">
         Details &#8811;
       </Link>
