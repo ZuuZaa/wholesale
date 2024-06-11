@@ -1,5 +1,6 @@
 import { CategoryTabs } from "@/components/tabs";
 import "./product-list-with-categories.scss";
+import { ProductList } from "./product-list";
 
 export const ProductListWithCategories = ({ products, categories, categoryId }) => {
   return (
