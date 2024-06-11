@@ -895,12 +895,12 @@ export default function Checkout() {
         <MobilePageLayout title="Checkout">
           <div className="card-container">
             <CardFrame>
-              <div className="card-title flex items-center gap-2 py-2">
+              <div className="checkout-card-title flex items-center gap-2 py-2">
                 <Image src={location} alt="delivery" />
                 <h3>Delivery</h3>
               </div>
               <div className="dropdown-container">
-                <div className="card-actions py-2 border-top">
+                <div className="checkout-card-actions py-2 checkout-border-top">
                   <button
                     className={
                       deliveryDropdownIsOpen
@@ -980,12 +980,12 @@ export default function Checkout() {
               </div>
             </CardFrame>
             <CardFrame>
-              <div className="card-title flex items-center gap-2 py-2">
+              <div className="checkout-card-title flex items-center gap-2 py-2">
                 <Image src={payment} alt="payment" />
                 <h3>Payment</h3>
               </div>
               <div className="dropdown-container">
-                <div className="card-actions py-2 border-top">
+                <div className="checkout-card-actions py-2 checkout-border-top">
                   <button
                     className={
                       paymentDropdownIsOpen
