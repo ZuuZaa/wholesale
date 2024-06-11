@@ -12,6 +12,7 @@ import ProductImg1 from  '../../../../../public/images/products/1.webp';
 
 
 
+
 export default function Account() {
     const pathname = useParams ();
     const id  = pathname.id;

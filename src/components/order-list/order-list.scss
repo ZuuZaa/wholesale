@@ -1,0 +1,5 @@
+.order-list {
+    li:not(:last-child) {
+        border-bottom: 0.6px solid #828282;
+    }
+}

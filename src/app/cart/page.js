@@ -441,11 +441,11 @@ export default function Cart() {
                 <h4 className="price-details__title">Price details</h4>
                 <div className="flex justify-between">
                   <span>Cart total</span>
-                  <span>{`₤ ${totalPrice}`}</span>
+                  <span>{`₤${totalPrice}`}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total payable</span>
-                  <span>{`₤ ${totalPrice}`}</span>
+                  <span>{`₤${totalPrice}`}</span>
                 </div>
               </div>
               <div className="basket-action px-4 py-3">

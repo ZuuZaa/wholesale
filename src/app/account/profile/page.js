@@ -631,7 +631,7 @@ export default function Profile() {
           </button>
         </div> */}
         <CardFrame>
-          {/*<ul className="main-links flex flex-col gap-3 pb-4">
+          <ul className="main-links flex flex-col gap-3 pb-4">
             <li>
               <Link href="/account/history">
                 <figure className="flex items-center gap-4">
@@ -640,16 +640,18 @@ export default function Profile() {
                 </figure>
               </Link>
             </li>
-             <li className="flex items-center gap-4">
-              <Image
-                src={icons.location}
-                width={22}
-                height={22}
-                alt="location"
-              />
-              <span>Saved address</span>
+            <li>
+              <figure className="flex items-center gap-4">
+                <Image
+                  src={icons.location}
+                  width={22}
+                  height={22}
+                  alt="location"
+                />
+                <figcaption>Saved address</figcaption>
+              </figure>
             </li>
-            <li className="flex items-center gap-4">
+            {/* <li className="flex items-center gap-4">
               <Image
                 src={icons.returnIcon}
                 width={22}
@@ -657,19 +659,19 @@ export default function Profile() {
                 alt="return"
               />
               <span>Return requests</span>
-            </li> 
-          </ul>*/}
-          {/* TODO: pt-4 classname */}
+            </li>  */}
+          </ul>
+          <button onClick={logout} className="sign-out-link pt-4 pl-9">
+            Sign out
+          </button>
+        </CardFrame>
+        <CardFrame>
           <ul className="flex flex-col gap-3 pl-9">
             {infoLinks.map((link) => (
               <li key={link.path}>
                 <Link href={`/${link.path}`}>{link.text}</Link>
               </li>
             ))}
-
-            <li onClick={logout} className="sign-out-link">
-              Sign out
-            </li>
           </ul>
         </CardFrame>
         {/* <div className="questions">
@@ -682,7 +684,7 @@ export default function Profile() {
                 alt="question"
               />
               <span>Frequently Asked Questions</span>
-            </li>
+            </li
             <li className="pl-12 py-3">My order status</li>
             <li className="pl-12 py-3">How to return items</li>
             <li className="pl-12 py-3">Delivery</li>

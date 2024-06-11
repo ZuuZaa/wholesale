@@ -1,0 +1,29 @@
+.order-tabs-container {
+    position: sticky;
+    top: 54px;
+    z-index: 4;
+    background-color: rgba(241, 241, 241, 0.8);
+
+    .swiper {
+        padding-block: 15px;
+    }
+
+    .swiper-slide {
+        width: min-content;
+        white-space: nowrap;
+
+        .order-tab {
+            font-size: 13px;
+            line-height: 16.38px;
+            border-radius: 9px;
+            background-color: #fff;
+            padding: 6px 40px;
+            border: 1px solid #4CCD99;
+
+            &:is(.active-tab) {
+                background-color: #4CCD99;
+                color: #fff;
+            }
+        }
+    }
+}

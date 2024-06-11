@@ -1,0 +1,25 @@
+.order-card {
+    position: relative;
+    font-size: 12px;
+    line-height: 15.12px;
+    font-weight: 400;
+    padding: 10px;
+
+    .order-id {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 18.9px;
+    }
+
+    .order-total {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 18.2px;
+    }
+
+    .details-link {
+        position: absolute;
+        right: 10px;
+        bottom: 13px;
+    }
+}

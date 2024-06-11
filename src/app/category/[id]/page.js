@@ -31,7 +31,7 @@ import "swiper/css/navigation";
 
 import "./category.scss";
 import Loading from "@/components/loading";
-import ProductListWithCategories from "@/components/product-list";
+import { ProductListWithCategories } from "@/components/product-list";
 
 function Icon({ id, open }) {
   return (

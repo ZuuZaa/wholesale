@@ -1,8 +1,7 @@
-import CategoryTabs from "./category-tabs";
-import { ProductList } from "./product-list";
+import { CategoryTabs } from "@/components/tabs";
 import "./product-list-with-categories.scss";
 
-const ProductListWithCategories = ({ products, categories, categoryId }) => {
+export const ProductListWithCategories = ({ products, categories, categoryId }) => {
   return (
     <div className="categories-products-container">
       {categories.length > 0 && (
@@ -12,5 +11,3 @@ const ProductListWithCategories = ({ products, categories, categoryId }) => {
     </div>
   );
 };
-
-export default ProductListWithCategories;

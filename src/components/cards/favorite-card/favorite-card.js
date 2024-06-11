@@ -88,7 +88,7 @@ const FavoriteCard = ({ product, updateFavorites }) => {
             </button>
           </div>
           <div className="card-action">
-            <span>{`₤ ${product.price}`}</span>
+            <span>{`₤${product.price}`}</span>
             <button className="success-outlined" onClick={addToCart}>
               Add to cart
             </button>

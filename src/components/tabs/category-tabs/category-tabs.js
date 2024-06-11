@@ -8,7 +8,9 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import Link from "next/link";
 
-const CategoryTabs = ({categories, categoryId}) => {
+import "./category-tabs.scss";
+
+export const CategoryTabs = ({categories, categoryId}) => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -40,5 +42,3 @@ const CategoryTabs = ({categories, categoryId}) => {
     </div>
   );
 };
-
-export default CategoryTabs;

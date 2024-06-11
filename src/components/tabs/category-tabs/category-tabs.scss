@@ -1,0 +1,28 @@
+.category-tabs-container {
+    position: sticky;
+    top: 54px;
+    z-index: 4;
+    background-color: #f1f1f1cc;
+
+    .swiper {
+        padding: 15px;
+    }
+
+    .swiper-slide {
+        width: min-content;
+        white-space: nowrap;
+
+        .category-tab {
+            font-size: 13px;
+            line-height: 16.38px;
+            border-radius: 9px;
+            background-color: #fff;
+            padding: 6px 8.5px;
+            border: 1px solid #4CCD99;
+
+            &:is(.active-tab) {
+                border: 1px solid #FF9EAA;
+            }
+        }
+    }
+}

@@ -2675,7 +2675,7 @@ export default function ProductDetail() {
                     </ul>
                     <span>{`${data.reviews.length} reviews`}</span>
                   </div>
-                  <p className="price">{`₤ ${data.products[0]?.price.toFixed(
+                  <p className="price">{`₤${data.products[0]?.price.toFixed(
                     2
                   )}`}</p>
                   <div className="actions">
