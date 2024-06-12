@@ -1,16 +1,8 @@
 import { ORDER_STATUS } from "@/constans";
 import Link from "next/link";
 import './order-card.scss';
+import { dateNormalizer } from "@/helpers";
 
-const dateFormat = (date) => {
-  const initialDate = new Date(date);
-  let day = initialDate.getDay();
-  day = day < 10 ? `0${day}` : day;
-  let month = initialDate.getMonth();
-  month = month < 10 ? `0${month}` : month;
-  const year = initialDate.getFullYear();
-  return `${day}/${month}/${year}`;
-};
 
 const OrderCard = ({ order }) => {
   return (
@@ -25,7 +17,7 @@ const OrderCard = ({ order }) => {
         <h4 className="order-total">Total: ₤{order?.total}</h4>
         <p>Credit: ₤{order?.credit}</p>
         <p>{order?.addressLine1}</p>
-        <p>{dateFormat(order?.soldDate)}</p>
+        <p>{dateNormalizer(order?.soldDate)}</p>
       </div>
       <Link className="details-link color-green" href={`history/${order.id}`}>
         Details &#8811;

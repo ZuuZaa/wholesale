@@ -1,0 +1,20 @@
+@media screen and (max-width:768px) {
+    .order-detail--desktop {
+        display: none;
+    }
+
+    .order-detail--mobile {
+        display: block;
+    }
+
+}
+
+@media screen and (min-width:769px) {
+    .order-detail--desktop {
+        display: block;
+    }
+
+    .order-detail--mobile {
+        display: none;
+    }
+}
