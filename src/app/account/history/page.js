@@ -42,6 +42,7 @@ const fetchData = async () => {
     const resp = await response.json();
     status = resp.status;
     fav_data = resp.output;
+    //return resp.output;
   };
 
   await fetchData();

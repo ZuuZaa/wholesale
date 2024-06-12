@@ -675,7 +675,7 @@ export default function Profile() {
                   {data.userAddress.length > 0 ? (
                     <ul className="address-list">
                       {data.userAddress.map((address) => (
-                        <div className="shipping-address-items  border rounded-md px-5 py-3 my-2">
+                        <div className="shipping-address-items border rounded-md px-5 py-3 my-2">
                           <h2>{address.title}</h2>
                           <h6>{address.adressLine1}</h6>
                           <h6>{address.adressLine2}</h6>

@@ -27,7 +27,7 @@ const OrderCard = ({ order }) => {
         <p>{order?.addressLine1}</p>
         <p>{dateFormat(order?.soldDate)}</p>
       </div>
-      <Link className="details-link color-green" href="#">
+      <Link className="details-link color-green" href={`history/${order.id}`}>
         Details &#8811;
       </Link>
     </div>
