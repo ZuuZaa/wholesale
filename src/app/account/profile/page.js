@@ -92,6 +92,11 @@ export default function Profile() {
     userOrders: [],
   });
 
+  const [addressDropdownIsOpen, setAddressDropdownIsOpen] = useState(false);
+
+  const handleSavedAddressClick = () => {
+    setAddressDropdownIsOpen(!addressDropdownIsOpen);
+  };
   useEffect(() => {
     async function fetchDataAsync() {
       try {
@@ -641,15 +646,52 @@ export default function Profile() {
               </Link>
             </li>
             <li>
-              <figure className="flex items-center gap-4">
-                <Image
-                  src={icons.location}
-                  width={22}
-                  height={22}
-                  alt="location"
-                />
-                <figcaption>Saved address</figcaption>
-              </figure>
+              <div className="dropdown-container">
+                <figure className="flex items-center gap-4">
+                  <Image
+                    src={icons.location}
+                    width={22}
+                    height={22}
+                    alt="location"
+                  />
+                  <figcaption>
+                    <button onClick={handleSavedAddressClick}>
+                      Saved address
+                    </button>
+                  </figcaption>
+                </figure>
+
+                <div
+                  className={
+                    addressDropdownIsOpen
+                      ? "dropdown-content open"
+                      : "dropdown-content"
+                  }
+                >
+                  {/* <div className="add-address flex justify-between py-2 border-top">
+                    <p>Shipping address</p>
+                    <button>+</button>
+                  </div> */}
+                  {data.userAddress.length > 0 ? (
+                    <ul className="address-list">
+                      {data.userAddress.map((address) => (
+                        <div className="shipping-address-items  border rounded-md px-5 py-3 my-2">
+                          <h2>{address.title}</h2>
+                          <h6>{address.adressLine1}</h6>
+                          <h6>{address.adressLine2}</h6>
+                          <h6>
+                            {address.city}, {address.country}
+                          </h6>
+                          <h6>{address.phone}</h6>
+                          <h6>{address.postcode}</h6>
+                        </div>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="px-3 py-1 text-center">No address data.</p>
+                  )}
+                </div>
+              </div>
             </li>
             {/* <li className="flex items-center gap-4">
               <Image
