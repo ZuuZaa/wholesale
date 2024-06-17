@@ -261,7 +261,9 @@ export default function History() {
             tabClickHandle={tabClickHandle}
             activeStatus={activeStatus}
           />
-          <OrderList orders={filteredByStatusOrders} />
+          <div className="py-3">
+            <OrderList orders={filteredByStatusOrders} />
+          </div>
         </MobilePageLayout>
       </div>
     </main>

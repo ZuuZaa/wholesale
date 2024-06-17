@@ -1,3 +1,15 @@
+.order-products {
+    figure {
+        width: 55px;
+        height: 70px;
+        background-color: #d9d9d9;
+    }
+
+    li:not(:last-child) {
+        border-bottom: 0.6px solid #828282;
+    }
+}
+
 @media screen and (max-width:768px) {
     .order-detail--desktop {
         display: none;
@@ -6,7 +18,6 @@
     .order-detail--mobile {
         display: block;
     }
-
 }
 
 @media screen and (min-width:769px) {

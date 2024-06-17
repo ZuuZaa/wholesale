@@ -8,7 +8,10 @@ export const ProductListWithCategories = ({ products, categories, categoryId }) 
       {categories.length > 0 && (
         <CategoryTabs categories={categories} categoryId={categoryId} />
       )}
-      <ProductList products={products} />
+      <ProductList
+        products={products}
+        errorText="There is no product in this category."
+      />
     </div>
   );
 };

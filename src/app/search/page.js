@@ -23,7 +23,7 @@ import {
 
 import "./search.scss";
 import Loading from "@/components/loading";
-import ProductListWithCategories from "@/components/product-list";
+import { ProductList } from "@/components/product-list";
 
 function Icon({ id, open }) {
   return (
@@ -78,7 +78,7 @@ async function fetchData() {
   return data.output;
 }
 
-export default function Search() {
+const Search = () => {
   const [open, setOpen] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -1368,14 +1368,14 @@ export default function Search() {
         <Loading />
       ) : (
         <div className="search-page--mobile">
-          <ProductListWithCategories
-            categoryId={null}
-            breadcrumbPath={"search"}
-            categories={[]}
-            products={products}
-          />
+          <div className="pt-20 pb-10">
+            <ProductList products={products} />
+          </div>
         </div>
       )}
     </main>
   );
 }
+
+
+export default Search;

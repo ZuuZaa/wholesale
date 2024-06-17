@@ -6,7 +6,7 @@ const MobilePageLayout = ({title, children}) => {
       <div className="page-header">
         <h2>{title}</h2>
       </div>
-      {children}
+      <div className="py-2">{children}</div>
     </div>
   );
 }

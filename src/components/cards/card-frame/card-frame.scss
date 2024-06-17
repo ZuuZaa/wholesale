@@ -5,4 +5,14 @@
     box-shadow: 0px 2px 4px 0px #00000040;
     font-size: 14px;
     line-height: 17.64px;
+
+    .card-title {
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 20.16px;
+        text-transform: capitalize;
+        padding-bottom: 10px;
+        margin-bottom: 8px;
+        border-bottom: 0.6px solid #828282;
+    }
 }

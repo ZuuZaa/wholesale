@@ -893,7 +893,7 @@ export default function Checkout() {
       </div>
       <div className="checkout-page--mobile">
         <MobilePageLayout title="Checkout">
-          <div className="card-container">
+          <div className="flex flex-col gap-3">
             <CardFrame>
               <div className="checkout-card-title flex items-center gap-2 py-2">
                 <Image src={location} alt="delivery" />

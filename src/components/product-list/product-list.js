@@ -1,7 +1,7 @@
 import ProductCard from "@/components/cards/product-card";
 import "./product-list.scss";
 
-export const ProductList = ({ products }) => {
+export const ProductList = ({ products, errorText = "Product not found." }) => {
   return (
     <>
       {products.length > 0 ? (
@@ -12,7 +12,7 @@ export const ProductList = ({ products }) => {
         </div>
       ) : (
         <p className="text-center py-5">
-          There is no product in this category.
+          {errorText}
         </p>
       )}
     </>
