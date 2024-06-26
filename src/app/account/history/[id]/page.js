@@ -297,14 +297,20 @@ export default function Account() {
               </CardFrame>
               <CardFrame>
                 <ul className="order-products">
-                  {userOrders?.map((order) => (
+                  {orderProducts?.map((order) => (
                     <li key={order.id}>
                       <div className="flex gap-3 items-center py-2">
                         <figure>
-                          <img src="" alt="order" />
+                          <img
+                            src={order.productImage}
+                            onError={(e) =>
+                              order.catImage && (e.target.src = order.catImage)
+                            }
+                            alt="order"
+                          />
                         </figure>
                         <div className="grow flex flex-col justify-between">
-                          <h3>{order.shippingName}</h3>
+                          <h3>{order.productName}</h3>
                           <p>
                             {`Status: ${ORDER_STATUS[order.status].name}`}{" "}
                             &#9432;
@@ -312,7 +318,7 @@ export default function Account() {
                           <div className="flex justify-between">
                             <p className="flex gap-2">
                               <span>{`Quantity: ${order.quantity}`}</span>
-                              <span>{`Price: ₤${order.amount}`}</span>
+                              <span>{`Price: ₤${order.price}`}</span>
                             </p>
                             <b>{`₤${order.total}`}</b>
                           </div>
