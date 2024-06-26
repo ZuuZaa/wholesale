@@ -425,7 +425,6 @@ export default function Cart() {
             )}
             <section className="basket-footer total-bottom">
               <div className="price-details">
-                <h4 className="price-details__title">Price details</h4>
                 <div className="flex justify-between">
                   <span>Cart total</span>
                   <span>{`₤${totalPrice}`}</span>

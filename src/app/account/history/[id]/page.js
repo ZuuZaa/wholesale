@@ -20,12 +20,14 @@ import CardFrame from "@/components/cards/card-frame";
 
 import "./order-detail.scss";
 import { dateNormalizer } from "@/helpers";
-import { PAYMENT_TYPE, SHIPPING_TYPE } from "@/constans";
+import { ORDER_STATUS, PAYMENT_TYPE, SHIPPING_TYPE } from "@/constans";
+import Loading from "@/components/loading";
 
 export default function Account() {
   const pathname = useParams();
   const id = pathname.id;
   const params = new URLSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
   params.append("Id", id);
   const mainFunc = async () => {
     let status;
@@ -114,11 +116,11 @@ export default function Account() {
     async function fetchDataAsync() {
       const fetchedData = await mainFunc();
       setData(fetchedData);
+      setIsLoading(false);
     }
     fetchDataAsync();
   }, []);
 
-  console.log(data);
   const userOrders = data.userOrders;
   const orderDetails = data.orderDetails;
   const details = orderDetails[0];
@@ -266,110 +268,88 @@ export default function Account() {
           </div>
         </section>
       </div>
-      <div className="order-detail--mobile">
-        <MobilePageLayout title="Order details">
-          <div className="flex flex-col gap-3">
-            <CardFrame>
-              <div className="order-details-card flex flex-col gap-2 p-1">
-                <div className="flex justify-between">
-                  <span>Order No</span>
-                  <b>{`#${details?.id}`}</b>
-                </div>
-                <div className="flex justify-between">
-                  <span>Order Date</span>
-                  <b>{dateNormalizer(details?.soldDate)}</b>
-                </div>
-                <div className="flex justify-between">
-                  <span>Payment Type</span>
-                  <b>{PAYMENT_TYPE[details?.paymentType]?.name}</b>
-                </div>
-                <div className="flex justify-between">
-                  <span>Shipping Type</span>
-                  <b>{SHIPPING_TYPE[details?.shippingType]?.name}</b>
-                </div>
-              </div>
-            </CardFrame>
-            <CardFrame title="Products">
-              <ul className="order-products">
-                <li>
-                  <div className="flex gap-3 items-center py-2">
-                    <figure>
-                      <img src="" alt="order" />
-                    </figure>
-                    <div className="grow flex flex-col justify-between">
-                      <h3>Product name product name product name </h3>
-                      <p>Status: Original &#9432;</p>
-                      <div className="flex justify-between">
-                        <p className="flex gap-2">
-                          <span>Quantity: 1</span>
-                          <span>Price: ₤10.99</span>
-                        </p>
-                        <b>₤10.99</b>
-                      </div>
-                    </div>
+
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="order-detail--mobile">
+          <MobilePageLayout title="Order details">
+            <div className="flex flex-col gap-3">
+              <CardFrame>
+                <div className="order-details-card flex flex-col gap-2 p-1">
+                  <div className="flex justify-between">
+                    <span>Order No</span>
+                    <b>{`#${details?.id}`}</b>
                   </div>
-                </li>
-                <li>
-                  <div className="flex gap-3 items-center py-2">
-                    <figure>
-                      <img src="" alt="order" />
-                    </figure>
-                    <div className="grow flex flex-col justify-between">
-                      <h3>Product name product name product name </h3>
-                      <p>Status: Original &#9432;</p>
-                      <div className="flex justify-between">
-                        <p className="flex gap-2">
-                          <span>Quantity: 1</span>
-                          <span>Price: ₤10.99</span>
-                        </p>
-                        <b>₤10.99</b>
-                      </div>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>Order Date</span>
+                    <b>{dateNormalizer(details?.soldDate)}</b>
                   </div>
-                </li>
-                <li>
-                  <div className="flex gap-3 items-center py-2">
-                    <figure>
-                      <img src="" alt="order" />
-                    </figure>
-                    <div className="grow flex flex-col justify-between">
-                      <h3>Product name product name product name </h3>
-                      <p>Status: Original &#9432;</p>
-                      <div className="flex justify-between">
-                        <p className="flex gap-2">
-                          <span>Quantity: 1</span>
-                          <span>Price: ₤10.99</span>
-                        </p>
-                        <b>₤10.99</b>
-                      </div>
-                    </div>
+                  <div className="flex justify-between">
+                    <span>Payment Type</span>
+                    <b>{PAYMENT_TYPE[details?.paymentType]?.name}</b>
                   </div>
-                </li>
-              </ul>
-            </CardFrame>
-            <CardFrame title="Payment Information">
-              <div className="flex flex-col gap-2 p-1">
-                <div className="flex justify-between">
-                  <span>Delivery Fee</span>
-                  <b>{`₤${details?.deliveryFee}`}</b>
+                  <div className="flex justify-between">
+                    <span>Shipping Type</span>
+                    <b>{SHIPPING_TYPE[details?.shippingType]?.name}</b>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Discount</span>
-                  <b>{`₤${details?.discount}`}</b>
+              </CardFrame>
+              <CardFrame>
+                <ul className="order-products">
+                  {userOrders?.map((order) => (
+                    <li key={order.id}>
+                      <div className="flex gap-3 items-center py-2">
+                        <figure>
+                          <img src="" alt="order" />
+                        </figure>
+                        <div className="grow flex flex-col justify-between">
+                          <h3>{order.shippingName}</h3>
+                          <p>
+                            {`Status: ${ORDER_STATUS[order.status].name}`}{" "}
+                            &#9432;
+                          </p>
+                          <div className="flex justify-between">
+                            <p className="flex gap-2">
+                              <span>{`Quantity: ${order.quantity}`}</span>
+                              <span>{`Price: ₤${order.amount}`}</span>
+                            </p>
+                            <b>{`₤${order.total}`}</b>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </CardFrame>
+              <CardFrame>
+                <div className="flex flex-col gap-2 p-1">
+                  <div className="flex justify-between">
+                    <span>Subtotal</span>
+                    <b>{`₤${details?.amount}`}</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery Fee</span>
+                    <b>{`₤${details?.amount}`}</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Discount</span>
+                    <b>{`₤${details?.discount}`}</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>VAT</span>
+                    <b>{`₤${details?.vat}`}</b>
+                  </div>
+                  <div className="flex justify-between">
+                    <b>Total</b>
+                    <b className="color-green">{`₤${details?.total}`}</b>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span>VAT</span>
-                  <b>{`₤${details?.vat}`}</b>
-                </div>
-                <div className="flex justify-between">
-                  <b>Total</b>
-                  <b className="color-green">{`₤${details?.total}`}</b>
-                </div>
-              </div>
-            </CardFrame>
-          </div>
-        </MobilePageLayout>
-      </div>
+              </CardFrame>
+            </div>
+          </MobilePageLayout>
+        </div>
+      )}
     </main>
   );
 }

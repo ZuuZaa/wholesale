@@ -2,19 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  UilSearch,
-  UilCalender,
-  UilCommentAltLines,
-  UilArrowRight,
-  UilArrowLeft,
-} from "@iconscout/react-unicons";
 import Menu from "../menu";
 import { Card, Typography } from "@material-tailwind/react";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import "./orders.scss";
-import OrderCard from "@/components/cards/order-card";
 import { OrderTabs } from "@/components/tabs";
 import OrderList from "@/components/order-list/order-list";
 
