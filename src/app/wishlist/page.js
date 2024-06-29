@@ -14,6 +14,7 @@ import "./wishlist.scss";
 import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import SearchBar from "@/components/search-bar";
+import Pagination from "@/components/pagination";
 
 const mainFunc = async () => {
   let status;
@@ -183,6 +184,21 @@ export default function Wishlist() {
   const [favorites, setFavorites] = useState([]);
   const [filteredCarts, setFilteredCarts] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
+  const [currentFavorites, setCurrentFavorites] = useState([]);
+  
+
+  const itemsPerPage = 10;
+
+  const setPages = (page) => {
+    setActivePage(page);
+    const pagedItems = favorites.slice(
+      (activePage - 1) * itemsPerPage,
+      activePage * itemsPerPage
+    );
+    setCurrentFavorites(pagedItems);
+  };
 
   const updateFavorites = (data) => setFavorites(data);
 
@@ -195,6 +211,8 @@ export default function Wishlist() {
       item.name.toLowerCase().includes(searchKey.trim())
     );
     setFilteredCarts(filteredCarts);
+        setTotalPages(Math.ceil(filteredCarts.length / itemsPerPage));
+
   }, [searchKey]);
 
   useEffect(() => {
@@ -205,6 +223,16 @@ export default function Wishlist() {
     }
     fetchDataAsync();
   }, []);
+
+  useEffect(() => {
+    const pagedItems = favorites.slice(
+      (activePage - 1) * itemsPerPage,
+      activePage * itemsPerPage
+    );
+    setCurrentFavorites(pagedItems);
+    setTotalPages(Math.ceil(favorites.length / itemsPerPage));
+
+  }, [favorites]);
 
   return (
     <main>
@@ -355,13 +383,20 @@ export default function Wishlist() {
                           updateFavorites={updateFavorites}
                         />
                       ))
-                    : favorites.map((item) => (
+                    : currentFavorites.map((item) => (
                         <FavoriteCard
                           product={item}
                           updateFavorites={updateFavorites}
                         />
                       ))}
                 </ul>
+                {totalPages > 1 && (
+                  <Pagination
+                    totalPages={totalPages}
+                    activePage={activePage}
+                    setPages={setPages}
+                  />
+                )}
               </>
             ) : (
               <p className="text-center py-5">There is no favorite product!</p>
