@@ -2,19 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import {
-  UilSearch,
-  UilCalender,
-  UilCommentAltLines,
-  UilArrowRight,
-  UilArrowLeft,
-} from "@iconscout/react-unicons";
 import Menu from "../../menu";
-import { Card, Typography } from "@material-tailwind/react";
-
-import ProductImg1 from "../../../../../public/images/products/1.webp";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import CardFrame from "@/components/cards/card-frame";
 
@@ -22,6 +10,7 @@ import "./order-detail.scss";
 import { dateNormalizer } from "@/helpers";
 import { ORDER_STATUS, PAYMENT_TYPE, SHIPPING_TYPE } from "@/constans";
 import Loading from "@/components/loading";
+import BottomFixedCard from "@/components/cards/bottom-fixed-card";
 
 export default function Account() {
   const pathname = useParams();
@@ -273,7 +262,10 @@ export default function Account() {
         <Loading />
       ) : (
         <div className="order-detail--mobile">
-          <MobilePageLayout title="Order details">
+          <MobilePageLayout
+            title="Order details"
+            enableTitleFixedPosition={true}
+          >
             <div className="flex flex-col gap-3">
               <CardFrame>
                 <div className="order-details-card flex flex-col gap-2 p-1">
@@ -328,30 +320,32 @@ export default function Account() {
                   ))}
                 </ul>
               </CardFrame>
-              <CardFrame>
-                <div className="flex flex-col gap-2 p-1">
-                  <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <b>{`₤${details?.amount}`}</b>
+              <BottomFixedCard>
+                <CardFrame>
+                  <div className="flex flex-col gap-2 p-1">
+                    <div className="flex justify-between">
+                      <span>Subtotal</span>
+                      <b>{`₤${details?.amount}`}</b>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Delivery Fee</span>
+                      <b>{`₤${details?.amount}`}</b>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Discount</span>
+                      <b>{`₤${details?.discount}`}</b>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>VAT</span>
+                      <b>{`₤${details?.vat}`}</b>
+                    </div>
+                    <div className="flex justify-between">
+                      <b>Total</b>
+                      <b className="color-green">{`₤${details?.total}`}</b>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span>Delivery Fee</span>
-                    <b>{`₤${details?.amount}`}</b>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Discount</span>
-                    <b>{`₤${details?.discount}`}</b>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>VAT</span>
-                    <b>{`₤${details?.vat}`}</b>
-                  </div>
-                  <div className="flex justify-between">
-                    <b>Total</b>
-                    <b className="color-green">{`₤${details?.total}`}</b>
-                  </div>
-                </div>
-              </CardFrame>
+                </CardFrame>
+              </BottomFixedCard>
             </div>
           </MobilePageLayout>
         </div>

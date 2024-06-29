@@ -1,14 +1,18 @@
-import './mobile-page-layout.scss';
+import { StyledMobilePageLayout } from "./mobile-page-layout.style";
 
-const MobilePageLayout = ({title, children}) => {
+const MobilePageLayout = ({
+  title,
+  children,
+  enableTitleFixedPosition = false,
+}) => {
   return (
-    <div className="mobile-page-layout">
+    <StyledMobilePageLayout enableTitleFixedPosition={enableTitleFixedPosition}>
       <div className="page-header">
         <h2>{title}</h2>
       </div>
       <div className="py-2">{children}</div>
-    </div>
+    </StyledMobilePageLayout>
   );
-}
+};
 
 export default MobilePageLayout;
