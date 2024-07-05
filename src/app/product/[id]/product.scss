@@ -220,7 +220,7 @@
 }
 
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:1024px) {
     .product--desktop {
         display: none;
     }
@@ -231,7 +231,7 @@
 
 }
 
-@media screen and (min-width:769px) {
+@media screen and (min-width:1025px) {
     .product--desktop {
         display: block;
     }

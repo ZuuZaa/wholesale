@@ -82,7 +82,7 @@
 
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:1024px) {
     .login--desktop {
         display: none;
     }
@@ -92,7 +92,7 @@
     }
 }
 
-@media screen and (min-width:769px) {
+@media screen and (min-width:1025px) {
     .login--desktop {
         display: block;
     }

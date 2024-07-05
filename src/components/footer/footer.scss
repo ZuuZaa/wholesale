@@ -37,27 +37,3 @@
             }
         }
     }
-
-    @media screen and (max-width:768px) {
-        .footer--desktop {
-            display: none;
-        }
-
-        .footer--mobile {
-            display: block;
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            left: 0;
-        }
-    }
-
-    @media screen and (min-width:769px) {
-        .footer--desktop {
-            display: block;
-        }
-
-        .footer--mobile {
-            display: none;
-        }
-    }

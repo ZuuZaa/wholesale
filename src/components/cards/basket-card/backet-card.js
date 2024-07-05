@@ -91,6 +91,8 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
     }
   };
 
+
+  console.log(product)
   return (
     <li key={product.id}>
       <div className="basket-card">

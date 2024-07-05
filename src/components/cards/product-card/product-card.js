@@ -44,9 +44,11 @@ const ProductCard = ({ product, cardHeight }) => {
     }
   };
 
+  console.log(product)
+
   return (
     <Link
-      href={`/product/${product.productId}`}
+      href={`/product/${product.id}`}
       key={product.id}
       passHref={true}
     >

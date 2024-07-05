@@ -402,24 +402,6 @@ li.nav-item.dropdown > a::after {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .header--desktop {
-    display: none;
-  }
-
-  .header--mobile {
-    display: block;
-  }
-}
-
-@media screen and (min-width: 769px) {
-  .header--desktop {
-    display: block;
-  }
-  .header--mobile {
-    display: none;
-  }
-}
 /* Footer */
 footer {
   font-family: CerebriSansRegular;

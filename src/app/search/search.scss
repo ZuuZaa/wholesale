@@ -1,24 +1,6 @@
-@media screen and (max-width:768px) {
-    .search-page--desktop {
-        display: none;
-    }
+.search-page--mobile {
 
-    .search-page--mobile {
-        display: block;
-
-        .categories-products-container {
-            padding-top: 85px;
-        }
-    }
-
-}
-
-@media screen and (min-width:769px) {
-    .search-page--desktop {
-        display: block;
-    }
-
-    .search-page--mobile {
-        display: none;
+    .categories-products-container {
+        padding-top: 85px;
     }
 }

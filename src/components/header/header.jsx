@@ -2,18 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import Link from "next/link";
 import Image from "next/image";
-import {
-  UilHeart,
-  UilSearch,
-  UilShoppingBag,
-  UilComparison,
-} from "@iconscout/react-unicons";
 
-import UserImg from "../../../public/images/user.png";
-import Cartdropdown from "../layout/Cartdropdown";
-import { icons, navLinks } from "./constants";
+import { icons } from "./constants";
 import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useTotalQuantity } from "@/context/total-quantity-context";
@@ -105,42 +96,6 @@ function Header() {
     setSearchKey(search);
   }, [isSearchPage]);
 
-  let logout = async (event) => {
-    const response = await fetch(
-      "https://api.wscshop.co.uk/api/account/logout",
-      {
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    if (response.status == 200 && typeof localStorage !== "undefined") {
-      localStorage.removeItem("jwtToken");
-      localStorage.removeItem("refreshToken");
-      if (typeof window !== "undefined") {
-        window.location.href = "/login";
-      }
-    }
-  };
-
-  let searchClick = async (event) => {
-    const searchWord = event.currentTarget.previousSibling.value;
-    if (typeof window !== "undefined") {
-      window.location.href = "/search?search=" + searchWord;
-    }
-  };
-  let searchEnter = async (event) => {
-    if (event.key === "Enter") {
-      const searchWord = event.currentTarget.value;
-      if (typeof window !== "undefined") {
-        window.location.href = "/search?search=" + searchWord;
-      }
-    }
-  };
-
   const handleInputChange = (event) => {
     setSearchKey(event.target.value);
   };
@@ -158,133 +113,6 @@ function Header() {
   return (
     <div>
       <header className="header">
-        <div className="header--desktop">
-          <div className="frd-container mx-auto">
-            <div className="header-section-1 hidden lg:block">
-              <div className="frd-container mx-auto">
-                <div className="flex justify-between py-2 items-center">
-                  <div className="header-sec1-left">
-                    <ul className="flex">
-                      <li>{settings.phone}</li>
-                      <li>{settings.email}</li>
-                    </ul>
-                  </div>
-                  <div className="header-sec1-right">
-                    {!!islogin ? (
-                      <ul className="flex">
-                        <li className="header-user-list flex items-center gap-1 relative cursor-pointer">
-                          My Account
-                          <Image
-                            src={UserImg}
-                            width={30}
-                            height={30}
-                            className="header-user-img rounded-full ml-2"
-                            alt="User Img"
-                          />
-                          <ul className="header-user-dropdown absolute top-full right-0 bg-white py-5 px-4">
-                            <Link href="/account/profile">Profile</Link>
-                            <Link href="/account/history">My Orders</Link>
-                            <Link href="#" onClick={logout}>
-                              Log Out
-                            </Link>
-                          </ul>
-                        </li>
-                      </ul>
-                    ) : (
-                      <ul className="flex">
-                        <li>
-                          <Link href="/login">Login/Sign Up</Link>
-                        </li>
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="header-section-2">
-              <div className="frd-container mx-auto">
-                <div className="flex justify-between items-center py-2">
-                  <div className="logo">
-                    <Link className="nav-link" href={"/"}>
-                      <img
-                        src={settings.logo}
-                        width={180}
-                        className="header-logo"
-                      ></img>
-                    </Link>
-                  </div>
-                  <div className="nav hidden lg:block">
-                    <ul className="header-nav-ul flex items-center mb-0 pl-0">
-                      {navLinks.map(
-                        (link) =>
-                          (link.isDefault || !!settings[link.name]) && (
-                            <li className="nav-item" key={link.id}>
-                              <Link className="nav-link" href={link.path}>
-                                {link.text}
-                              </Link>
-                            </li>
-                          )
-                      )}
-                    </ul>
-                  </div>
-                  <div className="extra flex gap-5 md:gap-6">
-                    <div className="relative header-search-btn">
-                      <UilSearch size="28" color="#333333" />
-                      <div
-                        className="search-input-wrap absolute top-full -right-3 z-10 flex items-center justify-center rounded overflow-hidden w-64 p-1 invisible"
-                        style={{ top: "35px" }}
-                      >
-                        <input
-                          type="text"
-                          className="h-10 py-1 px-3 outline-none"
-                          placeholder="Search..."
-                          onKeyDown={searchEnter}
-                        />
-                        <button
-                          type="button"
-                          className="w-7"
-                          onClick={searchClick}
-                        >
-                          <UilSearch size="20" color="#222" />
-                        </button>
-                      </div>
-                    </div>
-                    <Link href={"/wishlist"}>
-                      <UilHeart size="28" color="#333333" />{" "}
-                    </Link>
-                    {totalQuantity > 0 ? (
-                      <div className="relative">
-                        <UilShoppingBag size="28" color="#333333" />
-                        <div
-                          className="absolute cart-item-count inline-flex items-center justify-center rounded-full text-white text-xs font-semibold"
-                          id="cart_quantity"
-                        >
-                          {totalQuantity}
-                        </div>
-                        <Cartdropdown />
-                      </div>
-                    ) : (
-                      <div className="relative">
-                        <UilShoppingBag size="28" color="#333333" />
-                        <div
-                          style={{ display: "none" }}
-                          className="absolute cart-item-count inline-flex items-center justify-center rounded-full text-white text-xs font-semibold"
-                          id="cart_quantity"
-                        >
-                          {totalQuantity}
-                        </div>
-                        <Cartdropdown />
-                      </div>
-                    )}
-                    <Link href={"/compare"}>
-                      <UilComparison size="24" color="#333333" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="header--mobile">
           <div className="flex justify-between items-center py-2 px-5">
             <div className="flex gap-3 items-center ">
