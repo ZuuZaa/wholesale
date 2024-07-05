@@ -2647,7 +2647,11 @@ export default function ProductDetail() {
               <section className="product-main-info">
                 <figure className="product-main-image">
                   <img
-                    src={data.products[0]?.catImage}
+                    src={data.products[0]?.mainImage}
+                    onError={(e) =>
+                      data.products[0]?.catImage &&
+                      (e.target.src = data.products[0]?.catImage)
+                    }
                     alt={data.products[0]?.name}
                   />
                 </figure>
