@@ -2,9 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
-import "./orders.scss";
-import { StatusTabs } from "@/components/tabs/status-tabs/status-tabs";
 import { OrderList } from "@/components/lists/order-list";
+import { StatusTabs } from "@/components/tabs";
 
 const fetchData = async () => {
   let status;

@@ -1,9 +1,8 @@
 "use client";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
-import "./statement.scss";
 import { useEffect, useState } from "react";
-import { StatusTabs } from "@/components/tabs/status-tabs/status-tabs";
 import { StatementList } from "@/components/lists";
+import { StatusTabs } from "@/components/tabs";
 
 const Statement = () => {
   const [data, setData] = useState({
@@ -44,7 +43,9 @@ const Statement = () => {
   });
 
   const [activeStatus, setActiveStatus] = useState(0);
-  const [filteredByStatusStatements, setFilteredByStatusStatements] = useState([]);
+  const [filteredByStatusStatements, setFilteredByStatusStatements] = useState(
+    []
+  );
   const tabClickHandle = (status) => {
     setActiveStatus(status);
   };
