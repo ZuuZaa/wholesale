@@ -1,20 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import {
-  UilInfo,
-  UilStar,
-  UilHeart,
-  UilComparison,
-  UilTimesCircle,
-} from "@iconscout/react-unicons";
 import Loading from "@/components/loading";
-import chevron from "@/assets/icons/chevron-down.svg";
-import "./wishlist.scss";
 import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import SearchBar from "@/components/search-bar";
-import Pagination from "@/components/pagination";
 
 const mainFunc = async () => {
   let status;
@@ -225,138 +214,10 @@ export default function Wishlist() {
 
   return (
     <main>
-      <div className="wishlist--desktop">
-        {/* Breadcrumb */}
-        <div className="breadcrumb-wrapper py-12">
-          <div className="custom-container mx-auto">
-            <div className="flex" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                <li className="inline-flex items-center">
-                  <a
-                    href="/"
-                    className="inline-flex items-center text-sm font-medium"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <div className="flex items-center">
-                    <span className="ms-1 text-sm font-medium md:ms-2">
-                      Wishlist
-                    </span>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        {/* Wishlist  Section */}
-        <section className="wishlist-main-section mt-5 pt-16">
-          <div className="custom-container mx-auto" id="favorites_div">
-            {favorites.length > 0 ? (
-              <div className="wishlist-items-wrapper grid-cols-1 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-5">
-                {favorites.map((product) => {
-                  const items = [];
-
-                  for (let i = 1; i <= 5; i++) {
-                    if (product.starCount >= i) {
-                      items.push(<UilStar size="18" color="red" />);
-                    } else {
-                      items.push(<UilStar size="18" color="#ffc400" />);
-                    }
-                  }
-
-                  const images = [];
-                  images.push(
-                    <img
-                      src={product.mainImage}
-                      width="300"
-                      height="400"
-                      class="latest-product-swiper-item-img object-cover w-full h-full"
-                      alt={product.name}
-                    ></img>
-                  );
-                  if (product.secondImage == null) {
-                    images.push(
-                      <img
-                        src={product.mainImage}
-                        width="300"
-                        height="400"
-                        class="latest-product-swiper-item-img object-cover w-full h-full"
-                        alt={product.name}
-                      ></img>
-                    );
-                  } else {
-                    images.push(
-                      <img
-                        src={product.secondImage}
-                        width="300"
-                        height="400"
-                        class="latest-product-swiper-item-img object-cover w-full h-full"
-                        alt={product.name}
-                      ></img>
-                    );
-                  }
-                  return (
-                    <div className="zoom-img wishlist-wrapper-item mb-12 pb-5 relative">
-                      <div className="wishlist-wrapper-item-img-wrap w-full overflow-hidden relative aspect-square">
-                        {images}
-                        {/* <div className='hover-item-wrap flex items-center justify-center gap-3'>
-                                    <div className='wishlist-icon flex items-center justify-center hover-red-bg'>
-                                        <UilHeart size="20" color="#ffffff" />
-                                    </div>
-                                    <div className='compare-icon flex items-center justify-center hover-red-bg'>
-                                        <UilComparison size="20" color="#ffffff" />
-                                    </div>
-                                </div> */}
-                      </div>
-                      <div className="wishlist-wrapper-item-content pt-5 mt-1 px-3">
-                        {/* {items} */}
-                        <div className="name text-center my-2">
-                          <Link href="" className="hover-red text-lg">
-                            {product.name}
-                          </Link>
-                        </div>
-                        <div className="price flex justify-center items-center gap-2">
-                          <span className="inline-block text-lg font-bold ls-5">
-                            £{product.price.toFixed(2)}
-                          </span>
-                          {/* <del className='inline-block text-sm'>$119.00</del> */}
-                        </div>
-                        {/* <div className='add-to-cart'>
-                                    <div className='add-to-cart-wrap flex items-center justify-center gap-2'>
-                                        <input className="" type="number" value={1}/>
-                                        <button type='button' className='rounded-full font-bold inline-block text-base'>Add</button>
-                                    </div>
-                                </div> */}
-                      </div>
-
-                      <div
-                        className="info-icon absolute flex items-center justify-center hover-red-bg"
-                        onClick={removeFavorite}
-                        id={product.productId}
-                      >
-                        <UilTimesCircle
-                          size="41"
-                          color="#cecece"
-                          className="mx-auto remove-icon"
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <p>There is no favorite product!</p>
-            )}
-          </div>
-        </section>
-      </div>
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="wishlist--mobile">
+        <div className="wishlist-page">
           <MobilePageLayout title="Wishlist">
             {favorites.length > 0 ? (
               <>

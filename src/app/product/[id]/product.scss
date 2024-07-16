@@ -1,4 +1,4 @@
-.product--mobile {
+.product-page {
     padding-block: 50px;
     color: #454545;
 
@@ -217,26 +217,4 @@
         }
     }
 
-}
-
-
-@media screen and (max-width:1024px) {
-    .product--desktop {
-        display: none;
-    }
-
-    .product--mobile {
-        display: block;
-    }
-
-}
-
-@media screen and (min-width:1025px) {
-    .product--desktop {
-        display: block;
-    }
-
-    .product--mobile {
-        display: none;
-    }
 }

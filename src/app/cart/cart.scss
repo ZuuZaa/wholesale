@@ -1,4 +1,4 @@
-.cart-page--mobile {
+.cart-page {
 
     .basket-search-box {
         display: grid;
@@ -75,28 +75,5 @@
         &:hover {
             background: hsl(155, 74%, 47%);
         }
-    }
-}
-
-
-@media screen and (max-width:1024px) {
-    .cart-page--desktop {
-        display: none;
-    }
-
-    .cart-page--mobile {
-        display: block;
-
-    }
-
-}
-
-@media screen and (min-width:1025px) {
-    .cart-page--desktop {
-        display: block;
-    }
-
-    .cart-page--mobile {
-        display: none;
     }
 }
