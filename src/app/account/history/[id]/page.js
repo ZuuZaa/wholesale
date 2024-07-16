@@ -329,7 +329,7 @@ export default function Account() {
                     </div>
                     <div className="flex justify-between">
                       <span>Delivery Fee</span>
-                      <b>{`₤${details?.amount}`}</b>
+                      <b>{`₤${details?.deliveryFee}`}</b>
                     </div>
                     <div className="flex justify-between">
                       <span>Discount</span>
