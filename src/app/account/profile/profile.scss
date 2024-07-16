@@ -1,12 +1,11 @@
-.profile--mobile {
+.profile-page {
+    display: flex;
     padding: 60px 10px 50px;
     height: 100vh;
     color: #454545;
     background-color: #f1f1f1;
     flex-direction: column;
     gap: 8px;
-
-
 
     .profile-header {
         display: grid;
@@ -81,6 +80,9 @@
         }
     }
 
+    img {
+        height: 100%;
+    }
 
     .questions {
         background-color: #fff;
@@ -104,26 +106,5 @@
         &:is(.open) {
             display: block;
         }
-    }
-}
-
-@media screen and (max-width:1024px) {
-    .profile--desktop {
-        display: none;
-    }
-
-    .profile--mobile {
-        display: flex;
-    }
-
-}
-
-@media screen and (min-width:1025px) {
-    .profile--desktop {
-        display: block;
-    }
-
-    .profile--mobile {
-        display: none;
     }
 }

@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Menu from "../menu";
-import { Card, Typography } from "@material-tailwind/react";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import "./orders.scss";
-import { OrderTabs } from "@/components/tabs";
-import OrderList from "@/components/order-list/order-list";
+import { StatusTabs } from "@/components/tabs/status-tabs/status-tabs";
+import { OrderList } from "@/components/lists/order-list";
 
 const fetchData = async () => {
   let status;
@@ -84,7 +81,6 @@ const fetchData = async () => {
     return fav_data;
   }
 };
-const TABLE_HEAD = ["Sold Date", "Quantity", "Total", ""];
 
 export default function History() {
   const [data, setData] = useState({
@@ -126,129 +122,9 @@ export default function History() {
 
   return (
     <main>
-      <div className="order-list--desktop">
-        {/* Breadcrumb */}
-        <div className="breadcrumb-wrapper py-12">
-          <div className="custom-container mx-auto">
-            <div className="flex" aria-label="Breadcrumb">
-              <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
-                <li className="inline-flex items-center">
-                  <a
-                    href="/"
-                    className="inline-flex items-center text-sm font-medium"
-                  >
-                    {" "}
-                    Account{" "}
-                  </a>
-                </li>
-
-                <li>
-                  <div className="flex items-center">
-                    <a href="#" className="ms-1 text-sm font-medium md:ms-2">
-                      History
-                    </a>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </div>
-
-        {/* Account Section */}
-        <section className="account-page-main-section my-20 py-3">
-          <div className="custom-container mx-auto">
-            <div className="flex">
-              <div className="account-page-menu w-2/5">
-                <h5 className="title relative mb-5 text-lg">Account Menu</h5>
-                <Menu />
-              </div>
-
-              <div className="account-page-main w-3/5">
-                <div className="account-history-wrapper">
-                  <div className="w-full">
-                    <Card className="h-full w-full">
-                      <table className="w-full min-w-max table-auto text-left">
-                        <thead>
-                          <tr>
-                            {TABLE_HEAD.map((head) => (
-                              <th
-                                key={head}
-                                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                              >
-                                <Typography
-                                  variant="small"
-                                  color="blue-gray"
-                                  className="font-normal leading-none opacity-70"
-                                >
-                                  {head}
-                                </Typography>
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {userOrders.map((order) => {
-                            return (
-                              <tr
-                                key={order.id}
-                                className="even:bg-blue-gray-50/50"
-                              >
-                                <td className="p-4">
-                                  <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="font-normal"
-                                  >
-                                    {order.soldDate.split("T")[0]}
-                                  </Typography>
-                                </td>
-                                <td className="p-4">
-                                  <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="font-normal"
-                                  >
-                                    {order.quantity}
-                                  </Typography>
-                                </td>
-                                <td className="p-4">
-                                  <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="font-normal"
-                                  >
-                                    {order.total.toFixed(2)}£
-                                  </Typography>
-                                </td>
-                                <td className="p-4">
-                                  <Typography
-                                    as="a"
-                                    href="#"
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="font-medium"
-                                  >
-                                    <Link href={`history/${order.id}`}>
-                                      Details
-                                    </Link>
-                                  </Typography>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </Card>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-      <div className="order-list--mobile">
+      <div className="orders-page">
         <MobilePageLayout title="orders">
-          <OrderTabs
+          <StatusTabs
             tabClickHandle={tabClickHandle}
             activeStatus={activeStatus}
           />

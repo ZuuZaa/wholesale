@@ -15,23 +15,3 @@
         border-bottom: 0.6px solid #828282;
     }
 }
-
-@media screen and (max-width:1024px) {
-    .order-detail--desktop {
-        display: none;
-    }
-
-    .order-detail--mobile {
-        display: block;
-    }
-}
-
-@media screen and (min-width:1025px) {
-    .order-detail--desktop {
-        display: block;
-    }
-
-    .order-detail--mobile {
-        display: none;
-    }
-}

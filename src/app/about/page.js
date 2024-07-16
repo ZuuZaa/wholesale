@@ -23,14 +23,12 @@ function About() {
                                     });
     const [aboutPage, setAboutPage] = useState(0);
     useEffect(() => {
-        
       async function fetchDataAsync() {
-        
         const fetchedData = await fetchData();
-            setData(fetchedData);
-            setAboutPage(fetchedData.settings[0].aboutPage)
-        }
-  
+        setData(fetchedData);
+        setAboutPage(fetchedData.settings[0].aboutPage);
+      }
+
       fetchDataAsync();
     }, []);
       

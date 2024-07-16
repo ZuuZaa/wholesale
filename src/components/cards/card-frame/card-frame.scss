@@ -15,4 +15,10 @@
         margin-bottom: 8px;
         border-bottom: 0.6px solid #828282;
     }
+
+    .card-list {
+        li:not(:last-child) {
+            border-bottom: 0.6px solid #828282;
+        }
+    }
 }

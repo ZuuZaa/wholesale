@@ -7,10 +7,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import "./order-tabs.scss";
+import "./status-tabs.scss";
 import { ORDER_STATUS } from "@/constans";
 
-export const OrderTabs = ({ activeStatus, tabClickHandle }) => {
+export const StatusTabs = ({ activeStatus, tabClickHandle }) => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
