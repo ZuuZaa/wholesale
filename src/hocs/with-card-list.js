@@ -1,14 +1,14 @@
 import CardFrame from "@/components/cards/card-frame";
 
 export const withCardList = (CardComponent) => {
-  return ({ orders }) => {
+  return ({ list }) => {
     return (
       <CardFrame>
-        {orders.length > 0 ? (
+        {list?.length > 0 ? (
           <ul className="card-list">
-            {orders.map((order) => (
-              <li key={order.id}>
-                <CardComponent order={order} />
+            {list?.map((item) => (
+              <li key={item.id}>
+                <CardComponent data={item} />
               </li>
             ))}
           </ul>

@@ -128,7 +128,7 @@ export default function History() {
             activeStatus={activeStatus}
           />
           <div className="py-3">
-            <OrderList orders={filteredByStatusOrders} />
+            <OrderList list={filteredByStatusOrders} />
           </div>
         </MobilePageLayout>
       </div>

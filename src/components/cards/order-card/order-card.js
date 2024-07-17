@@ -4,22 +4,22 @@ import './order-card.scss';
 import { dateNormalizer } from "@/helpers";
 
 
-const OrderCard = ({ order }) => {
+const OrderCard = ({ data }) => {
   return (
     <div className="order-card">
       <div className="order-card-title flex justify-between items-center mb-3">
-        <h3 className="order-id">ID:{order?.id}</h3>
+        <h3 className="order-id">ID:{data?.id}</h3>
         <span className="order-status">
-          {ORDER_STATUS[order?.status]?.name}
+          {ORDER_STATUS[data?.status]?.name}
         </span>
       </div>
       <div className="felx column gap-2">
-        <h4 className="order-total">Total: ₤{order?.total}</h4>
-        <p>Credit: ₤{order?.credit}</p>
-        <p>{order?.addressLine1}</p>
-        <p>{dateNormalizer(order?.soldDate)}</p>
+        <h4 className="order-total">Total: ₤{data?.total}</h4>
+        <p>Credit: ₤{data?.credit}</p>
+        <p>{data?.addressLine1}</p>
+        <p>{dateNormalizer(data?.soldDate)}</p>
       </div>
-      <Link className="details-link color-green" href={`history/${order.id}`}>
+      <Link className="details-link color-green" href={`history/${data.id}`}>
         Details &#8811;
       </Link>
     </div>

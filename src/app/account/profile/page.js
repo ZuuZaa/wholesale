@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import CardFrame from "@/components/cards/card-frame";
 import NotificationBox from "@/components/notifigation-box";
+import TitleWithIcon from "@/components/typography/title-with-icon/title-with-icon";
 
 export default function Profile() {
   const fetchData = async () => {
@@ -258,18 +259,12 @@ export default function Profile() {
           <ul className="main-links flex flex-col gap-3 pb-4">
             <li>
               <Link href="/account/history">
-                <figure className="flex items-center gap-4">
-                  <Image src={icons.pack} width={22} alt="orders" />
-                  <figcaption>My orders</figcaption>
-                </figure>
+                <TitleWithIcon icon={icons.pack} title="My orders" />
               </Link>
             </li>
             <li>
               <Link href="/account/statement">
-                <figure className="flex items-center gap-4">
-                  <Image src={icons.statement} width={22} alt="statements" />
-                  <figcaption>Statement</figcaption>
-                </figure>
+                <TitleWithIcon icon={icons.statement} title="Statement"/>
               </Link>
             </li>
             <li>
@@ -278,7 +273,6 @@ export default function Profile() {
                   <Image
                     src={icons.location}
                     width={22}
-                    height={22}
                     alt="location"
                   />
                   <figcaption>
@@ -287,7 +281,6 @@ export default function Profile() {
                     </button>
                   </figcaption>
                 </figure>
-
                 <div
                   className={
                     addressDropdownIsOpen

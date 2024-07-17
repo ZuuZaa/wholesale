@@ -69,6 +69,14 @@
         border-bottom: 0.6px solid #828282;
     }
 
+    figure {
+        height: 22px;
+
+        img {
+            height: 100%;
+        }
+    }
+
     .sign-out-link {
         cursor: pointer;
     }
@@ -79,16 +87,6 @@
             transition: ease .2s;
         }
     }
-
-    figure {
-        height: 22px;
-
-        img {
-            height: 100%;
-        }
-    }
-
-
 
     .questions {
         background-color: #fff;
