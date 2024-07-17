@@ -7,6 +7,7 @@ import CardFrame from "@/components/cards/card-frame/card-frame";
 import TitleWithIcon from "@/components/typography/title-with-icon/title-with-icon";
 import DateIcon from "@/assets/icons/date.svg";
 import { dateNormalizer } from "@/helpers";
+import BottomFixedCard from "@/components/cards/bottom-fixed-card";
 
 const Statement = () => {
   const [data, setData] = useState({
@@ -74,6 +75,28 @@ const Statement = () => {
             </CardFrame>
           </div>
           <StatementList list={filteredByStatusStatements} />
+          <BottomFixedCard>
+            <CardFrame>
+              <div className="flex flex-col gap-2 p-1">
+                <div className="flex justify-between">
+                  <span className="color-muted">First Balance</span>
+                  <b className="color-green">{`₤${1000.0}`}</b>
+                </div>
+                <div className="flex justify-between">
+                  <span className="color-muted">Owed</span>
+                  <b className="color-green">{`₤${500.0}`}</b>
+                </div>
+                <div className="flex justify-between">
+                  <span className="color-muted">Paid</span>
+                  <b className="color-red">{`-₤${400.0}`}</b>
+                </div>
+                <div className="flex justify-between">
+                  <b>Balance</b>
+                  <b className="color-green">{`₤${1000.0}`}</b>
+                </div>
+              </div>
+            </CardFrame>
+          </BottomFixedCard>
         </MobilePageLayout>
       </div>
     </main>

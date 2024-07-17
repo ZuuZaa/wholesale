@@ -182,7 +182,7 @@ export default function Login() {
           <div className="form-title">
             <h2 className="color-green">Welcome!</h2>
             <p className="color-green">
-              Please login using account detail bellow
+              Please login using account detail below
             </p>
           </div>
           <form action="" className="login-form" onSubmit={login}>
