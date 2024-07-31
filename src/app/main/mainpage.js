@@ -28,48 +28,60 @@ async function fetchData() {
   const params = new URLSearchParams();
   params.append("SessionId", session_id);
 
+  const requestBody = JSON.stringify({
+        UserId: 0,
+        Method: "getMain",
+        Postcode: "",
+        SessionId: session_id,
+      })
+
   const response = await fetch(
-    `https://api.wscshop.co.uk/api/home/get-index?${params.toString()}`,
+    `https://ws.wscshop.co.uk/api/main/get-request`,
     {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json, text/plain",
         "Content-Type": "application/json;charset=UTF-8",
-        Authorization: "Bearer " + token,
       },
+      body: JSON.stringify({
+        Body: requestBody,
+      }),
     }
   );
 
   const data = await response.json();
-  console.log(data);
-  return data.output;
+
+  console.log("data", JSON.parse(data.output));
+  return JSON.parse(data.output);
 }
 
-export default function MainPage({ children }) {
-
+export default function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState({
-    features: [],
-    blogs: [],
-    categoryImages: [],
-    trendingProducts: [],
-    bestSellProducts: [],
-    dealsProducts: [],
-    bannerImages: [],
-    brands: [],
-    offers: [],
-    settings: [],
-  });
+  const [bestSellProducts, setBestSellProducts] = useState([]);
+  const [trendingProducts, setTrendingProducts] = useState([]);
+  const [dealsProducts, setDealsProducts] = useState([]);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
 
   const [trendCategSection, setTrendCategSection] = useState(0);
   const [offersSection, setOffersSection] = useState(0);
   const [activeTab, setActiveTab] = useState("best sellers");
 
+  const [offers, setOffers] = useState([]);
+  const [categoryImages, setCategoryImages] = useState([]);
+
+
   async function fetchDataAsync() {
-    const fetchedData = await fetchData();
-    setData(fetchedData);
-    setTrendCategSection(fetchedData.settings[0].trendCategSection);
-    setOffersSection(fetchedData.settings[0].offersSection);
+    setIsLoading(true);
+    const data = await fetchData();
+    console.log(data)
+    setBestSellProducts(data?.BestSellProducts);
+    setTrendingProducts(data?.TrendingProducts);
+    setDealsProducts(data?.DealsProducts);
+    setFeaturedProducts(data?.FeaturedProducts);
+    setTrendCategSection(data?.settings?.[0]?.TrendCategSection);
+    setOffersSection(data?.settings?.[0]?.OffersSection);
+    setOffers(data?.Offers);
+    setCategoryImages(data?.CategoryImages);
     setIsLoading(false);
   }
 
@@ -80,19 +92,19 @@ export default function MainPage({ children }) {
   const products = [
     {
       name: "best sellers",
-      items: data?.bestSellProducts,
+      items: bestSellProducts,
       visible: true,
       link: "/products/2",
     },
     {
       name: "special offers",
-      items: data?.dealsProducts,
+      items: dealsProducts,
       visible: !!offersSection,
       link: "/products/4",
     },
     {
       name: "trending",
-      items: data?.trendingProducts,
+      items: trendingProducts,
       visible: !!trendCategSection,
       link: "/products/3",
     },
@@ -123,7 +135,6 @@ export default function MainPage({ children }) {
         }
       );
       const resJson = await res.json();
-
 
       //if (res.status === 200) {
       status = resJson.status;
@@ -267,211 +278,6 @@ export default function MainPage({ children }) {
     }
   };
 
-  let addCart = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
-    let token = "";
-    let session_id = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-    }
-    const quantity = event.currentTarget.previousSibling.value;
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/add-to-cart",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: prodid,
-            Quantity: quantity,
-            SessionId: session_id,
-          }),
-        }
-      );
-
-
-      if (res.status === 200) {
-        const resJson = await res.json();
-        const cart_id = resJson.output.cart[0].id;
-        var add_cart_btns = document.querySelectorAll(".add_cart_btn");
-        for (let i = 0; i < add_cart_btns.length; i++) {
-          if (add_cart_btns[i].getAttribute("id") == prodid) {
-            add_cart_btns[i].parentElement.innerHTML =
-              '<input class="cart_quant cart_quant_update" type="number" min="1" max="10000" value="' +
-              quantity +
-              '" id="' +
-              prodid +
-              '" /><div class="flex gap-2 pm-wrap minus_plus_btn" id="' +
-              cart_id +
-              '"><button class="rounded-full font-bold inline-block text-base minus_button" id="' +
-              prodid +
-              '"><span>-</span></button><button class="rounded-full font-bold inline-block text-base plus_button" id="' +
-              prodid +
-              '"><span>+</span></button></div>';
-            add_cart_btns[i].remove();
-          }
-        }
-        var plus_btns = document.querySelectorAll(".plus_button");
-        for (let i = 0; i < plus_btns.length; i++) {
-          plus_btns[i].addEventListener("click", plusCart);
-        }
-        var minus_btns = document.querySelectorAll(".minus_button");
-        for (let i = 0; i < minus_btns.length; i++) {
-          minus_btns[i].addEventListener("click", minusCart);
-        }
-        var cart_quants = document.querySelectorAll(".cart_quant_update");
-        for (let i = 0; i < cart_quants.length; i++) {
-          cart_quants[i].addEventListener("keyup", updateInput);
-        }
-        document.getElementById("cart_drop").style.display = "block";
-        var cart_dropdown = document.getElementById("cart_dropdown");
-        var append_cart = ``;
-        var cart = resJson.output.cart;
-        for (let i = 0; i < cart.length; i++) {
-          append_cart += `<div class='cartdropdown-item flex gap-3'>
-            <div class='img relative'>
-              <img src=${
-                cart[i].productImage
-              } width="82" height="82" class='cover' alt="${
-            cart[i].productName
-          }"></img>
-              <span class='flex justify-center items-center absolute top-0 left-0 p-1 bg-red-500 rounded-2xl text-xs text-white font-semibold'>${
-                cart[i].quantity
-              }x</span>
-            </div>
-            <div class='content'> 
-                <Link href='/product/${
-                  cart[i].productId
-                }'><h5 class='hover-red text-sm mb-1'>${
-            cart[i].productName
-          }</h5></Link>
-                <h6 class='text-sm text-rose-600 font-semibold'>£${cart[
-                  i
-                ].price.toFixed(2)}</h6>
-            </div>
-            <div class='remove-cart-item'>
-            <div width="20" class='text-primary hover-red cursor-pointer remove-cart' id=${
-              cart[i].id
-            } tabindex=${cart[i].productId}><span>x</span></div>
-              
-            </div>
-        </div>`;
-        }
-        cart_dropdown.innerHTML = append_cart;
-        document.getElementById("cart_subtotal").innerText =
-          "£" + resJson.output.subtotal.toFixed(2);
-        document.getElementById("cart_quantity").innerText =
-          resJson.output.totalQuantity;
-        document.getElementById("cart_quantity").style.display = "flex";
-        let remove_carts = document.getElementsByClassName("remove-cart");
-        for (let i = 0; i < remove_carts.length; i++) {
-          remove_carts[i].addEventListener("click", removeCart);
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  let removeCart = async (event) => {
-    let cartid = event.currentTarget.getAttribute("id");
-    let prodid = event.currentTarget.getAttribute("tabindex");
-    let token = "";
-    let session_id = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/remove-from-cart",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            CartId: cartid,
-            SessionId: session_id,
-          }),
-        }
-      );
-
-      if (res.status === 200) {
-        const resJson = await res.json();
-        var min_plus_btns = document.querySelectorAll(".minus_plus_btn");
-        for (let i = 0; i < min_plus_btns.length; i++) {
-          if (min_plus_btns[i].getAttribute("id") == cartid) {
-            min_plus_btns[i].parentElement.innerHTML =
-              '<input class="cart_quant" type="number"  min="1" max="10000" value="1"/><button type="button" id="' +
-              prodid +
-              '" class="rounded-full font-bold inline-block text-base add_cart_btn">Add</button></div>';
-
-            //min_plus_btns[i].remove();
-          }
-        }
-        var add_btns = document.querySelectorAll(".add_cart_btn");
-        for (let i = 0; i < add_btns.length; i++) {
-          add_btns[i].addEventListener("click", addCart);
-        }
-        var cart_dropdown = document.getElementById("cart_dropdown");
-        var append_cart = ``;
-        var cart = resJson.output.cart;
-        if (cart.length == 0) {
-          document.getElementById("cart_drop").style.display = "none";
-          document.getElementById("cart_quantity").style.display = "none";
-        } else {
-          for (let i = 0; i < cart.length; i++) {
-            append_cart += `<div class='cartdropdown-item flex gap-3'>
-              <div class='img relative'>
-                <img src=${
-                  cart[i].productImage
-                } width="82" height="82" class='cover' alt="${
-              cart[i].productName
-            }"></img>
-                <span class='flex justify-center items-center absolute top-0 left-0 p-1 bg-red-500 rounded-2xl text-xs text-white font-semibold'>${
-                  cart[i].quantity
-                }x</span>
-              </div>
-              <div class='content'> 
-                  <Link href='/product/${
-                    cart[i].productId
-                  }'><h5 class='hover-red text-sm mb-1'>${
-              cart[i].productName
-            }</h5></Link>
-                  <h6 class='text-sm text-rose-600 font-semibold'>£${cart[
-                    i
-                  ].price.toFixed(2)}</h6>
-              </div>
-              <div class='remove-cart-item'>
-              <div width="20" class='text-primary hover-red cursor-pointer remove-cart' id=${
-                cart[i].id
-              } tabindex=${cart[i].productId}><span>x</span></div>
-              </div>
-          </div>`;
-          }
-          cart_dropdown.innerHTML = append_cart;
-          document.getElementById("cart_subtotal").innerText =
-            "£" + resJson.output.subtotal.toFixed(2);
-          document.getElementById("cart_quantity").innerText =
-            resJson.output.totalQuantity;
-          let remove_carts = document.getElementsByClassName("remove-cart");
-          for (let i = 0; i < remove_carts.length; i++) {
-            remove_carts[i].addEventListener("click", removeCart);
-          }
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <main>
       {isLoading ? (
@@ -485,10 +291,10 @@ export default function MainPage({ children }) {
               spaceBetween={7}
               modules={[Autoplay]}
             >
-              {data?.offers?.map((offer) => (
-                <SwiperSlide key={offer.id}>
+              {offers?.map((offer) => (
+                <SwiperSlide key={offer.Id}>
                   <figure className="banner-image">
-                    <img src={offer.image} alt={offer.title} />
+                    <img src={offer.Image} alt={offer.Title} />
                   </figure>
                 </SwiperSlide>
               ))}
@@ -499,13 +305,13 @@ export default function MainPage({ children }) {
               <h4 className="section-title color-green">Categories</h4>
             </div>
             <Swiper slidesPerView={"auto"} spaceBetween={12}>
-              {data?.categoryImages?.map((cat) => (
+              {categoryImages?.map((cat) => (
                 <SwiperSlide key={cat.id}>
                   <Link href={`/category/${cat.id}`} passHref={true}>
                     <div className="category-card">
                       <figure className="category-image">
-                        <img src={cat.mobImage} alt={cat.name} />
-                        <figcaption>{cat.name.toLowerCase()}</figcaption>
+                        <img src={cat.mobImage} alt={cat.Name} />
+                        <figcaption>{cat.Name.toLowerCase()}</figcaption>
                       </figure>
                     </div>
                   </Link>
@@ -521,8 +327,8 @@ export default function MainPage({ children }) {
               </Link>
             </div>
             <Swiper slidesPerView={"auto"} spaceBetween={3}>
-              {data.featuredProducts?.map((product) => (
-                <SwiperSlide key={product.id} className="product-card-slide">
+              {featuredProducts?.map((product) => (
+                <SwiperSlide key={product.Id} className="product-card-slide">
                   <ProductCard product={product} />
                 </SwiperSlide>
               ))}

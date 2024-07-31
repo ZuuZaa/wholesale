@@ -29,7 +29,7 @@ const ProductCard = ({ product, cardHeight }) => {
             Authorization: "Bearer " + token,
           },
           body: JSON.stringify({
-            ProductId: product.productId,
+            ProductId: product.ProductId,
             Quantity: 1,
             SessionId: session_id,
           }),
@@ -48,31 +48,31 @@ const ProductCard = ({ product, cardHeight }) => {
 
   return (
     <Link
-      href={`/product/${product.id}`}
-      key={product.id}
+      href={`/product/${product.Id}`}
+      key={product.Id}
       passHref={true}
     >
       <StyledProductCard height={cardHeight}>
         <FavoriteImageContainer
-          productId={product.productId}
-          isFavorite={!!product.favorite}
+          productId={product.ProductId}
+          isFavorite={!!product.Favorite}
           absolutePosition={true}
         >
           <figure className="product-image">
             <img
-              src={product.mainImage}
+              src={product.MainImage}
               onError={(e) =>
-                product.catImage && (e.target.src = product.catImage)
+                product.CatImage && (e.target.src = product.CatImage)
               }
-              alt={product.name}
+              alt={product.Name}
               className="product-card-image"
             />
           </figure>
         </FavoriteImageContainer>
         <div className="product-info">
-          <p>{product.name}</p>
+          <p>{product.Name}</p>
           <div className="flex justify-between items-center gap-3 mt-1">
-            <span>{`₤${product.price}`}</span>
+            <span>{`₤${product.Price}`}</span>
             <div className="card-action">
               <button className="btn-success" onClick={addToCart}>
                 Add
