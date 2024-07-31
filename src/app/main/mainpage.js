@@ -73,13 +73,13 @@ export default function MainPage() {
   async function fetchDataAsync() {
     setIsLoading(true);
     const data = await fetchData();
-    console.log(data)
+    console.log(data?.settings?.[0]);
     setBestSellProducts(data?.BestSellProducts);
     setTrendingProducts(data?.TrendingProducts);
     setDealsProducts(data?.DealsProducts);
     setFeaturedProducts(data?.FeaturedProducts);
-    setTrendCategSection(data?.settings?.[0]?.TrendCategSection);
-    setOffersSection(data?.settings?.[0]?.OffersSection);
+    setTrendCategSection(data?.Settings?.[0]?.TrendCategSection);
+    setOffersSection(data?.Settings?.[0]?.OffersSection);
     setOffers(data?.Offers);
     setCategoryImages(data?.CategoryImages);
     setIsLoading(false);
@@ -91,18 +91,21 @@ export default function MainPage() {
 
   const products = [
     {
+      id: 'bestsell',
       name: "best sellers",
       items: bestSellProducts,
       visible: true,
       link: "/products/2",
     },
     {
+      id: 'special',
       name: "special offers",
       items: dealsProducts,
       visible: !!offersSection,
       link: "/products/4",
     },
     {
+      id: 'trending',
       name: "trending",
       items: trendingProducts,
       visible: !!trendCategSection,
@@ -341,8 +344,9 @@ export default function MainPage() {
                   (item) =>
                     item.visible && (
                       <li
-                        className={activeTab === item.name && "active-tab"}
+                        className={activeTab === item.name ? "active-tab" : "tab"}
                         onClick={() => tabClickHandler(item.name)}
+                        key={item.id}
                       >
                         {item.name}
                       </li>
@@ -366,7 +370,7 @@ export default function MainPage() {
               {products
                 ?.find((item) => item.name === activeTab)
                 ?.items?.map((product) => (
-                  <SwiperSlide key={product.id} className="product-card-slide">
+                  <SwiperSlide key={product.Id} className="product-card-slide">
                     <ProductCard product={product} />
                   </SwiperSlide>
                 ))}

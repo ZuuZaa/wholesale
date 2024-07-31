@@ -44,8 +44,6 @@ const ProductCard = ({ product, cardHeight }) => {
     }
   };
 
-  console.log(product)
-
   return (
     <Link
       href={`/product/${product.Id}`}
