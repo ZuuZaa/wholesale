@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
+
 
 import { Autoplay } from "swiper/modules";
 
@@ -313,7 +315,7 @@ export default function MainPage() {
                   <Link href={`/category/${cat.id}`} passHref={true}>
                     <div className="category-card">
                       <figure className="category-image">
-                        <img src={cat.mobImage} alt={cat.Name} />
+                        <img src={cat.mobimage} alt={cat.Name.toLowerCase()} />
                         <figcaption>{cat.Name.toLowerCase()}</figcaption>
                       </figure>
                     </div>
@@ -344,7 +346,9 @@ export default function MainPage() {
                   (item) =>
                     item.visible && (
                       <li
-                        className={activeTab === item.name ? "active-tab" : "tab"}
+                        className={
+                          activeTab === item.name ? "active-tab" : "tab"
+                        }
                         onClick={() => tabClickHandler(item.name)}
                         key={item.id}
                       >
