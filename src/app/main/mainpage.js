@@ -18,7 +18,7 @@ import ProductCard from "@/components/cards/product-card";
 import { fetchData } from "@/utils/fetch-api";
 
 export default function MainPage() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [bestSellProducts, setBestSellProducts] = useState([]);
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [dealsProducts, setDealsProducts] = useState([]);

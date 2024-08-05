@@ -1,137 +1,70 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import { OrderList } from "@/components/lists/order-list";
 import { StatusTabs } from "@/components/tabs";
+import { fetchData } from "@/utils/fetch-api";
+import Loading from "@/components/loading";
 
-const fetchData = async () => {
-  let status;
-  let fav_data = [];
-
-  const fetchData = async () => {
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    let response = await fetch(
-      `https://api.wscshop.co.uk/api/profile/get-myorders`,
-      {
-        method: "GET",
-        dataType: "json",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    const resp = await response.json();
-    status = resp.status;
-    fav_data = resp.output;
-    //return resp.output;
-  };
-
-  await fetchData();
-
-  if (status === 401) {
-    try {
-      let token = "";
-      let refreshToken = "";
-      if (typeof localStorage !== "undefined") {
-        token = localStorage.getItem("jwtToken");
-        refreshToken = localStorage.getItem("refreshToken");
-      }
-      console.log(token);
-      console.log(refreshToken);
-      let response = await fetch(
-        `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-        {
-          method: "POST",
-          dataType: "json",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      console.log(response);
-      const resp = await response.json();
-
-      if (resp.status !== 400) {
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("refreshToken", resp.output.refreshToken);
-          localStorage.setItem("jwtToken", resp.output.token);
-        }
-
-        await fetchData();
-      } else {
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
-        //go to login page
-        //alert(1)
-      }
-    } catch {
-      console.log("error");
-    }
-  } else {
-    return fav_data;
-  }
-};
-
-export default function History() {
-  const [data, setData] = useState({
-    user: [],
-    userAddress: [],
-    userOrders: [],
-  });
-
+const History = () => {
+  const [orders, setOrders] = useState([]);
   const [activeStatus, setActiveStatus] = useState(0);
   const [filteredByStatusOrders, setFilteredByStatusOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const tabClickHandle = (status) => {
     setActiveStatus(status);
   };
 
+  const filterOrdersByStatus = () => {
+    const filteredOrders = orders?.filter(
+      (item) => item.Status == activeStatus
+    );
+    setFilteredByStatusOrders(filteredOrders);
+  };
+
   useEffect(() => {
-    async function fetchDataAsync() {
+    const fetchDataAsync = async () => {
+      setIsLoading(true);
       try {
-        const fetchedData = await fetchData();
-        setData(fetchedData);
-        const filteredOrders = fetchedData?.userOrders?.filter(
-          (item) => item.status == activeStatus
-        );
-        setFilteredByStatusOrders(filteredOrders);
+        const result = await fetchData("getProfile");
+        console.log("result", result);
+        setOrders(result.UserOrders);
+        filterOrdersByStatus();
       } catch (error) {
-        console.log(error);
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
       }
-    }
+    };
+
     fetchDataAsync();
   }, []);
 
-  const userOrders = data.userOrders;
-
   useEffect(() => {
-    const filteredOrders = userOrders?.filter(
-      (item) => item.status == activeStatus
-    );
-    setFilteredByStatusOrders(filteredOrders);
+    filterOrdersByStatus();
   }, [activeStatus]);
 
   return (
     <main>
-      <div className="orders-page">
-        <MobilePageLayout title="orders">
-          <StatusTabs
-            tabClickHandle={tabClickHandle}
-            activeStatus={activeStatus}
-          />
-          <div className="py-3">
-            <OrderList list={filteredByStatusOrders} />
-          </div>
-        </MobilePageLayout>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="orders-page">
+          <MobilePageLayout title="orders">
+            <StatusTabs
+              tabClickHandle={tabClickHandle}
+              activeStatus={activeStatus}
+            />
+            <div className="py-3">
+              <OrderList list={filteredByStatusOrders} />
+            </div>
+          </MobilePageLayout>
+        </div>
+      )}
     </main>
   );
-}
+};
+
+export default History;

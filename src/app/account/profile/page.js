@@ -14,7 +14,7 @@ import "./profile.scss";
 const Profile = () => {
   const [user, setUser] = useState({});
   const [addressList, setAddressList] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [addressDropdownIsOpen, setAddressDropdownIsOpen] = useState(false);
 
   const handleSavedAddressClick = () => {
@@ -54,7 +54,7 @@ const Profile = () => {
         setUser(result.User[0]);
         setAddressList(result.UserAddress);
       } catch (error) {
-        setError(error.message);
+        console.error(error.message);
       } finally {
         setIsLoading(false);
       }

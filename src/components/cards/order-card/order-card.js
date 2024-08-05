@@ -8,18 +8,18 @@ const OrderCard = ({ data }) => {
   return (
     <div className="order-card">
       <div className="order-card-title flex justify-between items-center mb-3">
-        <h3 className="order-id">ID:{data?.id}</h3>
+        <h3 className="order-id">ID:{data?.Id}</h3>
         <span className="order-status">
-          {ORDER_STATUS[data?.status]?.name}
+          {ORDER_STATUS[data?.Status]?.name}
         </span>
       </div>
       <div className="felx column gap-2">
-        <h4 className="order-total">Total: ₤{data?.total}</h4>
-        <p>Credit: ₤{data?.credit}</p>
-        <p>{data?.addressLine1}</p>
-        <p>{dateNormalizer(data?.soldDate)}</p>
+        <h4 className="order-total">Total: ₤{data?.Total}</h4>
+        <p>Credit: ₤{data?.Credit}</p>
+        <p>{data?.AddressLine1}</p>
+        <p>{dateNormalizer(data?.SoldDate)}</p>
       </div>
-      <Link className="details-link color-green" href={`history/${data.id}`}>
+      <Link className="details-link color-green" href={`history/${data.Id}`}>
         Details &#8811;
       </Link>
     </div>
