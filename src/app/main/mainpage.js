@@ -2,13 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-
-
-import { Autoplay } from "swiper/modules";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -18,44 +15,7 @@ import "swiper/css/navigation";
 import "./main.scss";
 import Loading from "@/components/loading";
 import ProductCard from "@/components/cards/product-card";
-
-async function fetchData() {
-  let token = "";
-  let session_id = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-  }
-
-  const params = new URLSearchParams();
-  params.append("SessionId", session_id);
-
-  const requestBody = JSON.stringify({
-        UserId: 0,
-        Method: "getMain",
-        Postcode: "",
-        SessionId: session_id,
-      })
-
-  const response = await fetch(
-    `https://ws.wscshop.co.uk/api/main/get-request`,
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        Body: requestBody,
-      }),
-    }
-  );
-
-  const data = await response.json();
-
-  console.log("data", JSON.parse(data.output));
-  return JSON.parse(data.output);
-}
+import { fetchData } from "@/utils/fetch-api";
 
 export default function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -71,21 +31,24 @@ export default function MainPage() {
   const [offers, setOffers] = useState([]);
   const [categoryImages, setCategoryImages] = useState([]);
 
-
-  async function fetchDataAsync() {
+  const fetchDataAsync = async () => {
     setIsLoading(true);
-    const data = await fetchData();
-    console.log(data?.settings?.[0]);
-    setBestSellProducts(data?.BestSellProducts);
-    setTrendingProducts(data?.TrendingProducts);
-    setDealsProducts(data?.DealsProducts);
-    setFeaturedProducts(data?.FeaturedProducts);
-    setTrendCategSection(data?.Settings?.[0]?.TrendCategSection);
-    setOffersSection(data?.Settings?.[0]?.OffersSection);
-    setOffers(data?.Offers);
-    setCategoryImages(data?.CategoryImages);
-    setIsLoading(false);
-  }
+    try {
+      const result = await fetchData("getMain", false);
+      setBestSellProducts(result?.BestSellProducts);
+      setTrendingProducts(result?.TrendingProducts);
+      setDealsProducts(result?.DealsProducts);
+      setFeaturedProducts(result?.FeaturedProducts);
+      setTrendCategSection(result?.Settings?.[0]?.TrendCategSection);
+      setOffersSection(result?.Settings?.[0]?.OffersSection);
+      setOffers(result?.Offers);
+      setCategoryImages(result?.CategoryImages);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchDataAsync();
@@ -93,21 +56,21 @@ export default function MainPage() {
 
   const products = [
     {
-      id: 'bestsell',
+      id: "bestsell",
       name: "best sellers",
       items: bestSellProducts,
       visible: true,
       link: "/products/2",
     },
     {
-      id: 'special',
+      id: "special",
       name: "special offers",
       items: dealsProducts,
       visible: !!offersSection,
       link: "/products/4",
     },
     {
-      id: 'trending',
+      id: "trending",
       name: "trending",
       items: trendingProducts,
       visible: !!trendCategSection,
@@ -116,172 +79,6 @@ export default function MainPage() {
   ];
 
   const tabClickHandler = (name) => setActiveTab(name);
-
-  let addFavorite = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
-    let status;
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/add-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
-      const resJson = await res.json();
-
-      //if (res.status === 200) {
-      status = resJson.status;
-      if (status === 401) {
-        try {
-          let token = "";
-          let refreshToken = "";
-          if (typeof localStorage !== "undefined") {
-            token = localStorage.getItem("jwtToken");
-            refreshToken = localStorage.getItem("refreshToken");
-          }
-          let response = await fetch(
-            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-            {
-              method: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json, text/plain",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-
-          async function fetchDataAsync() {
-            setIsLoading(true);
-            const fetchedData = await fetchData();
-            setData(fetchedData);
-            setIsLoading(false);
-          }
-          fetchDataAsync();
-          const resp = await response.json();
-          if (resp.status !== 400) {
-            if (typeof localStorage !== "undefined") {
-              localStorage.setItem("refreshToken", resp.output.refreshToken);
-              localStorage.setItem("jwtToken", resp.output.token);
-            }
-
-            await addFavorite();
-          } else {
-            if (typeof window !== "undefined") {
-              window.location.href = "/login";
-            }
-          }
-        } catch {
-          console.log("error");
-        }
-      } else {
-        var fav_icons = document.querySelectorAll(".fav_icon_reg");
-        for (let i = 0; i < fav_icons.length; i++) {
-          if (fav_icons[i].getAttribute("id") == prodid) {
-            fav_icons[i].style.display = "none";
-            fav_icons[i].nextSibling.style.display = "block";
-          }
-        }
-      }
-      //}
-      //else
-      //{
-      //console.log("Some error occured");
-      //}
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  let removeFavorite = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
-    let status;
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/remove-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
-      const resJson = await res.json();
-
-      status = resJson.status;
-
-      if (status === 401) {
-        try {
-          let token = "";
-          let refreshToken = "";
-          if (typeof localStorage !== "undefined") {
-            token = localStorage.getItem("jwtToken");
-            refreshToken = localStorage.getItem("refreshToken");
-          }
-          let response = await fetch(
-            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-            {
-              method: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json, text/plain",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          const resp = await response.json();
-          if (resp.status !== 400) {
-            if (typeof localStorage !== "undefined") {
-              localStorage.setItem("refreshToken", resp.output.refreshToken);
-              localStorage.setItem("jwtToken", resp.output.token);
-            }
-            await removeFavorite();
-          } else {
-            if (typeof window !== "undefined") {
-              window.location.href = "/login";
-            }
-          }
-        } catch {
-          console.log("error");
-        }
-      } else {
-        var fav_icons = document.querySelectorAll(".fav_icon_solid");
-        for (let i = 0; i < fav_icons.length; i++) {
-          if (fav_icons[i].getAttribute("id") == prodid) {
-            fav_icons[i].style.display = "none";
-            fav_icons[i].previousSibling.style.display = "block";
-          }
-        }
-        event.target?.classList?.toggle("favorite");
-        fetchDataAsync();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <main>
