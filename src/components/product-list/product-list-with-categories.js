@@ -6,6 +6,7 @@ export const ProductListWithCategories = ({
   products,
   categories,
   currentCategoryId,
+  children,
 }) => {
   return (
     <div className="categories-products-container">
@@ -19,6 +20,7 @@ export const ProductListWithCategories = ({
         products={products}
         errorText="There is no product in this category."
       />
+      {children}
     </div>
   );
 };

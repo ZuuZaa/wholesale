@@ -1,25 +1,6 @@
 "use client";
-import { React, useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import {
-  UilTrashAlt,
-  UilTable,
-  UilHeart,
-  UilComparison,
-  UilStar,
-  UilInfo,
-} from "@iconscout/react-unicons";
-import { UisStar } from "@iconscout/react-unicons-solid";
-import { UisListUl } from "@iconscout/react-unicons-solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
+import { useEffect, useState } from "react";
+
 
 import "./search.scss";
 import Loading from "@/components/loading";
