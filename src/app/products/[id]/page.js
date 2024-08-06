@@ -17,6 +17,8 @@ export default function Products() {
       try {
         const result = await fetchData("getProductsPage", true, {
           TypeId: params?.id,
+          Atributes: [],
+          Count: 24,
         });
         console.log("result: ", result)
         setProducts(result.Products);

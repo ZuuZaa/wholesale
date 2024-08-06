@@ -9,7 +9,7 @@ const Category = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -17,6 +17,8 @@ const Category = () => {
       try {
         const result = await fetchData("getCategoryPage", true, {
           CatId: params?.id,
+          Atributes: [],
+          Page: 1,
         });
         setProducts(result.Products);
         setMainCategories(result.MainCategories);
@@ -29,7 +31,6 @@ const Category = () => {
 
     fetchDataAsync();
   }, []);
-
 
   return (
     <main>
