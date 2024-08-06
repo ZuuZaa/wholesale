@@ -4,7 +4,7 @@ import "./product-list.scss";
 export const ProductList = ({ products, errorText = "Product not found." }) => {
   return (
     <>
-      {products.length > 0 ? (
+      {products?.length > 0 ? (
         <div className="products-list">
           {products.map((product) => (
             <ProductCard product={product} cardHeight="226px" />

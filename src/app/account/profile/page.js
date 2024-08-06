@@ -27,7 +27,7 @@ const Profile = () => {
       token = localStorage.getItem("jwtToken");
     }
     const response = await fetch(
-      "https://api.wscshop.co.uk/api/account/logout",
+      "https://ws.wscshop.co.uk/api/account/logout",
       {
         method: "POST",
         headers: {
@@ -50,7 +50,7 @@ const Profile = () => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getProfile");
+        const result = await fetchData("getProfile", true);
         setUser(result.User[0]);
         setAddressList(result.UserAddress);
       } catch (error) {

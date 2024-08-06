@@ -22,15 +22,16 @@ if (typeof localStorage !== "undefined") {
   }
 }
 
-export const fetchData = async (method, auth=true) => {
+export const fetchData = async (method, auth, details) => {
   const requestBody = JSON.stringify({
     UserId: 0,
     Method: method,
     Postcode: "",
     SessionId: session_id,
+    ...details,
   });
 
-  const url = auth ? API_URL_AUTH : API_URL
+  const url = auth ? API_URL_AUTH : API_URL;
 
   const response = await fetch(url, {
     method: "POST",

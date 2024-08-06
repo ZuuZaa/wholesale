@@ -8,8 +8,8 @@ import "./basket.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
-  let [count, setCount] = useState(product.quantity);
-  let [price, setPrise] = useState(product.total.toFixed(2));
+  let [count, setCount] = useState(product.Quantity);
+  let [price, setPrise] = useState(product.Total.toFixed(2));
   const { setTotalQuantity } = useTotalQuantity();
 
   let token = "";
@@ -94,22 +94,22 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
 
   console.log(product)
   return (
-    <li key={product.id}>
+    <li key={product.Id}>
       <div className="basket-card">
-        <Link href={`/product/${product.productId}`}>
+        <Link href={`/product/${product.ProductId}`}>
           <figure className="product-image">
             <img
-              src={product.productImage}
+              src={product.ProductImage}
               onError={(e) =>
-                product.catImage && (e.target.src = product.catImage)
+                product.CatImage && (e.target.src = product.CatImage)
               }
-              alt={product.productName}
+              alt={product.ProductName}
             />
           </figure>
         </Link>
         <div className="card-info">
           <div className="flex justify-between gap-2">
-            <h5 className="product-name">{product.productName}</h5>
+            <h5 className="product-name">{product.ProductName}</h5>
             <button onClick={removeFromCart}>
               <Image src={trashbin} alt="delete product" />
             </button>

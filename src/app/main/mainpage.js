@@ -34,7 +34,7 @@ export default function MainPage() {
   const fetchDataAsync = async () => {
     setIsLoading(true);
     try {
-      const result = await fetchData("getMain", false);
+      const result = await fetchData("getMain",false);
       setBestSellProducts(result?.BestSellProducts);
       setTrendingProducts(result?.TrendingProducts);
       setDealsProducts(result?.DealsProducts);

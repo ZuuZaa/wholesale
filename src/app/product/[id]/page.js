@@ -1,14 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { UilStar, UilInfo, UilComparison } from "@iconscout/react-unicons";
-import { UisStar } from "@iconscout/react-unicons-solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
-import { faHeart as solidHeart } from "@fortawesome/free-solid-svg-icons";
 import starIcon from "@/assets/icons/star.svg";
 import "./product.scss";
 
@@ -23,136 +18,78 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import { Navigation, HashNavigation } from "swiper/modules";
 
-import { Tabs, Tab } from "../Tabs";
-import Gallery from "../Gallery";
 import Loading from "@/components/loading";
 import ProductCard from "@/components/cards/product-card";
 import FavoriteIcon from "@/components/favorite-icon/favorite-icon";
-import Counter from "@/components/counter";
-
-async function getHeader() {
-  let token = "";
-  let session_id = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-  }
-  const params = new URLSearchParams();
-  params.append("SessionId", session_id);
-  const response = await fetch(
-    `https://api.wscshop.co.uk/api/layout/get-header?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json, text/plain",
-        "Content-Type": "application/json;charset=UTF-8",
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-  const data = await response.json();
-  return data.output;
-}
+import { fetchData } from "@/utils/fetch-api";
 
 export default function ProductDetail() {
-  const pathname = useParams();
-  const id = pathname.id;
-  const location = usePathname();
+  const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
-  let [count, setCount] = useState(0);
-
-  const customReviews = [
-    {
-      id: 1,
-      text: "product overview product overview product overview product overview product",
-    },
-    {
-      id: 2,
-      text: "product overview product",
-    },
-  ];
-
-  async function fetchData() {
-    let token = "";
-    let session_id = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-    }
-    const params = new URLSearchParams();
-    params.append("Id", id);
-    params.append("SessionId", session_id);
-
-    const response = await fetch(
-      `https://api.wscshop.co.uk/api/details/get-index?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    const data = await response.json();
-    return data.output;
-  }
-
-  async function fetchData1() {
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    const params = new URLSearchParams();
-    params.append("Id", id);
-
-    const response = await fetch(
-      `https://api.wscshop.co.uk/api/details/get-desc?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
-    const data = await response.json();
-    return data.output;
-  }
-  const [data, setData] = useState({
-    products: [],
-    productAttributes: [],
-    groups: [],
-    reviews: [],
-    myReviews: [],
-    category: [],
-    similarProducts: [],
-    accessories: [],
-    userType: [],
-  });
+  const [similarProducts, setSimilarProducts] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [reviews, setReviews] = useState([]);
+  const [productDetails, setProductDetails] = useState({});
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setCount(fetchedData.products[0].quantity);
-      const fetchedData1 = await fetchData1();
-      document.getElementById("prod_desc").innerHTML = fetchedData1;
-    }
+    const fetchDataAsync = async () => {
+      setIsLoading(true);
+      try {
+        const result = await fetchData("getProductDetails", true, {
+          Id: params?.id,
+        });
+        console.log("result: ", result);
+        setCategory(result.Category);
+        setReviews(result.Reviews);
+        if (result?.Products?.length > 0) {
+          setProductDetails(result.Products[0]);
+          setCount(result.Products[0].Quantity);
+        }
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchDataAsync();
-    setIsLoading(false);
   }, []);
 
-  const products = data.products;
-  const similarProducts = data.similarProducts;
-  const reviews = data.reviews;
-  const attributes = data.productAttributes;
-  const groups = data.groups;
-  const accessories = data.accessories;
-  const userType = data.userType;
+  // async function fetchData() {
+  //   let token = "";
+  //   let session_id = "";
+  //   if (typeof localStorage !== "undefined") {
+  //     token = localStorage.getItem("jwtToken");
+  //     session_id = localStorage.getItem("sessionId");
+  //   }
+  //   const params = new URLSearchParams();
+  //   params.append("Id", id);
+  //   params.append("SessionId", session_id);
+
+  //   const response = await fetch(
+  //     `https://api.wscshop.co.uk/api/details/get-index?${params.toString()}`,
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         Accept: "application/json, text/plain",
+  //         "Content-Type": "application/json;charset=UTF-8",
+  //         Authorization: "Bearer " + token,
+  //       },
+  //     }
+  //   );
+  //   const data = await response.json();
+  //   return data.output;
+  // }
+
+  // const products = data.products;
+  // const similarProducts = data.similarProducts;
+  // const reviews = data.reviews;
+  // const attributes = data.productAttributes;
+  // const groups = data.groups;
+  // const accessories = data.accessories;
+  // const userType = data.userType;
 
   //  useEffect(() => {
   //     async function fetchDataAsync() {
@@ -160,21 +97,6 @@ export default function ProductDetail() {
   //     }
   //     fetchDataAsync();
   //   }, []);
-
-  const [dataHeader, setDataHeader] = useState({
-    header: [],
-    isLogin: [],
-  });
-
-  useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await getHeader();
-      setDataHeader(fetchedData);
-    }
-    fetchDataAsync();
-  }, []);
-
-  const isLogin = dataHeader.isLogin;
 
   const updateQuantity = async (quantity) => {
     let token = "";
@@ -298,86 +220,7 @@ export default function ProductDetail() {
       console.log(err);
     }
   };
-  let addFavoriteDetails = async (event) => {
-    let fav_div = event.currentTarget;
-    let prodid = event.currentTarget.getAttribute("id");
-    let status;
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/add-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
-      const resJson = await res.json();
-      //if (res.status === 200) {
-      status = resJson.status;
-      if (status === 401) {
-        try {
-          let token = "";
-          let refreshToken = "";
-          if (typeof localStorage !== "undefined") {
-            token = localStorage.getItem("jwtToken");
-            refreshToken = localStorage.getItem("refreshToken");
-          }
-          let response = await fetch(
-            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-            {
-              method: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json, text/plain",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          const resp = await response.json();
-          if (resp.status !== 400) {
-            if (typeof localStorage !== "undefined") {
-              localStorage.setItem("refreshToken", resp.output.refreshToken);
-              localStorage.setItem("jwtToken", resp.output.token);
-            }
 
-            await addFavorite();
-          } else {
-            window.location.href = "/login";
-          }
-        } catch {
-          console.log("error");
-        }
-      } else {
-        // var fav_icons=document.querySelectorAll(".fav_icon_reg")
-        // for (let i = 0; i < fav_icons.length; i++) {
-        //   if(fav_icons[i].getAttribute('id')==prodid){
-        //      fav_icons[i].style.display='none'
-        //      fav_icons[i].nextSibling.style.display='block'
-        //   }
-        // }
-        fav_div.style.display = "none";
-        fav_div.nextSibling.style.display = "block";
-      }
-      //}
-      //else
-      //{
-      //console.log("Some error occured");
-      //}
-    } catch (err) {
-      console.log(err);
-    }
-  };
   let removeFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
     let status;
@@ -461,92 +304,7 @@ export default function ProductDetail() {
       console.log(err);
     }
   };
-  let removeFavoriteDetails = async (event) => {
-    let fav_div = event.currentTarget;
-    let prodid = event.currentTarget.getAttribute("id");
-    let status;
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    //e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/remove-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: prodid,
-          }),
-        }
-      );
-      const resJson = await res.json();
-      //if (res.status === 200) {
 
-      status = resJson.status;
-
-      if (status === 401) {
-        try {
-          let token = "";
-          let refreshToken = "";
-          if (typeof localStorage !== "undefined") {
-            token = localStorage.getItem("jwtToken");
-            refreshToken = localStorage.getItem("refreshToken");
-          }
-          let response = await fetch(
-            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-            {
-              method: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json, text/plain",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          const resp = await response.json();
-          if (resp.status !== 400) {
-            if (typeof localStorage !== "undefined") {
-              localStorage.setItem("refreshToken", resp.output.refreshToken);
-              localStorage.setItem("jwtToken", resp.output.token);
-            }
-
-            await removeFavorite();
-          } else {
-            window.location.href = "/login";
-            //go to login page
-            //alert(1)
-          }
-        } catch {
-          console.log("error");
-        }
-      } else {
-        // var fav_icons=document.querySelectorAll(".fav_icon_solid")
-        //   for (let i = 0; i < fav_icons.length; i++) {
-        //     if(fav_icons[i].getAttribute('id')==prodid){
-        //        fav_icons[i].style.display='none'
-        //        fav_icons[i].previousSibling.style.display='block'
-        //     }
-        //   }
-        fav_div.style.display = "none";
-        fav_div.previousSibling.style.display = "block";
-        //setMessage("Added");
-      }
-      //}
-      //else
-      //{
-      // console.log("Some error occured");
-      //}
-    } catch (err) {
-      console.log(err);
-    }
-  };
   let addCart = async (event) => {
     let prodid = event?.currentTarget?.getAttribute("id");
     let token = "";
@@ -1624,81 +1382,6 @@ export default function ProductDetail() {
       console.log(err);
     }
   };
-  let addCompare = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
-    let token = "";
-    let session_id = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/compare/add-compare",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: prodid,
-            SessionId: session_id,
-          }),
-        }
-      );
-      const resJson = await res.json();
-
-      if (res.status === 200) {
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const [isVisible, setIsVisible] = useState(false);
-  const toggleVisibility = () => {
-    setIsVisible(!isVisible);
-  };
-
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [Icon, setRating] = useState(1);
-  const [message, setMessage] = useState("");
-
-  let submitReview = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/details/add-review",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-          body: JSON.stringify({
-            ProductId: id,
-            Star: star,
-            Title: title,
-            Summary: text,
-          }),
-        }
-      );
-      const resJson = await res.json();
-      if (res.status === 200) {
-        setTitle("");
-        setText("");
-        setRating(1);
-        setMessage("Review created successfully");
-      } else {
-        setMessage("Some error occured");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <main>
@@ -1706,44 +1389,43 @@ export default function ProductDetail() {
         <Loading />
       ) : (
         <div className="product-page">
-          {products.length > 0 ? (
+          {productDetails ? (
             <>
               <ul className="breadcrumb">
                 <li>
                   <Link href="/">Home &gt;</Link>
                 </li>
-                {data?.category?.length > 0 && (
+                {category?.length > 0 && (
                   <li>
-                    <Link href={`/category/${data?.category[0]?.id}`}>
-                      {data?.category[0]?.name} &gt;
+                    <Link href={`/category/${category[0]?.id}`}>
+                      {category[0]?.name} &gt;
                     </Link>
                   </li>
                 )}
-
-                <li>{data.products[0]?.name}</li>
+                <li>{productDetails.Name}</li>
               </ul>
               <section className="product-main-info">
                 <figure className="product-main-image">
                   <img
-                    src={data.products[0]?.mainImage}
+                    src={productDetails.MainImage}
                     onError={(e) =>
-                      data.products[0]?.catImage &&
-                      (e.target.src = data.products[0]?.catImage)
+                      productDetails.CatImage &&
+                      (e.target.src = productDetails.CatImage)
                     }
-                    alt={data.products[0]?.name}
+                    alt={productDetails.Name}
                   />
                 </figure>
                 <div className="product-details">
                   <div className="flex justify-between">
-                    <h3>{data.products[0]?.name}</h3>
+                    <h3>{productDetails.Name}</h3>
                     <FavoriteIcon
-                      productId={data.products[0]?.productId}
-                      isFavorite={data.products[0]?.favorite}
+                      productId={productDetails.ProductId}
+                      isFavorite={productDetails.Favorite}
                     />
                   </div>
 
                   <div className="product-review">
-                    <span>{data.products[0]?.starCount.toFixed(1)}</span>
+                    <span>{productDetails?.StarCount?.toFixed(1)}</span>
                     <ul className="stars">
                       {Array.from({ length: 5 }).map((item) => (
                         <li>
@@ -1755,9 +1437,9 @@ export default function ProductDetail() {
                         </li>
                       ))}
                     </ul>
-                    <span>{`${data.reviews.length} reviews`}</span>
+                    <span>{`${reviews.length} reviews`}</span>
                   </div>
-                  <p className="price">{`₤${data.products[0]?.price.toFixed(
+                  <p className="price">{`₤${productDetails?.Price?.toFixed(
                     2
                   )}`}</p>
                   <div className="actions">
@@ -1772,7 +1454,7 @@ export default function ProductDetail() {
                     </div>
                     <button
                       className="btn btn-success"
-                      id={data.products[0]?.id}
+                      id={productDetails.Id}
                       onClick={addCart}
                     >
                       Add to cart
@@ -1780,7 +1462,7 @@ export default function ProductDetail() {
                   </div>
                 </div>
               </section>
-              {data.similarProducts.length > 0 && (
+              {similarProducts?.length > 0 && (
                 <section className="similar-products">
                   <h3>Items You Might Like</h3>
                   <Swiper
@@ -1788,9 +1470,9 @@ export default function ProductDetail() {
                     spaceBetween={3}
                     className="similar-products-list"
                   >
-                    {data.similarProducts?.map((product) => (
+                    {similarProducts?.map((product) => (
                       <SwiperSlide
-                        key={product.id}
+                        key={product.Id}
                         className="product-card-slide"
                       >
                         <ProductCard product={product} cardHeight="160px" />

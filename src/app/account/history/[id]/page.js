@@ -10,23 +10,19 @@ import { dateNormalizer } from "@/helpers";
 import { ORDER_STATUS, PAYMENT_TYPE, SHIPPING_TYPE } from "@/constans";
 import Loading from "@/components/loading";
 import BottomFixedCard from "@/components/cards/bottom-fixed-card";
+import { fetchData } from "@/utils/fetch-api";
 
-
-export default function Account() {
-  const pathname = useParams();
-  const id = pathname.id;
-  const params = new URLSearchParams();
-  params.append("Id", id);
-
-  const [orderDetails, setOrderDetails] = useState({})
+const Account = () => {
+  const [orderDetails, setOrderDetails] = useState({});
   const [orderedProducts, setOrderedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const params = useParams()
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getOrderDetails");
+        const result = await fetchData("getOrderDetails", true, { OrderId: params?.id});
         setOrderDetails(result.OrderDetails[0]);
         setOrderedProducts(result.OrderProducts);
       } catch (error) {
@@ -120,7 +116,7 @@ export default function Account() {
                     </div>
                     <div className="flex justify-between">
                       <span>VAT</span>
-                      <b>{`₤${orderDetails?.Vat}`}</b>
+                      <b>{`₤${orderDetails?.VAT}`}</b>
                     </div>
                     <div className="flex justify-between">
                       <b>Total</b>
@@ -135,4 +131,6 @@ export default function Account() {
       )}
     </main>
   );
-}
+};
+
+export default Account;

@@ -29,7 +29,6 @@ const History = () => {
       setIsLoading(true);
       try {
         const result = await fetchData("getProfile");
-        console.log("result", result);
         setOrders(result.UserOrders);
         filterOrdersByStatus();
       } catch (error) {

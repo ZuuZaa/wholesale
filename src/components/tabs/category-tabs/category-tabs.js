@@ -10,30 +10,33 @@ import Link from "next/link";
 
 import "./category-tabs.scss";
 
-export const CategoryTabs = ({categories, categoryId}) => {
+export const CategoryTabs = ({categories, currentCategoryId}) => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
     if (swiperRef.current) {
       const swiper = swiperRef.current.swiper;
       const activeSlideIndex = categories.findIndex(
-        (cat) => cat.id === categoryId
+        (cat) => cat.Id == currentCategoryId
       );
       swiper.slideTo(activeSlideIndex);
     }
-  }, [categoryId, categories]);
+  }, [currentCategoryId, categories]);
+
   return (
     <div className="category-tabs-container">
       <Swiper ref={swiperRef} slidesPerView={"auto"} spaceBetween={12}>
-        {categories?.map((cat) => (
-          <SwiperSlide key={cat.id} className="swiper-slide-active">
-            <Link href={`/category/${cat.id}`} passHref={true}>
+        {categories?.map((category) => (
+          <SwiperSlide key={category.Id} className="swiper-slide-active">
+            <Link href={`/category/${category.Id}`} passHref={true}>
               <div
                 className={
-                  cat.id === categoryId ? "category-tab active-tab" : "category-tab"
+                  category.Id == currentCategoryId
+                    ? "category-tab active-tab"
+                    : "category-tab"
                 }
               >
-                {cat.name}
+                {category.Name}
               </div>
             </Link>
           </SwiperSlide>
