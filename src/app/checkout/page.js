@@ -471,6 +471,7 @@ export default function Checkout() {
                                   ? "2px solid #333"
                                   : "1px solid #e5e7eb",
                             }}
+                            key={address.id}
                           >
                             <div className="title flex gap-3 items-center">
                               <input

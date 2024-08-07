@@ -117,7 +117,7 @@ const Profile = () => {
                     {addressList.length > 0 ? (
                       <ul className="address-list">
                         {addressList.map((address) => (
-                          <div className="shipping-address-items border rounded-md px-5 py-3 my-2">
+                          <div className="shipping-address-items border rounded-md px-5 py-3 my-2" key={address.Id}>
                             <h2>{address.Title}</h2>
                             <h6>{address.AdressLine1}</h6>
                             <h6>{address.AdressLine2}</h6>

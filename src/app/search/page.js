@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-
 import "./search.scss";
 import Loading from "@/components/loading";
 import { ProductList } from "@/components/product-list";
@@ -74,12 +73,36 @@ const Search = () => {
     searchWord: [],
   });
 
+  // useEffect(() => {
+  //   async function fetchDataAsync() {
+  //     const fetchedData = await fetchData();
+  //     setData(fetchedData);
+  //     setIsLoading(false);
+  //   }
+  //   fetchDataAsync();
+  // }, []);
+
   useEffect(() => {
-    async function fetchDataAsync() {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
-      setIsLoading(false);
-    }
+    const fetchDataAsync = async () => {
+      setIsLoading(true);
+      let searchKey = "";
+      if (typeof window !== "undefined") {
+        const urlParams = new URLSearchParams(window.location.search);
+        searchKey = urlParams.get("search");
+      }
+      try {
+        const result = await fetchData("getSearch", false, {
+          Search: searchKey,
+        });
+        setData(result);
+        console.log(result);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     fetchDataAsync();
   }, []);
 
@@ -958,7 +981,6 @@ const Search = () => {
       )}
     </main>
   );
-}
-
+};
 
 export default Search;

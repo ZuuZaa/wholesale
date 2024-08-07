@@ -90,7 +90,7 @@ export default function Blogs() {
                     {
                         blogs.map(blog=>{
                             return(
-                                <div className='blog-detail-wrapper'>
+                                <div className='blog-detail-wrapper' key={blog.id}>
                                 
                                 {/* Tag */}
                                 {/* <div className='blog-detail-tag'>
@@ -189,7 +189,7 @@ export default function Blogs() {
                   {
                     recentBlogs.map(blog=>{
                       return(
-                        <SwiperSlide className='zoom-img blog-swiper-item'>
+                        <SwiperSlide className='zoom-img blog-swiper-item' key={blog.id}>
                       <Link href={`/blogs/${blog.id}`} className=''>
                         <div className='blog-swiper-item-img-wrap w-full overflow-hidden'>
                           <img src={blog.image} width={300} height={400} className='blog-swiper-item-img object-cover w-full h-full' alt='Blog'></img>

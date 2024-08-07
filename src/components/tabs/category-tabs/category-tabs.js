@@ -12,6 +12,7 @@ import "./category-tabs.scss";
 
 export const CategoryTabs = ({categories, currentCategoryId}) => {
   const swiperRef = useRef(null);
+  console.log("first", categories, currentCategoryId)
 
   useEffect(() => {
     if (swiperRef.current) {

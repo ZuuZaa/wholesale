@@ -193,7 +193,7 @@ export default function Contact() {
                       {
                         settings.map(set=>{
                           return(
-                          <div className='info pl-10'>
+                          <div className='info pl-10' key={set.id}>
                              <div className='info-item flex gap-3 mb-14'>
                                   <div className='icon'>
                                       <UilPhone  size="45" color="#e52e06" />

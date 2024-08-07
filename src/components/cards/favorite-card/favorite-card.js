@@ -67,28 +67,28 @@ const FavoriteCard = ({ product, updateFavorites }) => {
   };
 
   return (
-    <li key={product.id}>
+    <li key={product.ProductId}>
       <div className="favorite-card">
-        <Link href={`/product/${product.productId}`}>
+        <Link href={`/product/${product.ProductId}`}>
           <figure className="product-image">
             <img
-              src={product.mainImage}
+              src={product.MainImage}
               onError={(e) =>
-                product.catImage && (e.target.src = product.catImage)
+                product.CatImage && (e.target.src = product.CatImage)
               }
-              alt={product.name}
+              alt={product.Name}
             />
           </figure>
         </Link>
         <div className="card-info">
           <div className="flex justify-between gap-2">
-            <h5 className="product-name">{product.name}</h5>
+            <h5 className="product-name">{product.Name}</h5>
             <button onClick={removeFromFavorites}>
               <Image src={trashbin} alt="card actions" />
             </button>
           </div>
           <div className="card-action">
-            <span>{`₤${product.price}`}</span>
+            <span>{`₤${product.Price}`}</span>
             <button className="success-outlined" onClick={addToCart}>
               Add to cart
             </button>

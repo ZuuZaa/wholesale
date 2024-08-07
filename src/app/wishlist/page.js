@@ -4,26 +4,17 @@ import Loading from "@/components/loading";
 import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import SearchBar from "@/components/search-bar";
+import { fetchData } from "@/utils/fetch-api";
 
 const Wishlist = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [filteredCarts, setFilteredCarts] = useState([]);
   const [searchKey, setSearchKey] = useState("");
-  //const [activePage, setActivePage] = useState(1);
+  // const [activePage, setActivePage] = useState(1);
   // const [totalPages, setTotalPages] = useState(null);
-  // const [currentFavorites, setCurrentFavorites] = useState([]);
 
-  // const itemsPerPage = 10;
-
-  // const setPages = (page) => {
-  //   setActivePage(page);
-  //   const pagedItems = favorites.slice(
-  //     (activePage - 1) * itemsPerPage,
-  //     activePage * itemsPerPage
-  //   );
-  //   setCurrentFavorites(pagedItems);
-  // };
+  //const setPages = (page) => setActivePage(page);
 
   const updateFavorites = (data) => setFavorites(data);
 
@@ -36,7 +27,9 @@ const Wishlist = () => {
       setIsLoading(true);
       try {
         const result = await fetchData("getFavorites", true);
-        setFavorites(result.favorites);
+        console.log(result);
+        setFavorites(result.Favorites);
+       // setTotalPages(result.PageCount);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -61,7 +54,7 @@ const Wishlist = () => {
       ) : (
         <div className="wishlist-page">
           <MobilePageLayout title="Wishlist">
-            {favorites.length > 0 ? (
+            {favorites?.length > 0 ? (
               <>
                 <SearchBar
                   searchKey={searchKey}

@@ -6,8 +6,8 @@ export const withCardList = (CardComponent) => {
       <CardFrame>
         {list?.length > 0 ? (
           <ul className="card-list">
-            {list?.map((item) => (
-              <li key={item.id}>
+            {list?.map((item, index) => (
+              <li key={index}>
                 <CardComponent data={item} />
               </li>
             ))}

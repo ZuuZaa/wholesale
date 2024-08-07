@@ -1428,7 +1428,7 @@ export default function ProductDetail() {
                     <span>{productDetails?.StarCount?.toFixed(1)}</span>
                     <ul className="stars">
                       {Array.from({ length: 5 }).map((item) => (
-                        <li>
+                        <li key={item}>
                           <Image
                             src={starIcon}
                             className="star-icon"
@@ -1489,12 +1489,12 @@ export default function ProductDetail() {
                   </div>
 
                   <ul className="reviews-list">
-                    {customReviews.map((review) => (
+                    {reviews.map((review) => (
                       <li className="review-item p-3 ">
                         <div className="flex gap-2">
                           <ul className="stars">
                             {Array.from({ length: 5 }).map((item) => (
-                              <li>
+                              <li key={item}>
                                 <Image
                                   src={starIcon}
                                   className="star-icon"

@@ -132,7 +132,7 @@ export default function Compare() {
                                         stock_text="Unavailable In stock"
                                     }
                                     return(
-                                        <div className='product-column'>
+                                        <div className='product-column' key={product.id}>
                                             <div className='row'> <span className='remove-compare-item-span hover-red-bg' onClick={removeCompare} id={product.productId}><UilMultiply size="12" color="#ffffff" /></span> </div>
                                             <div className='row'> {product.productName} </div>
                                             <div className='row'>

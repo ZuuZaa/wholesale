@@ -85,7 +85,7 @@ export default function Blogs() {
                                             {
                                                 recentBlogs.map(blog=>{
                                                     return(
-                                                        <div className='blogs-filter-recent-post-box flex'>
+                                                        <div className='blogs-filter-recent-post-box flex' key={blog.id}>
                                                             <div className='img mr-4'>
                                                                 <img src={blog.image} width={100} height={100} className='mx-auto object-cover' alt='Post'></img>
                                                             </div>
@@ -107,7 +107,7 @@ export default function Blogs() {
                                         {
                                             blogs.map(blog=>{
                                                 return(
-                                                <div className='blog-items'>
+                                                <div className='blog-items' key={blog.id}>
                                                     <div className='img relative'>
                                                         <img src={blog.image} width={400} height={300} className='w-full mx-auto object-cover max-w-full' alt='Post'></img>
                                                         {/* <div className='blog-items-tag'>

@@ -114,10 +114,10 @@ export default function Contact() {
                     console.log(hours);
                     const hours_div = [];
                     hours.map((hour) => {
-                      hours_div.push(<li>{hour}</li>);
+                      hours_div.push(<li key={hour}>{hour}</li>);
                     });
                     return (
-                      <div className="grid grid-cols-1 lg:grid-cols-3 mt-11 gap-2">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 mt-11 gap-2" key={set.id}>
                         <div className="flex mb-3 lg:mb-0">
                           <div className="icon mr-5">
                             <UilLocationPoint size="40" color="#e55022" />

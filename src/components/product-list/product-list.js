@@ -1,16 +1,23 @@
 import ProductCard from "@/components/cards/product-card";
 import "./product-list.scss";
 
-export const ProductList = ({ products, children, errorText = "Product not found."}) => {
+export const ProductList = ({
+  products,
+  children,
+  errorText = "Product not found.",
+}) => {
+  
   return (
     <div className="products-list-container">
       {products?.length > 0 ? (
         <>
-          <div className="products-list">
+          <ul className="products-list">
             {products.map((product) => (
-              <ProductCard product={product} cardHeight="226px" />
+              <li key={product.Id}>
+                <ProductCard product={product} cardHeight="226px" />
+              </li>
             ))}
-          </div>
+          </ul>
           {children}
         </>
       ) : (
