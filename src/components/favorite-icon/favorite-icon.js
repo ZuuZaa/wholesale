@@ -12,44 +12,23 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
 
   const addToFavorites = async () => {
     try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/add-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: productId,
-          }),
-        }
-      );
-      const resJson = await res.json();
-    } catch (err) {
-      console.log(err);
+      const result = await fetchData("postFavorites", true, {
+        ProductId: productId,
+      });
+      console.log("result: ", result);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
   const removeFromFavorites = async () => {
     try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/favorites/remove-favorite",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Id: productId,
-          }),
-        }
-      );
-    } catch (err) {
-      console.log(err);
+      const result = await fetchData("removeFavorites", true, {
+        ProductId: productId,
+      });
+      console.log("result: ", result);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 

@@ -2,54 +2,35 @@ import Link from "next/link";
 import { StyledProductCard } from "./product-card.styled";
 import FavoriteImageContainer from "@/components/favorite-icon/favorite-image-container";
 import { useTotalQuantity } from "@/context/total-quantity-context";
+import { fetchData } from "@/utils/fetch-api";
 
 const ProductCard = ({ product, cardHeight }) => {
+  
   const { setTotalQuantity } = useTotalQuantity();
+
   let token = "";
-  let session_id = "";
   if (typeof localStorage !== "undefined") {
     token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
   }
+
   const addToCart = async (event) => {
     event.preventDefault();
-
-    if (token === null) {
+    if (!token) {
       window.location.href = "/login";
     }
-
     try {
-      const res = await fetch(
-        `https://api.wscshop.co.uk/api/cart/add-to-cart`,
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: product.ProductId,
-            Quantity: 1,
-            SessionId: session_id,
-          }),
-        }
-      );
-      if (res.status === 200) {
-        const data = await res.json();
-        setTotalQuantity(data.output.totalQuantity);
-      }
+      const response = await fetchData("postCart", true, {
+        ProductId: product.ProductId,
+        Quantity: 1,
+      });
+      setTotalQuantity(response.TotalQuantity);
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <Link
-      href={`/product/${product.Id}`}
-      key={product.Id}
-      passHref={true}
-    >
+    <Link href={`/product/${product.Id}`} key={product.Id} passHref={true}>
       <StyledProductCard height={cardHeight}>
         <FavoriteImageContainer
           productId={product.ProductId}

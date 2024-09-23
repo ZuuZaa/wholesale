@@ -4,65 +4,38 @@ import { useEffect, useState } from "react";
 import "./search.scss";
 import Loading from "@/components/loading";
 import { ProductList } from "@/components/product-list";
+import { useParams } from "next/navigation";
 
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={2}
-      stroke="currentColor"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
-    </svg>
-  );
-}
-var search = "";
-if (typeof window !== "undefined") {
-  var urlParams = new URLSearchParams(window.location.search);
-  search = urlParams.get("search");
-}
+// async function fetchData() {
+//   let token = "";
+//   let session_id = "";
+//   if (typeof localStorage !== "undefined") {
+//     token = localStorage.getItem("jwtToken");
+//     session_id = localStorage.getItem("sessionId");
+//   }
+//   const params = new URLSearchParams();
+//   params.append("Search", search);
+//   params.append("SessionId", session_id);
 
-async function fetchData() {
-  let token = "";
-  let session_id = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-  }
-  const params = new URLSearchParams();
-  params.append("Search", search);
-  params.append("SessionId", session_id);
-
-  const response = await fetch(
-    `https://api.wscshop.co.uk/api/search/get-index?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json, text/plain",
-        "Content-Type": "application/json;charset=UTF-8",
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-  const data = await response.json();
-  console.log(data.output);
-  return data.output;
-}
+//   const response = await fetch(
+//     `https://api.wscshop.co.uk/api/search/get-index?${params.toString()}`,
+//     {
+//       method: "GET",
+//       headers: {
+//         Accept: "application/json, text/plain",
+//         "Content-Type": "application/json;charset=UTF-8",
+//         Authorization: "Bearer " + token,
+//       },
+//     }
+//   );
+//   const data = await response.json();
+//   console.log(data.output);
+//   return data.output;
+// }
 
 const Search = () => {
-  const [open, setOpen] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
-  const handleOpen = (value) => setOpen(open === value ? 0 : value);
+  const params = useParams()
 
   const [data, setData] = useState({
     products: [],
@@ -73,26 +46,12 @@ const Search = () => {
     searchWord: [],
   });
 
-  // useEffect(() => {
-  //   async function fetchDataAsync() {
-  //     const fetchedData = await fetchData();
-  //     setData(fetchedData);
-  //     setIsLoading(false);
-  //   }
-  //   fetchDataAsync();
-  // }, []);
-
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
-      let searchKey = "";
-      if (typeof window !== "undefined") {
-        const urlParams = new URLSearchParams(window.location.search);
-        searchKey = urlParams.get("search");
-      }
       try {
         const result = await fetchData("getSearch", false, {
-          Search: searchKey,
+          Search: params?.search,
         });
         setData(result);
         console.log(result);
@@ -853,116 +812,6 @@ const Search = () => {
           remove_carts[i].addEventListener("click", removeCart);
         }
       }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  let addCompare = async (event) => {
-    let prodid = event.currentTarget.getAttribute("id");
-    console.log(prodid);
-    let token = "";
-    let session_id = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-      session_id = localStorage.getItem("sessionId");
-    }
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/compare/add-compare",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: prodid,
-            SessionId: session_id,
-          }),
-        }
-      );
-      const resJson = await res.json();
-
-      if (res.status === 200) {
-        console.log("success add compare");
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  let productSorting = async (event) => {
-    let sorting = event.currentTarget.value;
-    const token = localStorage.getItem("jwtToken");
-    const session_id = localStorage.getItem("sessionId");
-    try {
-      const res = await fetch("https://api.wscshop.co.uk/api/search/sorting", {
-        method: "POST",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
-        body: JSON.stringify({
-          Search: searchWord,
-          SessionId: session_id,
-          Atributes: [],
-          Sorting: sorting,
-        }),
-      });
-      console.log(res);
-      const resJson = await res.json();
-      setData(resJson.output);
-      console.log(products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const [myArray, setMyArray] = useState([]);
-  var newArray = [...myArray];
-  let addFilter = (e) => {
-    let val = e.currentTarget.value;
-    let index = newArray.indexOf(val);
-    console.log(index);
-    if (index == -1) {
-      newArray.push(val);
-      setMyArray(newArray);
-    } else {
-      console.log("remove");
-      newArray.splice(index, 1);
-      setMyArray(newArray);
-    }
-  };
-
-  let productFiltering = async () => {
-    console.log(newArray);
-    console.log(searchWord);
-    const token = localStorage.getItem("jwtToken");
-    const session_id = localStorage.getItem("sessionId");
-    const min_price = parseFloat(document.getElementById("min_price").value);
-    const max_price = parseFloat(document.getElementById("max_price").value);
-    try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/search/filtering",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            Search: searchWord,
-            AttrArrays: newArray,
-            SessionId: session_id,
-            MinPrice: min_price,
-            MaxPrice: max_price,
-          }),
-        }
-      );
-      console.log(res);
-      const resJson = await res.json();
-      setData(resJson.output);
     } catch (err) {
       console.log(err);
     }

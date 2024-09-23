@@ -10,14 +10,6 @@ import "./cart.scss";
 import { fetchData } from "@/utils/fetch-api";
 
 const Cart = () => {
-  let token = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-  }
-  if (!token) {
-    window.location.href = "/login";
-  }
-
   const [isLoading, setIsLoading] = useState(true);
   const [totalPrice, setTotalPrice] = useState(0);
   const [carts, setCarts] = useState([]);
@@ -35,7 +27,8 @@ const Cart = () => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getCart", false);
+        const result = await fetchData("getCart", true);
+        console.log(result)
         setTotalPrice(result.Subtotal.toFixed(2));
         setCarts(result.Cart);
       } catch (error) {

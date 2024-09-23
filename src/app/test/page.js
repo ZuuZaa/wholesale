@@ -104,7 +104,6 @@ export default function Test() {
   console.log(options);
 
   return (
-    //  <div></div>
     <Elements stripe={stripePromise} options={options}>
       <CheckoutForm />
     </Elements>

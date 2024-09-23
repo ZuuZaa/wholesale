@@ -175,14 +175,6 @@ export default function Checkout() {
   };
   const { setTotalQuantity } = useTotalQuantity();
 
-  let token = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-  }
-  if (token === null) {
-    window.location.href = "/login";
-  }
-
   let ShippingAddressBtn;
 
   if (addressForm) {
