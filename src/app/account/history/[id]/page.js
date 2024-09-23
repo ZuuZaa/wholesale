@@ -45,7 +45,6 @@ const Account = () => {
             title="Order details"
             fixedTitle
           >
-            hello
             <div className="flex flex-col gap-3">
               <CardFrame>
                 <div className="order-details-card flex flex-col gap-2 p-1">
