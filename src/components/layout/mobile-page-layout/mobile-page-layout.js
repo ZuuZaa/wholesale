@@ -3,10 +3,11 @@ import { StyledMobilePageLayout } from "./mobile-page-layout.style";
 const MobilePageLayout = ({
   title,
   children,
-  enableTitleFixedPosition = false,
+  fixedTitle
 }) => {
+
   return (
-    <StyledMobilePageLayout enableTitleFixedPosition={enableTitleFixedPosition}>
+    <StyledMobilePageLayout className={`${fixedTitle ? "fixed-title" : ""}`}>
       <div className="page-header">
         <h2>{title}</h2>
       </div>

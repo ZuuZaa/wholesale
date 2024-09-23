@@ -43,8 +43,9 @@ const Account = () => {
         <div className="order-detail-page">
           <MobilePageLayout
             title="Order details"
-            enableTitleFixedPosition={true}
+            fixedTitle
           >
+            hello
             <div className="flex flex-col gap-3">
               <CardFrame>
                 <div className="order-details-card flex flex-col gap-2 p-1">

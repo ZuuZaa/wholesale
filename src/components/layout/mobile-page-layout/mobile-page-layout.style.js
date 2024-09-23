@@ -15,11 +15,12 @@ export const StyledMobilePageLayout = styled.div`
     padding-bottom: 230px;
   }
 
-  .page-header {
-    position: ${({ enableTitleFixedPosition }) =>
-      enableTitleFixedPosition ? "static" : "sticky"};
+  &:is(.fixed-title) .page-header {
+    position: sticky;
     top: -2px;
     z-index: 4;
+  }
+  .page-header {
     padding-block: 12px 10px;
     background-color: rgba(241, 241, 241, 0.8);
 
