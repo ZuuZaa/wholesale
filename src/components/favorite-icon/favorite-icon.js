@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import favorite from "@/assets/icons/favorite.svg";
 import "./favorite-icon.scss";
+import { fetchData } from "@/utils/fetch-api";
 
 const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
   const favoriteRef = useRef(null);
@@ -11,6 +12,7 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
   }
 
   const addToFavorites = async () => {
+    console.log("first")
     try {
       const result = await fetchData("postFavorites", true, {
         ProductId: productId,

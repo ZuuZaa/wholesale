@@ -41,7 +41,13 @@ export const fetchData = async (method, auth, details) => {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      Body: requestBody,
+      Body: JSON.stringify({
+        UserId: 0,
+        Method: method,
+        Postcode: "",
+        SessionId: session_id,
+        ...details,
+      }),
     }),
   });
 

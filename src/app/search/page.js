@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import "./search.scss";
 import Loading from "@/components/loading";
 import { ProductList } from "@/components/product-list";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { fetchData } from "@/utils/fetch-api";
 
 // async function fetchData() {
 //   let token = "";
@@ -35,23 +36,18 @@ import { useParams } from "next/navigation";
 
 const Search = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const params = useParams()
+  const searchParams = useSearchParams();
+  const searchKey = searchParams.get("search");
+  console.log(searchKey);
 
-  const [data, setData] = useState({
-    products: [],
-    attributeNames: [],
-    attributeValues: [],
-    pageCount: [],
-    searchCount: [],
-    searchWord: [],
-  });
+  const [data, setData] = useState({});
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
         const result = await fetchData("getSearch", false, {
-          Search: params?.search,
+          Search: searchKey,
         });
         setData(result);
         console.log(result);
@@ -63,9 +59,9 @@ const Search = () => {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [searchKey]);
 
-  const products = data?.products;
+  const products = data?.Products;
   const attributeNames = data?.attributeNames;
   const attributeValues = data?.attributeValues;
   const searchWord = data?.searchWord;
