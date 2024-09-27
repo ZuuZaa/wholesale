@@ -39,8 +39,10 @@ function Header() {
     setSearchKey(event.target.value);
   };
   const handleSearchClick = () => {
-    window.location.href = "/search?search=" + searchKey;
-    setSearchKey("");
+    if (searchKey?.trim()) {
+      window.location.href = "/search?search=" + searchKey;
+      setSearchKey("");
+    }
     setIsSearchBoxOpen(false);
   };
 
