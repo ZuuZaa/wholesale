@@ -8,8 +8,11 @@ import TitleWithIcon from "@/components/typography/title-with-icon/title-with-ic
 import DateIcon from "@/assets/icons/date.svg";
 import { dateNormalizer } from "@/helpers";
 import BottomFixedCard from "@/components/cards/bottom-fixed-card";
+import { fetchData } from "@/utils/fetch-api";
 
 const Statement = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [data, setData] = useState({
     user: [],
     dates: {
@@ -41,6 +44,22 @@ const Statement = () => {
   const tabClickHandle = (status) => {
     setActiveStatus(status);
   };
+
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetchData("getStatements", true);
+        console.log(response);
+      } catch (error) {
+        console.error(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDataAsync();
+  }, []);
 
   useEffect(() => {
     const filteredStatements = data?.statements?.filter(

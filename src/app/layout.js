@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { TotalQuantityProvider } from "@/context/total-quantity-context";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
             <Header />
             {children}
             <Footer />
+            <ScrollToTop/>
           </TotalQuantityProvider>
         </div>
       </body>

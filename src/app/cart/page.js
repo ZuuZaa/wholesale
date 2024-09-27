@@ -54,7 +54,7 @@ const Cart = () => {
         <Loading />
       ) : (
         <div className="cart-page">
-          <MobilePageLayout title="My Basket">
+          <MobilePageLayout title="My Basket" >
             {carts.length > 0 ? (
               <>
                 <SearchBar
