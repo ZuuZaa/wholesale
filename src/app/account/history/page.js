@@ -28,7 +28,7 @@ const History = () => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getProfile");
+        const result = await fetchData("getOrders", true);
         setOrders(result.UserOrders);
         filterOrdersByStatus();
       } catch (error) {

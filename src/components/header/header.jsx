@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import { icons } from "./constants";
 import "./header.scss";
@@ -32,7 +33,7 @@ function Header() {
   const [searchKey, setSearchKey] = useState("");
 
   const showSeachBox = () => setIsSearchBoxOpen(true);
-  const hideSeachBox = () => setIsSearchBoxOpen(false);
+  const clearSeachInput = () => setSearchKey("");
 
   const handleInputChange = (event) => {
     setSearchKey(event.target.value);
@@ -73,7 +74,9 @@ function Header() {
               )}
 
               <figure className="logo">
-                <Image src={icons.logo} width={46} alt="wsc logo" />
+                <Link href="/">
+                  <Image src={icons.logo} width={46} alt="wsc logo" />
+                </Link>
               </figure>
             </div>
             <div className="flex gap-2.5">
@@ -108,7 +111,7 @@ function Header() {
                   onChange={handleInputChange}
                   onKeyDown={handleInputKeyDown}
                 />
-                <button className="btn-close" onClick={hideSeachBox}>
+                <button className="btn-close" onClick={clearSeachInput}>
                   x
                 </button>
                 <button className="btn-search" onClick={handleSearchClick}>

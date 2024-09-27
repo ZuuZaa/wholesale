@@ -28,7 +28,7 @@ const Cart = () => {
       setIsLoading(true);
       try {
         const result = await fetchData("getCart", true);
-        console.log(result)
+        console.log(result);
         setTotalPrice(result.Subtotal.toFixed(2));
         setCarts(result.Cart);
       } catch (error) {
@@ -69,6 +69,7 @@ const Cart = () => {
                           product={item}
                           updateCarts={updateCarts}
                           updateTotalPrise={updateTotalPrise}
+                          key={item.Id}
                         />
                       ))
                     : carts.map((item) => (
@@ -76,6 +77,7 @@ const Cart = () => {
                           product={item}
                           updateCarts={updateCarts}
                           updateTotalPrise={updateTotalPrise}
+                          key={item.Id}
                         />
                       ))}
                 </ul>

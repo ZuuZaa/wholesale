@@ -12,7 +12,6 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
   }
 
   const addToFavorites = async () => {
-    console.log("first")
     try {
       const result = await fetchData("postFavorites", true, {
         ProductId: productId,

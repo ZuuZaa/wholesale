@@ -4,53 +4,33 @@ import { useEffect, useState } from "react";
 import "./search.scss";
 import Loading from "@/components/loading";
 import { ProductList } from "@/components/product-list";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { fetchData } from "@/utils/fetch-api";
+import Pagination from "@/components/pagination";
 
-// async function fetchData() {
-//   let token = "";
-//   let session_id = "";
-//   if (typeof localStorage !== "undefined") {
-//     token = localStorage.getItem("jwtToken");
-//     session_id = localStorage.getItem("sessionId");
-//   }
-//   const params = new URLSearchParams();
-//   params.append("Search", search);
-//   params.append("SessionId", session_id);
-
-//   const response = await fetch(
-//     `https://api.wscshop.co.uk/api/search/get-index?${params.toString()}`,
-//     {
-//       method: "GET",
-//       headers: {
-//         Accept: "application/json, text/plain",
-//         "Content-Type": "application/json;charset=UTF-8",
-//         Authorization: "Bearer " + token,
-//       },
-//     }
-//   );
-//   const data = await response.json();
-//   console.log(data.output);
-//   return data.output;
-// }
 
 const Search = () => {
+
   const [isLoading, setIsLoading] = useState(true);
   const searchParams = useSearchParams();
   const searchKey = searchParams.get("search");
-  console.log(searchKey);
+  const [products, setProducts] = useState({});
+  const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
 
-  const [data, setData] = useState({});
+  const setPages = (page) => setActivePage(page);
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getSearch", false, {
+        const response = await fetchData("getSearchPagination", false, {
           Search: searchKey,
+          Page: activePage,
         });
-        setData(result);
-        console.log(result);
+        setProducts(response?.Products);
+        setTotalPages(response.PageCount);
+        console.log(response);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -59,13 +39,9 @@ const Search = () => {
     };
 
     fetchDataAsync();
-  }, [searchKey]);
+  }, [searchKey, activePage]);
 
-  const products = data?.Products;
-  const attributeNames = data?.attributeNames;
-  const attributeValues = data?.attributeValues;
-  const searchWord = data?.searchWord;
-  const searchCount = data?.searchCount;
+
   let addFavorite = async (event) => {
     let prodid = event.currentTarget.getAttribute("id");
     let status;
@@ -821,6 +797,13 @@ const Search = () => {
         <div className="search-page--mobile">
           <div className="pt-20 pb-10">
             <ProductList products={products} />
+            {totalPages > 1 && (
+              <Pagination
+                totalPages={totalPages}
+                activePage={activePage}
+                setPages={setPages}
+              />
+            )}
           </div>
         </div>
       )}

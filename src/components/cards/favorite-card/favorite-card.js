@@ -16,28 +16,15 @@ const FavoriteCard = ({ product, updateFavorites }) => {
     session_id = localStorage.getItem("sessionId");
   }
 
-  let addToCart = async (event) => {
+  const addToCart = async (event) => {
+    event.preventDefault();
     try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/add-to-cart",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: product.productId,
-            Quantity: product.quantity,
-            SessionId: session_id,
-          }),
-        }
-      );
-      if (res.status === 200) {
-        const data = await res.json();
-        setTotalQuantity(data.output.totalQuantity);
-      }
+      const response = await fetchData("postCart", true, {
+        ProductId: product.ProductId,
+        Quantity: 1,
+      });
+      console.log(response);
+      setTotalQuantity(response.TotalQuantity);
     } catch (err) {
       console.log(err);
     }

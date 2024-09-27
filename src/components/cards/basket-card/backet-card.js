@@ -3,98 +3,60 @@
 import Link from "next/link";
 import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./basket.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
+import { fetchData } from "@/utils/fetch-api";
 
 const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
-  let [count, setCount] = useState(product.Quantity);
-  let [price, setPrise] = useState(product.Total.toFixed(2));
+  let [count, setCount] = useState(null);
+  let [price, setPrice] = useState(null);
   const { setTotalQuantity } = useTotalQuantity();
 
-  let token = "";
-  let session_id = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-    session_id = localStorage.getItem("sessionId");
-  }
-
-  let removeFromCart = async () => {
+  const removeFromCart = async () => {
     try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/remove-from-cart",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            CartId: product.id,
-            SessionId: session_id,
-          }),
-        }
-      );
-
-      if (res.status === 200) {
-        const data = await res.json();
-        updateCarts(data.output.cart);
-        updateTotalPrise(data.output.subtotal.toFixed(2));
-        setTotalQuantity(data.output.totalQuantity);
-      }
-    } catch (err) {
-      console.log(err);
+      const response = await fetchData("removeCart", true, {
+        CartId: product.Id,
+      });
+      updateCarts(response?.Cart);
+      setTotalQuantity(response.TotalQuantity);
+      updateTotalPrise(response?.Subtotal.toFixed(2))
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
   let updateCart = async (quantity) => {
     try {
-      const res = await fetch(
-        "https://api.wscshop.co.uk/api/cart/update-cart",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain",
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            ProductId: product.productId,
-            Quantity: quantity,
-            SessionId: session_id,
-          }),
-        }
-      );
-
-      if (res.status === 200) {
-        const data = await res.json();
-        const updatedProduct = data.output.cart.find(
-          (item) => item.productId === product.productId
-        );
-        setCount(updatedProduct.quantity);
-        setPrise(updatedProduct.total.toFixed(2));
-        updateTotalPrise(data.output.subtotal.toFixed(2));
-      }
+      const response = await fetchData("postCart", true, {
+        ProductId: product.ProductId,
+        Quantity: quantity,
+      });
+      setCount(response?.Product?.[0]?.Quantity);
+      setPrice(response?.Product?.[0]?.Total?.toFixed(2));
+      updateTotalPrise(response?.Subtotal?.toFixed(2));
     } catch (err) {
       console.log(err);
     }
   };
 
-  const add = () => {
+  const increaseProductQuantity = () => {
     updateCart(++count);
   };
 
-  const remove = () => {
+  const decreaseProductQuantity = () => {
     if (count > 1) {
       updateCart(--count);
     }
   };
 
+  useEffect(() => {
+    setCount(product.Quantity);
+    setPrice(product.Total.toFixed(2));
+  }, [product]);
 
-  console.log(product)
   return (
-    <li key={product.Id}>
+    <li>
       <div className="basket-card">
         <Link href={`/product/${product.ProductId}`}>
           <figure className="product-image">
@@ -116,11 +78,11 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
           </div>
           <div className="flex justify-between items-center">
             <div className="card-actions">
-              <button className="btn-remove" onClick={remove}>
+              <button className="btn-remove" onClick={decreaseProductQuantity}>
                 -
               </button>
               <span className="count color-green">{count}</span>
-              <button className="btn-add" onClick={add}>
+              <button className="btn-add" onClick={increaseProductQuantity}>
                 +
               </button>
             </div>

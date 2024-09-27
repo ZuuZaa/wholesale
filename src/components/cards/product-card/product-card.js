@@ -8,16 +8,8 @@ const ProductCard = ({ product, cardHeight }) => {
   
   const { setTotalQuantity } = useTotalQuantity();
 
-  let token = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-  }
-
   const addToCart = async (event) => {
     event.preventDefault();
-    if (!token) {
-      window.location.href = "/login";
-    }
     try {
       const response = await fetchData("postCart", true, {
         ProductId: product.ProductId,

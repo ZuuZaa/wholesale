@@ -24,6 +24,7 @@ async function fetchData(payment_intent){
       }
       )
   const data = await response.json();
+  console.log(data)
   return data;
 }
 

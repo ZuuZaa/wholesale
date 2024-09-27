@@ -7,7 +7,7 @@ import Loading from "@/components/loading";
 import { fetchData } from "@/utils/fetch-api";
 import Pagination from "@/components/pagination";
 
-export default function Products() {
+const Products = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const params = useParams();
@@ -20,14 +20,14 @@ export default function Products() {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getProductsPagination", false, {
+        const response = await fetchData("getProductsPagination", false, {
           TypeId: params?.id,
           Atributes: [],
           Page: activePage,
         });
-        console.log("result: ", result);
-        setProducts(result.Products);
-        setTotalPages(result.PageCount);
+        console.log("response: ", response);
+        setProducts(response.Products);
+        setTotalPages(response.PageCount);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -58,3 +58,5 @@ export default function Products() {
     </main>
   );
 }
+
+export default Products;
