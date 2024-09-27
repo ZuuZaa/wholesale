@@ -5,7 +5,6 @@ import { dateNormalizer } from "@/helpers";
 
 
 const OrderCard = ({ data }) => {
-  console.log(data?.SoldDate, data?.SoldDate);
   return (
     <div className="order-card">
       <div className="order-card-title flex justify-between items-center mb-3">

@@ -6,10 +6,11 @@ import { OrderList } from "@/components/lists/order-list";
 import { StatusTabs } from "@/components/tabs";
 import { fetchData } from "@/utils/fetch-api";
 import Loading from "@/components/loading";
+import { ORDER_STATUS } from "@/constans";
 
 const History = () => {
   const [orders, setOrders] = useState([]);
-  const [activeStatus, setActiveStatus] = useState(0);
+  const [activeStatus, setActiveStatus] = useState(null);
   const [filteredByStatusOrders, setFilteredByStatusOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,20 +18,14 @@ const History = () => {
     setActiveStatus(status);
   };
 
-  const filterOrdersByStatus = () => {
-    const filteredOrders = orders?.filter(
-      (item) => item.Status == activeStatus
-    );
-    setFilteredByStatusOrders(filteredOrders);
-  };
-
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getOrders", true);
-        setOrders(result.UserOrders);
-        filterOrdersByStatus();
+        const response = await fetchData("getOrders", true);
+        console.log(response);
+        setOrders(response.UserOrders);
+        setActiveStatus(ORDER_STATUS[0].status);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -42,8 +37,11 @@ const History = () => {
   }, []);
 
   useEffect(() => {
-    filterOrdersByStatus();
-  }, [activeStatus]);
+    const filteredOrders = orders?.filter(
+      (item) => item.Status == activeStatus
+    );
+    setFilteredByStatusOrders(filteredOrders);
+  }, [activeStatus, orders]);
 
   return (
     <main>

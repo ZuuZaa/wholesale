@@ -1,9 +1,7 @@
-export const dateNormalizer = (date) => {
-  const initialDate = new Date(date);
-  let day = initialDate.getDay();
-  day = day < 10 ? `0${day}` : day;
-  let month = initialDate.getMonth();
-  month = month < 10 ? `0${month}` : month;
-  const year = initialDate.getFullYear();
+export const dateNormalizer = (dateString) => {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+  const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 };
