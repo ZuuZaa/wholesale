@@ -9,9 +9,11 @@ import DateIcon from "@/assets/icons/date.svg";
 import { dateNormalizer } from "@/helpers";
 import BottomFixedCard from "@/components/cards/bottom-fixed-card";
 import { fetchData } from "@/utils/fetch-api";
+import './statements.scss';
 
 const Statement = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [statements, setStatements] = useState([]);
 
   const [data, setData] = useState({
     user: [],
@@ -71,11 +73,7 @@ const Statement = () => {
   return (
     <main>
       <div className="statements-page">
-        <MobilePageLayout title="statements">
-          <StatusTabs
-            tabClickHandle={tabClickHandle}
-            activeStatus={activeStatus}
-          />
+        <MobilePageLayout>
           <div className="grid grid-cols-2 gap-2 py-3">
             <CardFrame>
               <TitleWithIcon
@@ -93,7 +91,9 @@ const Statement = () => {
               />
             </CardFrame>
           </div>
-          <StatementList list={filteredByStatusStatements} />
+          <button className="get-statements-btn">Get statements</button>
+          {statements.length > 0 && <StatementList list={filteredByStatusStatements} />}
+
           <BottomFixedCard>
             <CardFrame>
               <div className="flex flex-col gap-2 p-1">
