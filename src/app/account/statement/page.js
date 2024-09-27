@@ -49,7 +49,7 @@ const Statement = () => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const response = await fetchData("getStatements", true);
+        const response = await fetchData("getStatement", true);
         console.log(response);
       } catch (error) {
         console.error(error.message);

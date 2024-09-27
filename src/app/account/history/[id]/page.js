@@ -22,7 +22,7 @@ const Account = () => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getOrderDetails", true, { OrderId: params?.id});
+        const result = await fetchData("getOrderDetails", true, {OrderId: params?.id});
         setOrderDetails(result.OrderDetails[0]);
         setOrderedProducts(result.OrderProducts);
       } catch (error) {
