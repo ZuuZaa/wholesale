@@ -37,7 +37,7 @@ export default function ProductDetail() {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getProductDetails", true, {
+        const result = await fetchData("getProductDetails", false, {
           ProductId: params?.id,
         });
         setCategory(result.Category);

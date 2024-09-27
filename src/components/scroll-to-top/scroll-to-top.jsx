@@ -7,7 +7,6 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Show button when page is scrolled down by 300px
   const toggleVisibility = () => {
     if (window.scrollY > 300) {
       setIsVisible(true);
@@ -16,7 +15,6 @@ const ScrollToTop = () => {
     }
   };
 
-  // Scroll the page to the top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
