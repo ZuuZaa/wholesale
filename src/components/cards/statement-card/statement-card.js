@@ -3,6 +3,7 @@ import "./statement-card.scss";
 import { dateNormalizer } from "@/helpers";
 
 const StatementCard = ({ data }) => {
+  console.log(data, "data")
   return (
     <div className="statement-card">
       <div className="statement-card-title flex justify-between items-center mb-3">
@@ -18,9 +19,11 @@ const StatementCard = ({ data }) => {
       <div>
         <p>{dateNormalizer(data?.date)}</p>
       </div>
-      <Link className="details-link color-green" href="#">
-        Details &#8811;
-      </Link>
+      {(data.kind === 2 || data.kind === 7) && (
+        <Link className="details-link color-green" href={`history/${data.id}`}>
+          Details &#8811;
+        </Link>
+      )}
     </div>
   );
 };
