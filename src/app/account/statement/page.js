@@ -35,7 +35,6 @@ const Statement = () => {
         });
         setSummaries(response.Summaries);
         setStatements(response.Statements);
-        console.log(response);
       } catch (error) {
         console.error(error.message);
       } finally {

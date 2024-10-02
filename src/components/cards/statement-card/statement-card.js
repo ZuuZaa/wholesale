@@ -3,7 +3,6 @@ import "./statement-card.scss";
 import { dateNormalizer } from "@/helpers";
 
 const StatementCard = ({ data }) => {
-  console.log(data, "data")
   return (
     <div className="statement-card">
       <div className="statement-card-title flex justify-between items-center mb-3">
