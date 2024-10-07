@@ -5,6 +5,7 @@ import Image from "next/image";
 import trashbin from "@/assets/icons/trash-bin.svg";
 import "./favorite-card.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
+import { fetchData } from "@/utils/fetch-api";
 
 const FavoriteCard = ({ product, updateFavorites }) => {
   const { setTotalQuantity } = useTotalQuantity();
@@ -23,7 +24,7 @@ const FavoriteCard = ({ product, updateFavorites }) => {
         ProductId: product.ProductId,
         Quantity: 1,
       });
-      console.log(response);
+      console.log("response", response);
       setTotalQuantity(response.TotalQuantity);
     } catch (err) {
       console.log(err);
