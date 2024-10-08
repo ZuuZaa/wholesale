@@ -5,8 +5,9 @@ import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
 
 const ProductCard = ({ product, cardHeight }) => {
-  
   const { setTotalQuantity } = useTotalQuantity();
+
+  console.log("product", product);
 
   const addToCart = async (event) => {
     event.preventDefault();
@@ -40,10 +41,11 @@ const ProductCard = ({ product, cardHeight }) => {
             />
           </figure>
         </FavoriteImageContainer>
+
         <div className="product-info">
           <p>{product.Name}</p>
           <div className="flex justify-between items-center gap-3 mt-1">
-            <span>{`₤${product.Price}`}</span>
+            {!!product.PriceVisible && <span>{`₤${product.Price}`}</span>}
             <div className="card-action">
               <button className="btn-success" onClick={addToCart}>
                 Add

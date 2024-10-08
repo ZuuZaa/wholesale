@@ -34,7 +34,7 @@ const FavoriteCard = ({ product, updateFavorites }) => {
   const removeFromFavorites = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetchData("removeFavorites", true, {
+      const response = await fetchData("9=", true, {
         ProductId: product.ProductId,
       });
       updateFavorites(response.Favorites);
