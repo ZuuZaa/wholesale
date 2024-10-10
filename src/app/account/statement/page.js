@@ -99,7 +99,7 @@ const Statement = () => {
                             <span className="color-muted">{item.title}</span>
                             <b
                               className={
-                                item.summary > 0 ? "color-green" : "color-red"
+                                item.summary > 0 ? "color-premium" : "color-red"
                               }
                             >
                               {`${item.summary < 0 ? "-" : ""}₤${Math.abs(

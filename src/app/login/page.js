@@ -180,8 +180,8 @@ export default function Login() {
       <div className="login-page">
         <div className="form-container">
           <div className="form-title">
-            <h2 className="color-green">Welcome!</h2>
-            <p className="color-green">
+            <h2 className="color-premium">Welcome!</h2>
+            <p className="color-premium">
               Please login using account detail below
             </p>
           </div>
@@ -202,9 +202,9 @@ export default function Login() {
             <div className="message">{message ? <p>{message}</p> : null}</div>
           </form>
 
-          {/* <p className="color-green">
+          {/* <p className="color-premium">
             Don't have an account?
-            <Link href="/register" className="color-green">
+            <Link href="/register" className="color-premium">
               Sign up
             </Link>
           </p> */}

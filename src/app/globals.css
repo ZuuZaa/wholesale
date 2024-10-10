@@ -27,6 +27,11 @@
   --background-end-rgb: 255, 255, 255;
   --background-light-gray: #f8f8f8;
   --background-breadcrumb: #f4f4f4;
+  --premium-color: #00000040;
+}
+
+.color-premium {
+  color: var(--premium-color);
 }
 
 .pt-70 {
@@ -3290,9 +3295,7 @@ select {
   }
 }
 
-.color-green {
-  color: #3fe29e;
-}
+
 
 .color-red {
   color: #ff5454;

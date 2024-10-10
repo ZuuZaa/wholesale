@@ -9,7 +9,7 @@ const StatementCard = ({ data }) => {
         <h3 className="statement-title">{data?.title}</h3>
         <p
           className={`statement-total ${
-            data?.total < 0 ? "color-red" : "color-green"
+            data?.total < 0 ? "color-red" : "color-premium"
           }`}
         >
           {data?.total < 0 ? `-₤${Math.abs(data.total)}` : `₤${data?.total}`}
@@ -19,7 +19,7 @@ const StatementCard = ({ data }) => {
         <p>{dateNormalizer(data?.date)}</p>
       </div>
       {(data.kind === 2 || data.kind === 7) && (
-        <Link className="details-link color-green" href={`history/${data.id}`}>
+        <Link className="details-link color-premium" href={`history/${data.id}`}>
           Details &#8811;
         </Link>
       )}

@@ -98,8 +98,8 @@ export default function Register() {
       <div className="register-page">
         <div className="form-container">
           <div className="form-title">
-            <h2 className="color-green">Welcome!</h2>
-            <p className="color-green">Create an account</p>
+            <h2 className="color-premium">Welcome!</h2>
+            <p className="color-premium">Create an account</p>
           </div>
           <form action="" className="register-form">
             <input type="text" placeholder="Name" />
@@ -109,9 +109,9 @@ export default function Register() {
             <button type="submit">Sign up</button>
           </form>
 
-          <p className="color-green">
+          <p className="color-premium">
             Already has an account?
-            <Link href="/login" className="color-green">
+            <Link href="/login" className="color-premium">
               Log in
             </Link>
           </p>

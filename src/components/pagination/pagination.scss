@@ -18,9 +18,9 @@
     }
 
     .page-btn.active {
-        background-color: #3fe29e;
+        background-color: var(--premium-color);
         color: #fff;
-        border-color: #3fe29e;
+        border-color: var(--premium-color);
     }
 
     .prev:disabled,

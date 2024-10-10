@@ -83,8 +83,9 @@
 
     .links {
         li:hover {
-            color: #3FE29E;
+            color: var(--premium-color);
             transition: ease .2s;
+            color: hsl(0, 0%, 65%);
         }
     }
 

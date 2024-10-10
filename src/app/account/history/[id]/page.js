@@ -41,10 +41,7 @@ const Account = () => {
         <Loading />
       ) : (
         <div className="order-detail-page">
-          <MobilePageLayout
-            title="Order details"
-            fixedTitle
-          >
+          <MobilePageLayout title="Order details" fixedTitle>
             <div className="flex flex-col gap-3">
               <CardFrame>
                 <div className="order-details-card flex flex-col gap-2 p-1">
@@ -120,7 +117,7 @@ const Account = () => {
                     </div>
                     <div className="flex justify-between">
                       <b>Total</b>
-                      <b className="color-green">{`₤${orderDetails?.Total}`}</b>
+                      <b className="color-premium">{`₤${orderDetails?.Total}`}</b>
                     </div>
                   </div>
                 </CardFrame>

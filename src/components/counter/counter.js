@@ -55,7 +55,7 @@ const Counter = ({ product }) => {
       <button className="btn-remove" onClick={remove}>
         -
       </button>
-      <span className="count color-green">{count}</span>
+      <span className="count color-premium">{count}</span>
       <button className="btn-add" onClick={add}>
         +
       </button>

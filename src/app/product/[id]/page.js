@@ -160,7 +160,7 @@ export default function ProductDetail() {
                       >
                         -
                       </button>
-                      <span className="count color-green">{count}</span>
+                      <span className="count color-premium">{count}</span>
                       <button
                         className="btn-add"
                         onClick={increaseProductQuantity}

@@ -104,7 +104,7 @@ export default function MainPage() {
           </section>
           <section className="categories">
             <div className="section-title">
-              <h4 className="section-title color-green">Categories</h4>
+              <h4 className="section-title color-premium">Categories</h4>
             </div>
             <Swiper slidesPerView={"auto"} spaceBetween={12}>
               {categoryImages?.map((cat) => (
@@ -123,8 +123,8 @@ export default function MainPage() {
           </section>
           <section className="recommended">
             <div className="section-title flex justify-between">
-              <h4 className="section-title color-green">New Products</h4>
-              <Link href="products/1" className="view-all-link color-green">
+              <h4 className="section-title color-premium">New Products</h4>
+              <Link href="products/1" className="view-all-link color-premium">
                 show all
               </Link>
             </div>
@@ -158,7 +158,7 @@ export default function MainPage() {
                 href={
                   products.find((item) => item.name === activeTab)?.link || "#"
                 }
-                className="color-green"
+                className="color-premium"
               >
                 show all
               </Link>
