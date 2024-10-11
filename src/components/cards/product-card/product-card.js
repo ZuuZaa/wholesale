@@ -7,8 +7,6 @@ import { fetchData } from "@/utils/fetch-api";
 const ProductCard = ({ product, cardHeight }) => {
   const { setTotalQuantity } = useTotalQuantity();
 
-  console.log("product", product);
-
   const addToCart = async (event) => {
     event.preventDefault();
     try {
@@ -33,9 +31,6 @@ const ProductCard = ({ product, cardHeight }) => {
           <figure className="product-image">
             <img
               src={product.MainImage}
-              onError={(e) =>
-                product.CatImage && (e.target.src = product.CatImage)
-              }
               alt={product.Name}
               className="product-card-image"
             />

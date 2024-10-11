@@ -9,6 +9,7 @@ import payment from "@/assets/icons/payment.svg";
 import { fetchData } from "@/utils/fetch-api";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import Loading from "@/components/loading";
+import { Calendar, DatePicker } from "antd";
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,7 @@ const Checkout = () => {
   const [selectedShippingOption, setSelectedShippingOption] = useState("2");
   const { setTotalQuantity } = useTotalQuantity();
 
-  const paymentType = 2
+  const paymentType = 2;
 
   const handleDeliveryClick = () => {
     setDeliveryDropdownIsOpen(true);
@@ -50,6 +51,15 @@ const Checkout = () => {
   //   const selectedBillingValue = event.target.value;
   //   setSelectedBillingOption(selectedBillingValue);
   // };
+
+  const onDateClick = (date) => {
+    console.log(date.format("YYYY-MM-DD")); // Handle the date click
+  };
+
+  const disablePastDates = (current) => {
+    // Disable dates before today
+    return current && current < new Date().setHours(0, 0, 0, 0);
+  };
 
   useEffect(() => {
     const fetchDataAsync = async () => {
@@ -276,6 +286,13 @@ const Checkout = () => {
                   </div>
                 </CardFrame>
                 <CardFrame>
+                  <Calendar
+                    fullscreen={false}
+                    onChange={onDateClick}
+                    disabledDate={disablePastDates}
+                  />
+                </CardFrame>
+                <CardFrame>
                   <div className="order-summary">
                     <h3 className="py-2">Order Summary</h3>
                     <ul className="border-top">
@@ -304,7 +321,11 @@ const Checkout = () => {
                   <p>Total</p>
                   <span>{`₤${data?.Total}`}</span>
                 </div>
-                <button onClick={cashPayment} className="btn btn-success">
+                <button
+                  onClick={cashPayment}
+                  className="btn btn-success"
+                  disabled={!selectedShippingAddressOption}
+                >
                   Order now
                 </button>
               </div>
