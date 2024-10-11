@@ -60,12 +60,12 @@ export const StyledProductCard = styled.div`
   }
 
   .btn-success {
-    background: var(--premium-color);
+    background: var(--primary-theme-color);
     color: #fff;
 
     &:hover {
       background: hsl(0, 0%, 85%);
-      color: var(--premium-color);
+      color: var(--primary-theme-color);
     }
   }
 `;

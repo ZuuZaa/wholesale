@@ -55,12 +55,12 @@
     }
 
     .btn-success {
-        background: var(--premium-color);
+        background: var(--primary-theme-color);
         color: #fff;
 
         &:hover {
             background: hsl(0, 0%, 85%);
-            color: var(--premium-color);
+            color: var(--primary-theme-color);
         }
     }
 
@@ -92,8 +92,8 @@
             border-radius: 50%;
 
             &:is(.active) {
-                background-color: var(--premium-color);
-                border: 1px solid var(--premium-color);
+                background-color: var(--primary-theme-color);
+                border: 1px solid var(--primary-theme-color);
             }
         }
 

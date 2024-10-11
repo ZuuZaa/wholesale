@@ -20,22 +20,13 @@ const Footer = () => {
       setTotalQuantity(result.TotalQuantity);
 
       const color = result?.Settings?.[0]?.Color;
-      // Ensure that the color exists before setting it
       if (color) {
         document.documentElement.style.setProperty(
-          "--premium-color",
-          `#${color}` // Make sure the color is in the correct format
+          "--primary-theme-color",
+          `#${color}`
         );
       }
 
-      // Log the applied color to verify
-      console.log(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--premium-color"
-        )
-      );
-
-      console.log("color", `#${color}`);
     } catch (error) {
       console.error(error.message);
     }

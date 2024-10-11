@@ -27,11 +27,11 @@
   --background-end-rgb: 255, 255, 255;
   --background-light-gray: #f8f8f8;
   --background-breadcrumb: #f4f4f4;
-  --premium-color: #00000040;
+  --primary-theme-color: #00000040;
 }
 
 .color-premium {
-  color: var(--premium-color);
+  color: var(--primary-theme-color);
 }
 
 .pt-70 {
