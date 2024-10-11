@@ -7,19 +7,23 @@ import { footerLinks } from "./constants";
 import { usePathname } from "next/navigation";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
+import { useSiteSettings } from "@/context/site-settings-context";
 
 const Footer = () => {
   const { totalQuantity, setTotalQuantity } = useTotalQuantity();
+  const { setSettings } = useSiteSettings();
 
   const pathname = usePathname();
 
   const fetchDataAsync = async () => {
     try {
-      const result = await fetchData("getFooter", false);
-      console.log("footer:", result);
-      setTotalQuantity(result.TotalQuantity);
+      const response = await fetchData("getFooter", false);
+      console.log("footer:", response);
+      setTotalQuantity(response.TotalQuantity);
 
-      const color = result?.Settings?.[0]?.Color;
+      const color = response?.Settings?.[0]?.Color;
+      const logo = response?.Settings?.[0]?.LogoMobile;
+
       if (color) {
         document.documentElement.style.setProperty(
           "--primary-theme-color",
@@ -27,6 +31,9 @@ const Footer = () => {
         );
       }
 
+      if (logo) {
+        setSettings({logo, color});
+      }
     } catch (error) {
       console.error(error.message);
     }

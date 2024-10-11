@@ -9,12 +9,14 @@ import { icons } from "./constants";
 import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
 import NotificationBox from "@/components/notifigation-box";
+import { useSiteSettings } from "@/context/site-settings-context";
 
 function Header() {
   let path = "";
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
+  const {settings} = useSiteSettings()
 
   const isHomePage = pathname === "/";
   if (typeof window !== "undefined") {
@@ -74,12 +76,13 @@ function Header() {
                   />
                 </button>
               )}
-
-              <figure className="logo">
-                <Link href="/">
-                  <Image src={icons.logo} width={46} alt="wsc logo" />
-                </Link>
-              </figure>
+              {settings?.logo && (
+                <figure className="logo">
+                  <Link href="/">
+                    <img src={settings.logo} width={46} alt="logo" />
+                  </Link>
+                </figure>
+              )}
             </div>
             <div className="flex gap-2.5">
               <Image
