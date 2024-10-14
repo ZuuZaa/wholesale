@@ -144,9 +144,12 @@ const ProductDetail = () => {
                     </ul>
                     <span>{`${reviews.length} reviews`}</span>
                   </div>
-                  <p className="price">{`₤${productDetails?.Price?.toFixed(
-                    2
-                  )}`}</p>
+                  {!!productDetails?.PriceVisible && (
+                    <p className="price">{`₤${productDetails?.Price?.toFixed(
+                      2
+                    )}`}</p>
+                  )}
+
                   <div className="actions">
                     <div className="card-actions">
                       <button

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Icon = ({ name, size, color, hover }) => {
   return (
-    <StyledIcon color={color} size={size}>
+    <StyledIcon color={color} size={size} hover={hover}>
       <i class={`icon icon-${name}`}></i>
     </StyledIcon>
   );
@@ -14,7 +14,7 @@ const StyledIcon = styled.span`
     font-size: ${({ size }) => size || "1.2rem"};
 
     &:hover {
-      color: ${({ hover }) => hover};
+      color: ${({ hover }) => hover || "var(--secondary-theme-color)"};
     }
   }
 `;

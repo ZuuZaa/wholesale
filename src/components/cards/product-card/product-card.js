@@ -39,7 +39,13 @@ const ProductCard = ({ product, cardHeight }) => {
 
         <div className="product-info">
           <p>{product.Name}</p>
-          <div className="flex justify-between items-center gap-3 mt-1">
+          <div
+            className={`${
+              !product.PriceVisible
+                ? "btn-full-width"
+                : "price-visible flex justify-between items-center gap-3 mt-1"
+            }`}
+          >
             {!!product.PriceVisible && <span>{`₤${product.Price}`}</span>}
             <div className="card-action">
               <button className="btn-success" onClick={addToCart}>

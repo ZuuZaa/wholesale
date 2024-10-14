@@ -42,14 +42,22 @@ export const StyledProductCard = styled.div`
     }
   }
 
-  .card-action {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  .price-visible {
+    .card-action {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
 
+      button {
+        max-width: 100px;
+      }
+    }
+  }
+
+  .card-action {
     button {
       width: 100%;
-      max-width: 100px;
+      margin-block: 4px;
       padding: 4px 12px;
       border-radius: 18px;
       font-size: 12px;
