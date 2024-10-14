@@ -1,12 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import trashbin from "@/assets/icons/trash-bin.svg";
 import { useEffect, useState } from "react";
-import "./basket.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
+import Icon from "@/components/icon";
+import "./basket.scss";
 
 const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
   let [count, setCount] = useState(null);
@@ -73,7 +72,7 @@ const BasketCard = ({ product, updateCarts, updateTotalPrise }) => {
           <div className="flex justify-between gap-2">
             <h5 className="product-name">{product.ProductName}</h5>
             <button onClick={removeFromCart}>
-              <Image src={trashbin} alt="delete product" />
+              <Icon name="trash-bin" color="#C9C9C9" />
             </button>
           </div>
           <div className="flex justify-between items-center">

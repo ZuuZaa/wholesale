@@ -44,14 +44,22 @@ const Statement = () => {
     fetchDataAsync();
   };
 
-  useEffect(() => {
-    const currentDate = dayjs();
-    const previousMonth = currentDate.subtract(1, "month");
-    const startDayPreviousMonth = previousMonth.set("date", 2);
-    setStartDate(startDayPreviousMonth);
-    setEndDate(currentDate);
-    setIsLoading(false);
-  }, []);
+    useEffect(() => {
+      const currentDate = dayjs();
+      const previousMonthSameDay = currentDate.subtract(1, "month");
+      setStartDate(previousMonthSameDay);
+      setEndDate(currentDate);
+      setIsLoading(false);
+    }, []);
+
+  // useEffect(() => {
+  //   const currentDate = dayjs();
+  //   const previousMonth = currentDate.subtract(1, "month");
+  //   const startDayPreviousMonth = previousMonth.set("date", 2);
+  //   setStartDate(startDayPreviousMonth);
+  //   setEndDate(currentDate);
+  //   setIsLoading(false);
+  // }, []);
 
   return (
     <main>

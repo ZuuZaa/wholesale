@@ -10,7 +10,7 @@ export const footerLinks = [
     icon: home,
   },
   {
-    name: "wishlist",
+    name: "favorite",
     path: "/wishlist",
     icon: bookmark,
   },
@@ -20,7 +20,7 @@ export const footerLinks = [
     icon: basket,
   },
   {
-    name: "profile",
+    name: "user",
     path: "/account/profile",
     icon: user,
   },

@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
-import { icons, infoLinks } from "./constans";
+import { infoLinks } from "./constans";
 import Link from "next/link";
-import Image from "next/image";
 import CardFrame from "@/components/cards/card-frame";
 import NotificationBox from "@/components/notifigation-box";
 import TitleWithIcon from "@/components/typography/title-with-icon/title-with-icon";
 import { fetchData } from "@/utils/fetch-api";
 import Loading from "@/components/loading";
 import "./profile.scss";
+import Icon from "@/components/icon";
 
 
 const Profile = () => {
@@ -89,18 +89,18 @@ const Profile = () => {
             <ul className="main-links flex flex-col gap-3 pb-4">
               <li>
                 <Link href="/account/history">
-                  <TitleWithIcon icon={icons.pack} title="My orders" />
+                  <TitleWithIcon icon="package" title="My orders" />
                 </Link>
               </li>
               <li>
                 <Link href="/account/statement">
-                  <TitleWithIcon icon={icons.statement} title="Statement" />
+                  <TitleWithIcon icon="statement" title="Statement" />
                 </Link>
               </li>
               <li>
                 <div className="dropdown-container">
                   <figure className="flex items-center gap-4">
-                    <Image src={icons.location} width={22} alt="location" />
+                    <Icon name="location" color="var(--primary-theme-color)" />
                     <figcaption>
                       <button onClick={handleSavedAddressClick}>
                         Saved address
@@ -117,7 +117,10 @@ const Profile = () => {
                     {addressList.length > 0 ? (
                       <ul className="address-list">
                         {addressList.map((address) => (
-                          <div className="shipping-address-items border rounded-md px-5 py-3 my-2" key={address.Id}>
+                          <div
+                            className="shipping-address-items border rounded-md px-5 py-3 my-2"
+                            key={address.Id}
+                          >
                             <h2>{address.Title}</h2>
                             <h6>{address.AdressLine1}</h6>
                             <h6>{address.AdressLine2}</h6>

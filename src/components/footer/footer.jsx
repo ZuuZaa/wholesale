@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import "./footer.scss";
 import { footerLinks } from "./constants";
 import { usePathname } from "next/navigation";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
 import { useSiteSettings } from "@/context/site-settings-context";
+import Icon from "@/components/icon";
 
 const Footer = () => {
   const { totalQuantity, setTotalQuantity } = useTotalQuantity();
@@ -32,7 +32,7 @@ const Footer = () => {
       }
 
       if (logo) {
-        setSettings({logo, color});
+        setSettings({ logo, color });
       }
     } catch (error) {
       console.error(error.message);
@@ -50,21 +50,18 @@ const Footer = () => {
           {footerLinks.map((link) => (
             <li key={link.name}>
               <Link href={link.path}>
-                <figure className="footer-link-wrapper">
-                  <Image
-                    src={link.icon}
-                    height={20}
-                    alt={link.name}
-                    className={
-                      pathname === link.path
-                        ? "footer-link active"
-                        : "footer-link"
+                <span className="footer-link">
+                  <Icon
+                    name={link.name}
+                    color={
+                      pathname === link.path && "var(--primary-theme-color)"
                     }
+                    size="20px"
                   />
                   {link.name === "basket" && totalQuantity !== 0 && (
-                    <span>{totalQuantity}</span>
+                    <span className="total-quantity">{totalQuantity}</span>
                   )}
-                </figure>
+                </span>
               </Link>
             </li>
           ))}

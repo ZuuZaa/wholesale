@@ -1,10 +1,11 @@
 import { Roboto } from "next/font/google";
-import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { TotalQuantityProvider } from "@/context/total-quantity-context";
 import { SiteSettingsProvider } from "@/context/site-settings-context";
 import ScrollToTop from "@/components/scroll-to-top";
+import "../assets/icomoon/style.css";
+import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],

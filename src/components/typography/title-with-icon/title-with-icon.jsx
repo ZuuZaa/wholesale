@@ -1,5 +1,6 @@
 import Image from "next/image";
 import "./title-with-icon.scss";
+import Icon from "@/components/icon";
 
 const TitleWithIcon = ({ icon, title, reverse = false, justify = false }) => {
   return (
@@ -10,7 +11,7 @@ const TitleWithIcon = ({ icon, title, reverse = false, justify = false }) => {
         ${justify ? "justify-center" : ""} 
         items-center gap-4`}
     >
-      <Image src={icon} width={22} alt="title-icon" />
+      <Icon name={icon} color="var(--primary-theme-color)" />
       <figcaption>{title}</figcaption>
     </figure>
   );

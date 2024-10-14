@@ -7,7 +7,7 @@ import "./favorite-card.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
 
-const FavoriteCard = ({ product, updateFavorites }) => {
+const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
   const { setTotalQuantity } = useTotalQuantity();
 
   // let token = "";
@@ -84,9 +84,11 @@ const FavoriteCard = ({ product, updateFavorites }) => {
         <div className="card-info">
           <div className="flex justify-between gap-2">
             <h5 className="product-name">{product.Name}</h5>
-            <button onClick={removeFromFavorites}>
-              <Image src={trashbin} alt="card actions" />
-            </button>
+            {enableDelete && (
+              <button onClick={removeFromFavorites}>
+                <Image src={trashbin} alt="card actions" />
+              </button>
+            )}
           </div>
           <div className="card-action">
             <span>{`₤${product.Price}`}</span>

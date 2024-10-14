@@ -38,8 +38,13 @@
             text-transform: lowercase;
             white-space: nowrap;
 
+
             &:not(:first-child) {
                 margin-left: 3px;
+            }
+
+            &:not(:last-child):hover {
+                color: var(--primary-theme-color);
             }
 
             &:last-child {

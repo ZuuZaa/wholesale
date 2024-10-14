@@ -3,8 +3,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import starIcon from "@/assets/icons/star.svg";
 import "./product.scss";
 
 // Import Swiper React components
@@ -22,8 +20,9 @@ import ProductCard from "@/components/cards/product-card";
 import FavoriteIcon from "@/components/favorite-icon/favorite-icon";
 import { fetchData } from "@/utils/fetch-api";
 import { useTotalQuantity } from "@/context/total-quantity-context";
+import Icon from "@/components/icon";
 
-export default function ProductDetail() {
+const ProductDetail = () => {
   const params = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [similarProducts, setSimilarProducts] = useState([]);
@@ -46,7 +45,7 @@ export default function ProductDetail() {
           setProductDetails(result.Products[0]);
           setCount(result.Products[0].Quantity);
         }
-        console.log(category)
+        console.log(category);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -139,11 +138,7 @@ export default function ProductDetail() {
                     <ul className="stars">
                       {Array.from({ length: 5 }).map((item) => (
                         <li key={item}>
-                          <Image
-                            src={starIcon}
-                            className="star-icon"
-                            alt="star"
-                          />
+                          <Icon name="star" color="#FFC556" />
                         </li>
                       ))}
                     </ul>
@@ -211,11 +206,7 @@ export default function ProductDetail() {
                           <ul className="stars">
                             {Array.from({ length: 5 }).map((item) => (
                               <li key={item}>
-                                <Image
-                                  src={starIcon}
-                                  className="star-icon"
-                                  alt="star"
-                                />
+                                <Icon name="star" />
                               </li>
                             ))}
                           </ul>
@@ -245,4 +236,6 @@ export default function ProductDetail() {
       )}
     </main>
   );
-}
+};
+
+export default ProductDetail;

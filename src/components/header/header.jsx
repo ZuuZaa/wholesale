@@ -10,6 +10,7 @@ import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
 import NotificationBox from "@/components/notifigation-box";
 import { useSiteSettings } from "@/context/site-settings-context";
+import Icon from "@/components/icon";
 
 function Header() {
   let path = "";
@@ -67,13 +68,7 @@ function Header() {
             <div className="flex gap-3 items-center ">
               {!isHomePage && (
                 <button onClick={() => window.history.back()}>
-                  <Image
-                    src={icons.chevron}
-                    width={8}
-                    height={18}
-                    alt="chevron"
-                    className="chevron"
-                  />
+                  <Icon name="chevron" color="#828282" />
                 </button>
               )}
               {settings?.logo && (

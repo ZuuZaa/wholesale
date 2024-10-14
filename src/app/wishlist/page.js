@@ -5,12 +5,14 @@ import FavoriteCard from "@/components/cards/favorite-card";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import SearchBar from "@/components/search-bar";
 import { fetchData } from "@/utils/fetch-api";
+import "./wishlist.scss";
 
 const Wishlist = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
   const [filteredCarts, setFilteredCarts] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [selectedList, setSelectedList] = useState("1");
   // const [activePage, setActivePage] = useState(1);
   // const [totalPages, setTotalPages] = useState(null);
 
@@ -22,14 +24,18 @@ const Wishlist = () => {
     setSearchKey(event.target.value.toLowerCase());
   };
 
+  const selectListHandler = (e) => setSelectedList(e.target.value);
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchData("getFavorites", true);
+        const result = await fetchData("getFavorites", true, {
+          Kind: selectedList,
+        });
         console.log(result);
         setFavorites(result.Favorites);
-       // setTotalPages(result.PageCount);
+        // setTotalPages(result.PageCount);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -38,7 +44,7 @@ const Wishlist = () => {
     };
 
     fetchDataAsync();
-  }, []);
+  }, [selectedList]);
 
   useEffect(() => {
     const filteredCarts = favorites?.filter((item) =>
@@ -53,7 +59,28 @@ const Wishlist = () => {
         <Loading />
       ) : (
         <div className="wishlist-page">
-          <MobilePageLayout title="Wishlist">
+          <MobilePageLayout>
+            <div className="flex gap-2 mb-2">
+              <button
+                className={`select-list-btn w-full ${
+                  selectedList === "1" ? "active" : ""
+                }`}
+                value="1"
+                onClick={selectListHandler}
+              >
+                Agreements
+              </button>
+              <button
+                className={`select-list-btn w-full ${
+                  selectedList === "2" ? "active" : ""
+                }`}
+                value="2"
+                onClick={selectListHandler}
+              >
+                Wishlist
+              </button>
+            </div>
+
             {favorites?.length > 0 ? (
               <>
                 <SearchBar
@@ -66,12 +93,14 @@ const Wishlist = () => {
                         <FavoriteCard
                           product={item}
                           updateFavorites={updateFavorites}
+                          enableDelete={selectedList === "2"}
                         />
                       ))
                     : favorites.map((item) => (
                         <FavoriteCard
                           product={item}
                           updateFavorites={updateFavorites}
+                          enableDelete={selectedList === "2"}
                         />
                       ))}
                 </ul>
