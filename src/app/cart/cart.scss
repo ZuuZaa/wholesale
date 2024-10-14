@@ -69,12 +69,5 @@
         line-height: 24px;
         text-transform: capitalize;
         border-radius: 8px;
-        background: var(--primary-theme-color);
-        color: #fff;
-
-        &:hover {
-            background: hsl(0, 0%, 85%);
-            color: var(--primary-theme-color);
-        }
     }
 }

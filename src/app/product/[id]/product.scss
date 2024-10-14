@@ -8,24 +8,6 @@
         object-fit: cover;
     }
 
-    .btn-secondary {
-        border: 0.5px solid #454545;
-
-        &:hover {
-            background-color: hsl(0, 0%, 95%);
-        }
-    }
-
-    .btn-success {
-        background: var(--primary-theme-color);
-        color: #fff;
-
-        &:hover {
-            background: hsl(0, 0%, 85%);
-            color: var(--primary-theme-color);
-        }
-    }
-
     .breadcrumb {
         display: flex;
         padding: 0 10px 10px;

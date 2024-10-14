@@ -40,35 +40,6 @@
     }
 
 
-    .btn-secondary {
-        border: 0.5px solid #454545;
-
-        &:not(:disabled):hover {
-            background-color: hsla(0, 0%, 95%);
-        }
-
-        &:disabled {
-            opacity: .5;
-            cursor: not-allowed;
-        }
-
-    }
-
-    .btn-success {
-        background: var(--primary-theme-color);
-        color: #fff;
-
-        &:not(:disabled):hover {
-            background: hsl(0, 0%, 85%);
-            color: var(--primary-theme-color);
-        }
-
-        &:disabled {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-    }
-
     .dropdown-content {
         display: none;
 

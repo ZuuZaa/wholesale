@@ -28,6 +28,8 @@
   --background-light-gray: #f8f8f8;
   --background-breadcrumb: #f4f4f4;
   --primary-theme-color: #00000040;
+
+  --transition-duration: 0.3s;
 }
 
 .color-premium {
@@ -3295,8 +3297,6 @@ select {
   }
 }
 
-
-
 .color-red {
   color: #ff5454;
 }
@@ -3316,4 +3316,26 @@ select {
     color: blue;
     text-decoration: underline;
   }
+}
+
+.btn-success {
+  background: var(--primary-theme-color);
+  color: #fff;
+  transition: ease var(--transition-duration);
+}
+.btn-success:hover {
+  background: hsl(0, 0%, 85%);
+  color: var(--primary-theme-color);
+}
+.btn-secondary {
+  border: 0.5px solid #454545;
+  transition: ease var(--transition-duration);
+}
+.btn-secondary:hover {
+  background-color: hsl(0, 0%, 95%);
+}
+.btn-success:disabled,
+.btn-secondary:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }

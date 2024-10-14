@@ -82,10 +82,15 @@
     }
 
     .links {
-        li:hover {
-            color: var(--primary-theme-color);
-            transition: ease .2s;
-            color: hsl(0, 0%, 65%);
+
+        li {
+            transition: ease var(--transition-duration);
+
+            &:hover {
+                color: var(--primary-theme-color);
+                transition: ease .2s;
+                color: hsl(0, 0%, 65%);
+            }
         }
     }
 

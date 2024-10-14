@@ -58,14 +58,4 @@ export const StyledProductCard = styled.div`
       box-shadow: 0px 1px 2px 0px #0000000d;
     }
   }
-
-  .btn-success {
-    background: var(--primary-theme-color);
-    color: #fff;
-
-    &:hover {
-      background: hsl(0, 0%, 85%);
-      color: var(--primary-theme-color);
-    }
-  }
 `;
