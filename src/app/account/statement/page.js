@@ -7,7 +7,7 @@ import CardFrame from "@/components/cards/card-frame/card-frame";
 import BottomFixedCard from "@/components/cards/bottom-fixed-card";
 import { fetchData } from "@/utils/fetch-api";
 import "./statements.scss";
-import { DatePicker } from "antd";
+import { DatePicker, Modal } from "antd";
 import Loading from "@/components/loading";
 import dayjs from "dayjs";
 
@@ -17,6 +17,41 @@ const Statement = () => {
   const [summaries, setSummaries] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [activeButton, setActiveButton] = useState("get");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    if (email) {
+      const fetchDataAsync = async () => {
+        try {
+          const response = await fetchData("getStatement", true, {
+            StartDate: startDate?.format("YYYY-MM-DD"),
+            EndDate: endDate?.format("YYYY-MM-DD"),
+            Email: email,
+          });
+        } catch (error) {
+          setErrorMessage(error.message);
+        } finally {
+          setIsModalOpen(false);
+        }
+      };
+      fetchDataAsync();
+    } else {
+      setErrorMessage("please enter email address");
+    }
+  };
+
+  const handleCancel = () => {
+    setEmail(null);
+    setErrorMessage(null);
+    setIsModalOpen(false);
+  };
 
   const onStartDateChange = (date) => {
     setStartDate(date);
@@ -26,7 +61,8 @@ const Statement = () => {
     setEndDate(date);
   };
 
-  const handleGetStatementsClick = () => {
+  const handleGetStatementsClick = (e) => {
+    setActiveButton(e.target.value);
     const fetchDataAsync = async () => {
       try {
         const response = await fetchData("getStatement", true, {
@@ -44,22 +80,18 @@ const Statement = () => {
     fetchDataAsync();
   };
 
-    useEffect(() => {
-      const currentDate = dayjs();
-      const previousMonthSameDay = currentDate.subtract(1, "month");
-      setStartDate(previousMonthSameDay);
-      setEndDate(currentDate);
-      setIsLoading(false);
-    }, []);
+  const handleSendStatementsClick = (e) => {
+    setActiveButton(e.target.value);
+    showModal();
+  };
 
-  // useEffect(() => {
-  //   const currentDate = dayjs();
-  //   const previousMonth = currentDate.subtract(1, "month");
-  //   const startDayPreviousMonth = previousMonth.set("date", 2);
-  //   setStartDate(startDayPreviousMonth);
-  //   setEndDate(currentDate);
-  //   setIsLoading(false);
-  // }, []);
+  useEffect(() => {
+    const currentDate = dayjs();
+    const previousMonthSameDay = currentDate.subtract(1, "month");
+    setStartDate(previousMonthSameDay);
+    setEndDate(currentDate);
+    setIsLoading(false);
+  }, []);
 
   return (
     <main>
@@ -87,13 +119,68 @@ const Statement = () => {
                   }}
                 />
               </div>
-              <button
+              <div className="flex gap-2 mb-2">
+                <button
+                  className={`statement-btn w-full ${
+                    activeButton === "get" ? "active" : ""
+                  }`}
+                  value="get"
+                  onClick={handleGetStatementsClick}
+                  disabled={!(startDate && endDate)}
+                >
+                  Get statements
+                </button>
+                <button
+                  className={`statement-btn w-full ${
+                    activeButton === "send" ? "active" : ""
+                  }`}
+                  value="send"
+                  onClick={handleSendStatementsClick}
+                  disabled={!(startDate && endDate)}
+                >
+                  Send statements
+                </button>
+              </div>
+              <Modal
+                title="Enter your email address, please."
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                okButtonProps={{
+                  style: { backgroundColor: "var(--primary-theme-color)" },
+                }}
+                cancelButtonProps={{
+                  style: {
+                    color: "var(--secondary-theme-color)",
+                    border: "1px solidvar(--secondary-theme-color)",
+                    outline: "1px solidvar(--secondary-theme-color)",
+                  },
+                }}
+              >
+                <input
+                  type="email"
+                  placeholder="Enter"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  style={{
+                    borderRadius: "5px",
+                    outline: "1px solid var(--primary-theme-color)",
+                  }}
+                />
+                <p
+                  style={{
+                    color: "var(--error-color)",
+                  }}
+                >
+                  {errorMessage}
+                </p>
+              </Modal>
+              {/* <button
                 className="get-statements-btn"
                 onClick={handleGetStatementsClick}
-                disabled={!(startDate && endDate)}
               >
                 Get statements
-              </button>
+              </button> */}
               {statements.length > 0 && (
                 <>
                   <div className="mt-3">
