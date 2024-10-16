@@ -1,15 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import "./checkout.scss";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import CardFrame from "@/components/cards/card-frame";
-import location from "@/assets/icons/location.svg";
-import payment from "@/assets/icons/payment.svg";
 import { fetchData } from "@/utils/fetch-api";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import Loading from "@/components/loading";
-import { Calendar, DatePicker } from "antd";
+import Icon from "@/components/icon";
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -170,7 +167,11 @@ const Checkout = () => {
               <div className="flex flex-col gap-3">
                 <CardFrame>
                   <div className="checkout-card-title flex items-center gap-2 py-2">
-                    <Image src={location} alt="delivery" />
+                    <Icon
+                      name="location"
+                      size="22px"
+                      color="var(--primary-theme-color)"
+                    />
                     <h3>Delivery</h3>
                   </div>
                   <div className="dropdown-container">
@@ -257,7 +258,11 @@ const Checkout = () => {
                 </CardFrame>
                 <CardFrame>
                   <div className="checkout-card-title flex items-center gap-2 py-2">
-                    <Image src={payment} alt="payment" />
+                    <Icon
+                      name="card"
+                      size="22px"
+                      color="var(--primary-theme-color)"
+                    />
                     <h3>Payment</h3>
                   </div>
                   <div className="dropdown-container">
@@ -285,13 +290,7 @@ const Checkout = () => {
                     </div>
                   </div>
                 </CardFrame>
-                <CardFrame>
-                  <Calendar
-                    fullscreen={false}
-                    onChange={onDateClick}
-                    disabledDate={disablePastDates}
-                  />
-                </CardFrame>
+                <CardFrame>date select</CardFrame>
                 <CardFrame>
                   <div className="order-summary">
                     <h3 className="py-2">Order Summary</h3>

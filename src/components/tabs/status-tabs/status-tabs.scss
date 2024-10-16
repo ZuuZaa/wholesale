@@ -14,10 +14,10 @@
             border-radius: 9px;
             background-color: #fff;
             padding: 6px 40px;
-            border: 1px solid #4CCD99;
+            border: 1px solid var(--primary-theme-color);
 
             &:is(.active-tab) {
-                background-color: #4CCD99;
+                background-color: var(--primary-theme-color);
                 color: #fff;
             }
         }

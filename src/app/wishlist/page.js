@@ -91,6 +91,7 @@ const Wishlist = () => {
                   {searchKey
                     ? filteredCarts.map((item) => (
                         <FavoriteCard
+                          key={item.Id}
                           product={item}
                           updateFavorites={updateFavorites}
                           enableDelete={selectedList === "2"}
@@ -98,6 +99,7 @@ const Wishlist = () => {
                       ))
                     : favorites.map((item) => (
                         <FavoriteCard
+                          key={item.Id}
                           product={item}
                           updateFavorites={updateFavorites}
                           enableDelete={selectedList === "2"}

@@ -1,11 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-import Image from "next/image";
 import Link from "next/link";
-
-import { icons } from "./constants";
 import "./header.scss";
 import { usePathname, useSearchParams } from "next/navigation";
 import NotificationBox from "@/components/notifigation-box";
@@ -17,7 +13,9 @@ function Header() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
-  const {settings} = useSiteSettings()
+  const { settings } = useSiteSettings();
+  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
 
   const isHomePage = pathname === "/";
   if (typeof window !== "undefined") {
@@ -31,9 +29,6 @@ function Header() {
   if (path.includes("login") == false && typeof localStorage !== "undefined") {
     localStorage.setItem("pagePath", path);
   }
-
-  const [isSearchBoxOpen, setIsSearchBoxOpen] = useState(false);
-  const [searchKey, setSearchKey] = useState("");
 
   const showSeachBox = () => setIsSearchBoxOpen(true);
   const clearSeachInput = () => setSearchKey("");
@@ -60,12 +55,16 @@ function Header() {
     setSearchKey(search);
   }, [isSearchPage]);
 
+    useEffect(() => {
+      setIsSearchBoxOpen(false)
+    }, [pathname]);
+
   return (
     <div>
       <header className="header">
         <div className="header--mobile">
           <div className="flex justify-between items-center py-2 px-5">
-            <div className="flex gap-3 items-center ">
+            <div className="flex gap-3">
               {!isHomePage && (
                 <button onClick={() => window.history.back()}>
                   <Icon name="chevron" color="#828282" />
@@ -80,15 +79,10 @@ function Header() {
               )}
             </div>
             <div className="flex gap-2.5">
-              <Image
-                src={icons.search}
-                width={25}
-                height={25}
-                alt="search"
-                style={{
-                  display: isSearchBoxOpen ? "none" : "inline",
-                  cursor: "pointer",
-                }}
+              <Icon
+                name="search"
+                color="var(--primary-theme-color)"
+                display={isSearchBoxOpen ? "none" : "flex"}
                 onClick={showSeachBox}
               />
               {/* <Image
@@ -115,11 +109,10 @@ function Header() {
                   x
                 </button>
                 <button className="btn-search" onClick={handleSearchClick}>
-                  <Image
-                    src={icons.search}
-                    width={15}
-                    height={15}
-                    alt="search"
+                  <Icon
+                    name="search"
+                    size="15px"
+                    color="var(--primary-theme-color)"
                   />
                 </button>
               </div>

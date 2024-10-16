@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?8oqvto');
-  src:  url('fonts/icomoon.eot?8oqvto#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?8oqvto') format('truetype'),
-    url('fonts/icomoon.woff?8oqvto') format('woff'),
-    url('fonts/icomoon.svg?8oqvto#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ufqjhg');
+  src:  url('fonts/icomoon.eot?ufqjhg#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ufqjhg') format('truetype'),
+    url('fonts/icomoon.woff?ufqjhg') format('woff'),
+    url('fonts/icomoon.svg?ufqjhg#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,14 +25,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-basket:before {
-  content: "\e900";
+.icon-search:before {
+  content: "\e901";
+  color: #3fe29e;
+}
+.icon-favorite:before {
+  content: "\e902";
+}
+.icon-card:before {
+  content: "\e906";
+  color: #3fe29e;
 }
 .icon-bell:before {
-  content: "\e901";
+  content: "\e907";
+  color: #3fe29e;
 }
-.icon-bookmark:before {
-  content: "\e902";
+.icon-basket:before {
+  content: "\e900";
 }
 .icon-chat:before {
   content: "\e903";
@@ -45,10 +54,6 @@
   content: "\e905";
   color: #828282;
 }
-.icon-date:before {
-  content: "\e906";
-  color: #3fe29e;
-}
 .icon-home:before {
   content: "\e908";
 }
@@ -60,22 +65,9 @@
   content: "\e90a";
   color: #3fe29e;
 }
-.icon-payment:before {
-  content: "\e90b";
-}
 .icon-question:before {
   content: "\e90c";
   color: #3fe29e;
-}
-.icon-return:before {
-  content: "\e90d";
-  color: #3fe29e;
-}
-.icon-search-input:before {
-  content: "\e90e";
-}
-.icon-search:before {
-  content: "\e90f";
 }
 .icon-star:before {
   content: "\e910";
@@ -92,18 +84,8 @@
 .icon-user:before {
   content: "\e913";
 }
-.icon-Vector-7:before {
-  content: "\e914";
-  color: #3fe29e;
-}
-.icon-actions:before {
-  content: "\e915";
-}
 .icon-edit:before {
   content: "\e916";
-}
-.icon-favorite:before {
-  content: "\e9d2";
 }
 .icon-send:before {
   content: "\ea7d";

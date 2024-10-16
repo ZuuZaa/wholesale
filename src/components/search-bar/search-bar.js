@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import searchIcon from "@/assets/icons/search.svg";
+import Icon from "@/components/icon";
 import "./search-bar.scss";
 
 
@@ -8,7 +7,11 @@ const SearchBar = ({searchKey, handleInputChange}) => {
     <div className="search-box-container">
       <div className="search-box">
         <figure className="flex justify-center items-center">
-          <Image src={searchIcon} width={15} height={15} alt="search" />
+          <Icon
+            name="search"
+            size="15px"
+            color="var(--secondary-theme-color)"
+          />
         </figure>
         <input
           type="text"

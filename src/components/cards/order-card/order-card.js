@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Modal } from "antd";
 import { fetchData } from "@/utils/fetch-api";
 import Icon from "@/components/icon";
+import { useRouter } from "next/navigation";
 
 const renderStatusButton = (status, onSendClick, onEditClick) => {
   switch (status) {
@@ -39,14 +40,17 @@ const OrderCard = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+  const router = useRouter()
 
   const onEditClick = () => {
     const fetchDataAsync = async () => {
       try {
         const response = await fetchData("editOrder", true, {
           OrderId: data.Id,
-        });
-        window.location.href = "/cart";
+        }).then(
+          router.push("/cart")
+        );
+        ;
       } catch (error) {
         console.error(error.message);
       }

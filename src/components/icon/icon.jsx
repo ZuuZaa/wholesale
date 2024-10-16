@@ -1,21 +1,22 @@
 import styled from "styled-components";
 
-const Icon = ({ name, size, color, hover }) => {
+const Icon = ({ name, size, color, display, onClick }) => {
   return (
-    <StyledIcon color={color} size={size} hover={hover}>
+    <StyledIcon color={color} size={size} display={display} onClick={onClick} >
       <i class={`icon icon-${name}`}></i>
     </StyledIcon>
   );
 };
 
 const StyledIcon = styled.span`
+  display: ${({ display }) => display || "flex"};
+  align-items: center;
+  cursor: pointer;
+
   .icon:before {
     color: ${({ color }) => color || "#555"};
     font-size: ${({ size }) => size || "1.2rem"};
-
-    &:hover {
-      color: ${({ hover }) => hover || "var(--secondary-theme-color)"};
-    }
+    font-weight: 100;
   }
 `;
 
