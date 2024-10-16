@@ -41,7 +41,7 @@ const ScrollToTop = () => {
             display: 'flex',
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "#3fe29e",
+            backgroundColor: "var(--primary-theme-color)",
             opacity: 0.8,
             color: "white",
             border: "none",
