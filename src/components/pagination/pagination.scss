@@ -21,6 +21,12 @@
         background-color: var(--primary-theme-color);
         color: #fff;
         border-color: var(--primary-theme-color);
+
+        &:hover {
+            background-color: #f0f0f0;
+            color: var(--primary-theme-color);
+            border-color: var(--primary-theme-color);
+        }
     }
 
     .prev:disabled,
