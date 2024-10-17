@@ -1,15 +1,12 @@
-import Image from "next/image";
-import { useRef } from "react";
-import favorite from "@/assets/icons/favorite.svg";
+"use client";
+
 import "./favorite-icon.scss";
 import { fetchData } from "@/utils/fetch-api";
+import Icon from "@/components/icon";
+import { useState, useEffect } from "react";
 
-const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
-  const favoriteRef = useRef(null);
-  let token = "";
-  if (typeof localStorage !== "undefined") {
-    token = localStorage.getItem("jwtToken");
-  }
+const FavoriteIcon = ({ productId, isFavorite, isAbsolute, size = "16px" }) => {
+  const [isActive, setIsActive] = useState(false);
 
   const addToFavorites = async () => {
     try {
@@ -35,20 +32,24 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute }) => {
 
   const handleFavoriteClick = (event) => {
     event.preventDefault();
-    favoriteRef.current.classList.toggle("favorite");
-    isFavorite ? removeFromFavorites() : addToFavorites();
+    isActive ? removeFromFavorites() : addToFavorites();
+    setIsActive(!isActive);
   };
+
+  useEffect(() => {
+    console.log(productId, isFavorite);
+    setIsActive(isFavorite);
+  }, [isFavorite]);
 
   return (
     <button
       className={isAbsolute ? "btn-favorite absolute" : "btn-favorite"}
       onClick={handleFavoriteClick}
     >
-      <Image
-        src={favorite}
-        ref={favoriteRef}
-        className={isFavorite ? "favorite-icon favorite" : "favorite-icon"}
-        alt="favorite"
+      <Icon
+        name="favorite"
+        size={size}
+        color={isActive ? "var(--primary-theme-color)" : "#555555"}
       />
     </button>
   );

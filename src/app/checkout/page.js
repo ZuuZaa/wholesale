@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import "./checkout.scss";
 import MobilePageLayout from "@/components/layout/mobile-page-layout";
@@ -7,6 +8,11 @@ import { fetchData } from "@/utils/fetch-api";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import Loading from "@/components/loading";
 import Icon from "@/components/icon";
+import { Select } from "antd";
+import { generateDateOptions } from "@/helpers";
+import TextArea from "antd/es/input/TextArea";
+
+const { Option } = Select;
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,8 +23,11 @@ const Checkout = () => {
     useState(null);
   const [selectedShippingOption, setSelectedShippingOption] = useState("2");
   const { setTotalQuantity } = useTotalQuantity();
+  const [date, setDate] = useState(null);
+  const [paymenttText, setPaymenttText] = useState(null);
 
   const paymentType = 2;
+  const dateOptions = generateDateOptions(10);
 
   const handleDeliveryClick = () => {
     setDeliveryDropdownIsOpen(true);
@@ -49,13 +58,11 @@ const Checkout = () => {
   //   setSelectedBillingOption(selectedBillingValue);
   // };
 
-  const onDateClick = (date) => {
-    console.log(date.format("YYYY-MM-DD")); // Handle the date click
+  const onSelectChange = (date) => {
+    setDate(date);
   };
-
-  const disablePastDates = (current) => {
-    // Disable dates before today
-    return current && current < new Date().setHours(0, 0, 0, 0);
+  const onTextareaChange = (date) => {
+    set(setPaymenttText);
   };
 
   useEffect(() => {
@@ -76,84 +83,19 @@ const Checkout = () => {
     fetchDataAsync();
   }, []);
 
-  // useEffect(() => {
-  //   async function fetchDataAsync() {
-  //     const fetchedData = await mainFunc();
-  //     setData(fetchedData);
-  //     const fetchedData1 = await mainFunc1();
-  //     setClientSecret(fetchedData1);
-  //     if (fetchedData.userAddress.length != 0) {
-  //       setSelectedShippingAddressOption(fetchedData.userAddress[0].id);
-  //     }
-  //   }
-  //   fetchDataAsync();
-  //   let payment = "";
-  //   if (
-  //     typeof localStorage !== "undefined" &&
-  //     localStorage.getItem("payment") !== null
-  //   ) {
-  //     payment = localStorage.getItem("payment");
-  //     setSelectedOption(payment);
-  //   }
-
-  //   let shipping = "";
-  //   if (
-  //     typeof localStorage !== "undefined" &&
-  //     localStorage.getItem("shipping") !== null
-  //   ) {
-  //     shipping = localStorage.getItem("shipping");
-  //     setSelectedShippingOption(shipping);
-  //   }
-  // }, []);
-
-  //   const user = data.user;
-  //  // const userAddress = data.userAddress;
-  //   const saleProducts = data.saleProducts;
-  //   const subtotal = data.subtotal;
-  //   const total = data.total;
-  //   const deliveryFee = 0;
-  //   let publish_key = "";
-  //   let secret_key = "";
-  // data.stripeDetails.map((stripe) => {
-  //   publish_key = stripe.publishKey;
-  //   secret_key = stripe.secretKey;
-  // });
-
-  // const stripePromise = loadStripe(publish_key);
-
-  let cashPayment = async (e) => {
+  const cashPayment = async (e) => {
     try {
       const response = await fetchData("postPaymentPage", true, {
         PaymentType: paymentType,
         ShippingType: selectedShippingOption,
         AddressId: selectedShippingAddressOption,
+        Date: date,
       });
       setTotalQuantity(response.TotalQuantity);
       window.location.href = "/success?payment_type=2";
     } catch (err) {
       console.log(err);
     }
-    // const token = "";
-    // const res = await fetch(
-    //   "https://api.wscshop.co.uk/api/checkout/post-payment",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       Accept: "application/json, text/plain",
-    //       "Content-Type": "application/json;charset=UTF-8",
-    //       Authorization: "Bearer " + token,
-    //     },
-    //     body: JSON.stringify({
-    //       PaymentType: 2,
-    //       ShippingType: selectedShippingOption,
-    //       AddressId: selectedShippingAddressOption,
-    //     }),
-    //   }
-    // );
-    // if (res.status == 200) {
-    //   setTotalQuantity(0);
-    //   window.location.href = "/success?payment_type=2";
-    // }
   };
 
   return (
@@ -282,7 +224,8 @@ const Checkout = () => {
                       </button>
                     </div>
                     <div className="dropdown-content open">
-                      <textarea
+                      <TextArea
+                        onChange={onTextareaChange}
                         name="cash-input"
                         className="cash-input py-2"
                         rows="6"
@@ -290,7 +233,22 @@ const Checkout = () => {
                     </div>
                   </div>
                 </CardFrame>
-                <CardFrame>date select</CardFrame>
+                <CardFrame>
+                  <div className="flex gap-4">
+                    <p className="select-label">Delivery date:</p>
+                    <Select
+                      onChange={onSelectChange}
+                      allowClear
+                      className="date-select flex-grow"
+                    >
+                      {dateOptions.map((option) => (
+                        <Option key={option.value} value={option.value}>
+                          {option.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </div>
+                </CardFrame>
                 <CardFrame>
                   <div className="order-summary">
                     <h3 className="py-2">Order Summary</h3>

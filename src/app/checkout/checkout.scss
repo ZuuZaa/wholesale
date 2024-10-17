@@ -80,9 +80,30 @@
         display: inline-block;
         width: 100%;
         box-sizing: border-box;
-        border: 1px solid #828282;
+        outline: none;
+        box-shadow: none;
         border-radius: 8px;
-        padding: 8px;
+        padding: 4px 8px;
+
+        &:hover {
+            border: 1px solid var(--primary-theme-color);
+        }
+        &:focus {
+            border: 1px solid var(--primary-theme-color);
+        }
+
+    }
+
+    .date-select.ant-select-focused .ant-select-selector,
+    .date-select:hover .ant-select-selector {
+        border-color: var(--primary-theme-color) !important;
+        box-shadow: none !important;
+    }
+
+    .date-select.ant-select-open .ant-select-selector,
+    .date-select:hover .ant-select-selector {
+        border-color: var(--primary-theme-color) !important;
+        box-shadow: none !important;
     }
 
     .order-summary {

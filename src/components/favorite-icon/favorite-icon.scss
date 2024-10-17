@@ -23,7 +23,3 @@
       }
     }
   }
-
-  .favorite-icon:is(.favorite) {
-    filter: brightness(0) saturate(100%) invert(99%) sepia(100%) saturate(1312%) hue-rotate(74deg) brightness(96%) contrast(84%);
-  }

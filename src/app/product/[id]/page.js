@@ -130,6 +130,7 @@ const ProductDetail = () => {
                     <FavoriteIcon
                       productId={productDetails.ProductId}
                       isFavorite={productDetails.Favorite}
+                      size="22px"
                     />
                   </div>
 

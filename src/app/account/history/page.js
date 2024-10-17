@@ -28,8 +28,6 @@ const History = () => {
         setActiveStatus(ORDER_STATUS[0].status);
       } catch (error) {
         console.error(error.message);
-      } finally {
-        setIsLoading(false);
       }
     };
 
@@ -41,25 +39,28 @@ const History = () => {
       (item) => item.Status == activeStatus
     );
     setFilteredByStatusOrders(filteredOrders);
-  }, [activeStatus, orders]);
+    setIsLoading(false);
+  }, [activeStatus]);
 
   return (
     <main>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="orders-page">
-          <MobilePageLayout title="orders">
-            <StatusTabs
-              tabClickHandle={tabClickHandle}
-              activeStatus={activeStatus}
-            />
-            <div className="py-3">
-              <OrderList list={filteredByStatusOrders} />
-            </div>
-          </MobilePageLayout>
-        </div>
-      )}
+      <div className="orders-page">
+        <MobilePageLayout title="orders">
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <StatusTabs
+                tabClickHandle={tabClickHandle}
+                activeStatus={activeStatus}
+              />
+              <div className="py-3">
+                <OrderList list={filteredByStatusOrders} />
+              </div>
+            </>
+          )}
+        </MobilePageLayout>
+      </div>
     </main>
   );
 };

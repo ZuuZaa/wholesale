@@ -8,14 +8,8 @@ import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
 
 const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
+  
   const { setTotalQuantity } = useTotalQuantity();
-
-  // let token = "";
-  // let session_id = "";
-  // if (typeof localStorage !== "undefined") {
-  //   token = localStorage.getItem("jwtToken");
-  //   session_id = localStorage.getItem("sessionId");
-  // }
 
   const addToCart = async (event) => {
     event.preventDefault();
@@ -42,30 +36,6 @@ const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
       console.log(err);
     }
   };
-
-  // let removeFromFavorites = async (event) => {
-  //   try {
-  //     const res = await fetch(
-  //       "https://api.wscshop.co.uk/api/favorites/remove-favorite",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           Accept: "application/json, text/plain",
-  //           "Content-Type": "application/json;charset=UTF-8",
-  //           Authorization: "Bearer " + token,
-  //         },
-  //         body: JSON.stringify({
-  //           Id: product.productId,
-  //         }),
-  //       }
-  //     );
-  //     const resJson = await res.json();
-  //     console.log("res", resJson.output);
-  //    updateFavorites(resJson.output.favorites);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   return (
     <li key={product.ProductId}>
