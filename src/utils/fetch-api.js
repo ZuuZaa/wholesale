@@ -24,11 +24,13 @@ if (typeof localStorage !== "undefined") {
 
 export const fetchData = async (method, auth, details) => {
   const requestBody = JSON.stringify({
+    Body: JSON.stringify({
     UserId: 0,
-    Method: method,
-    Postcode: "",
-    SessionId: session_id,
-    ...details,
+      Method: method,
+      Postcode: "",
+      SessionId: session_id,
+      ...details,
+    }),
   });
 
   const url = auth ? API_URL_AUTH : API_URL;
@@ -40,18 +42,11 @@ export const fetchData = async (method, auth, details) => {
       "Content-Type": "application/json;charset=UTF-8",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({
-      Body: JSON.stringify({
-        UserId: 0,
-        Method: method,
-        Postcode: "",
-        SessionId: session_id,
-        ...details,
-      }),
-    }),
+    body: requestBody,
   });
 
   const data = await response.json();
+  console.log("response", data);
   if (data.status === 401) {
     window.location.href = "/login";
   } else return JSON.parse(data.output);
