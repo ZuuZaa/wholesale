@@ -11,23 +11,122 @@ import Icon from "@/components/icon";
 import { Select } from "antd";
 import { generateDateOptions } from "@/helpers";
 import TextArea from "antd/es/input/TextArea";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
 const { Option } = Select;
+
+const mainFunc1 = async () => {
+  let status;
+  let fav_data = [];
+
+  const fetchData = async () => {
+    let token = "";
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+    }
+    let response = await fetch(
+      `https://api.wscshop.co.uk/api/checkout/get-client-secret`,
+      {
+        method: "GET",
+        dataType: "json",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    const resp = await response.json();
+    //console.log(resp)
+    status = resp.status;
+    fav_data = resp.output;
+    //console.log(fav_data)
+    //return resp.output;
+  };
+
+  await fetchData();
+
+  if (status === 401) {
+    try {
+      let token = "";
+      let refreshToken = "";
+      if (typeof localStorage !== "undefined") {
+        token = localStorage.getItem("jwtToken");
+        refreshToken = localStorage.getItem("refreshToken");
+      }
+      console.log(token);
+      console.log(refreshToken);
+      let response = await fetch(
+        `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+        {
+          method: "POST",
+          dataType: "json",
+          headers: {
+            Accept: "application/json, text/plain",
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response);
+      const resp = await response.json();
+
+      if (resp.status !== 400) {
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("refreshToken", resp.output.refreshToken);
+          localStorage.setItem("jwtToken", resp.output.token);
+        }
+
+        await fetchData();
+      } else {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        //go to login page
+        //alert(1)
+      }
+    } catch {
+      console.log("error");
+    }
+  } else {
+    return fav_data;
+  }
+};
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
   const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(true);
-  const [paymentDropdownIsOpen, setPaymentDropdownIsOpen] = useState(true);
   const [selectedShippingAddressOption, setSelectedShippingAddressOption] =
     useState(null);
   const [selectedShippingOption, setSelectedShippingOption] = useState("2");
   const { setTotalQuantity } = useTotalQuantity();
   const [date, setDate] = useState(null);
-  const [paymenttText, setPaymenttText] = useState(null);
+  const [paymentText, setPaymentText] = useState(null);
+  const [publishKey, setPublishKey] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
+  const [paymentType, setPaymentType] = useState("2");
 
-  const paymentType = 2;
   const dateOptions = generateDateOptions(10);
+
+  const appearance = {
+    theme: "stripe",
+    variables: {
+      colorPrimary: "#0570de",
+      colorBackground: "#ffffff",
+      colorText: "#30313d",
+      colorDanger: "#df1b41",
+      fontFamily: "Ideal Sans, system-ui, sans-serif",
+      spacingUnit: "2px",
+      borderRadius: "4px",
+    },
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
 
   const handleDeliveryClick = () => {
     setDeliveryDropdownIsOpen(true);
@@ -38,31 +137,20 @@ const Checkout = () => {
     setSelectedShippingOption("2");
   };
 
-  // const handlePaymentClick = () =>
-  //   setPaymentDropdownIsOpen(!paymentDropdownIsOpen);
+  const handlePaymentOption = (e) => {
+    setPaymentType(e.target.value);
+  };
 
-  // const handleOptionChange = (event) => {
-  //   const selectedValue = event.target.value;
-  //   setSelectedOption(selectedValue);
-  // };
   const handleShippingAddressOptionChange = (event) => {
     const selectedShippingAddressValue = event.target.value;
     setSelectedShippingAddressOption(selectedShippingAddressValue);
   };
-  // const handleShippingOptionChange = (event) => {
-  //   const selectedShippingValue = event.target.value;
-  //   setSelectedShippingOption(selectedShippingValue);
-  // };
-  // const handleBillingOptionChange = (event) => {
-  //   const selectedBillingValue = event.target.value;
-  //   setSelectedBillingOption(selectedBillingValue);
-  // };
 
   const onSelectChange = (date) => {
     setDate(date);
   };
-  const onTextareaChange = (date) => {
-    set(setPaymenttText);
+  const onTextareaChange = (value) => {
+    setPaymentText(value);
   };
 
   useEffect(() => {
@@ -70,18 +158,23 @@ const Checkout = () => {
       setIsLoading(true);
       try {
         const response = await fetchData("getPaymentPage", true);
-        console.log(response);
+        console.log(" check response", response);
         setData(response);
         setSelectedShippingAddressOption(response.UserAddress[0].Id);
+        setPublishKey(response.StripeDetails[0].PublishKey);
       } catch (error) {
         console.error(error.message);
       } finally {
         setIsLoading(false);
       }
+      const fetchedData1 = await mainFunc1();
+      setClientSecret(fetchedData1);
     };
 
     fetchDataAsync();
   }, []);
+
+  const stripePromise = loadStripe(publishKey);
 
   const cashPayment = async (e) => {
     try {
@@ -210,26 +303,46 @@ const Checkout = () => {
                   <div className="dropdown-container">
                     <div className="checkout-card-actions py-2 checkout-border-top">
                       <button
-                        className={
-                          paymentDropdownIsOpen
-                            ? "btn btn-success"
-                            : "btn btn-secondary"
-                        }
-                        // onClick={handlePaymentClick}
+                        className={`
+                          btn btn-${
+                            paymentType === "2" ? "success" : "secondary"
+                          }
+                          `}
+                        value="2"
+                        onClick={handlePaymentOption}
                       >
-                        Cash/ Bank Transfer
+                        Cash / Bank Transfer
                       </button>
-                      <button className="btn btn-secondary" disabled="true">
+                      <button
+                        className={`
+                          btn btn-${
+                            paymentType === "1" ? "success" : "secondary"
+                          }
+                          `}
+                        value="1"
+                        onClick={handlePaymentOption}
+                      >
                         Card
                       </button>
                     </div>
-                    <div className="dropdown-content open">
-                      <TextArea
-                        onChange={onTextareaChange}
-                        name="cash-input"
-                        className="cash-input py-2"
-                        rows="6"
-                      />
+                    <div className="payment-type-content">
+                      {paymentType === "1" ? (
+                        <div className="App">
+                          card details
+                          {clientSecret && (
+                            <Elements options={options} stripe={stripePromise}>
+                              <CheckoutForm />
+                            </Elements>
+                          )}
+                        </div>
+                      ) : (
+                        <TextArea
+                          onChange={onTextareaChange}
+                          name="cash-input"
+                          className="cash-input py-2"
+                          rows="6"
+                        />
+                      )}
                     </div>
                   </div>
                 </CardFrame>

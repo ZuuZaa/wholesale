@@ -2,7 +2,7 @@ import Icon from "@/components/icon";
 import "./search-bar.scss";
 
 
-const SearchBar = ({searchKey, handleInputChange}) => {
+const SearchBar = ({ searchKey, handleInputChange, placeholder="search..."}) => {
   return (
     <div className="search-box-container">
       <div className="search-box">
@@ -15,13 +15,13 @@ const SearchBar = ({searchKey, handleInputChange}) => {
         </figure>
         <input
           type="text"
-          placeholder="search in favorites"
+          placeholder={placeholder}
           value={searchKey}
           onChange={handleInputChange}
         />
       </div>
     </div>
   );
-}
+};
 
 export default SearchBar;

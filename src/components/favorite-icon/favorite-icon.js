@@ -37,7 +37,6 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute, size = "16px" }) => {
   };
 
   useEffect(() => {
-    console.log(productId, isFavorite);
     setIsActive(isFavorite);
   }, [isFavorite]);
 

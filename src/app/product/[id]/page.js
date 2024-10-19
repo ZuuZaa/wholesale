@@ -45,7 +45,6 @@ const ProductDetail = () => {
           setProductDetails(result.Products[0]);
           setCount(result.Products[0].Quantity);
         }
-        console.log(category);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -152,20 +151,22 @@ const ProductDetail = () => {
                   )}
 
                   <div className="actions">
-                    <div className="card-actions">
-                      <button
-                        className="btn-remove"
-                        onClick={decreaseProductQuantity}
-                      >
-                        -
-                      </button>
-                      <span className="count color-premium">{count}</span>
-                      <button
-                        className="btn-add"
-                        onClick={increaseProductQuantity}
-                      >
-                        +
-                      </button>
+                    <div className="flex items-center">
+                      <div className="card-actions">
+                        <button
+                          className="btn-remove"
+                          onClick={decreaseProductQuantity}
+                        >
+                          -
+                        </button>
+                        <span className="count color-premium">{count}</span>
+                        <button
+                          className="btn-add"
+                          onClick={increaseProductQuantity}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                     <button
                       className="btn btn-success"

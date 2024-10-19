@@ -33,7 +33,6 @@ const Wishlist = () => {
         const result = await fetchData("getFavorites", true, {
           Kind: selectedList,
         });
-        console.log(result);
         setFavorites(result.Favorites);
         // setTotalPages(result.PageCount);
       } catch (error) {
@@ -86,6 +85,7 @@ const Wishlist = () => {
                 <SearchBar
                   searchKey={searchKey}
                   handleInputChange={handleInputChange}
+                  placeholder="search in favorites"
                 />
                 <ul className="flex flex-col gap-2 py-2">
                   {searchKey

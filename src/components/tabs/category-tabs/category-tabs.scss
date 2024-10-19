@@ -19,9 +19,11 @@
             background-color: #fff;
             padding: 6px 8.5px;
             border: 1px solid var(--primary-theme-color);
+            color: var(--primary-theme-color);
 
             &:is(.active-tab) {
-                border: 1px solid #FF9EAA;
+                color: #fff;
+                background-color: var(--primary-theme-color);
             }
         }
     }

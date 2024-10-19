@@ -28,7 +28,6 @@ const Cart = () => {
       setIsLoading(true);
       try {
         const result = await fetchData("getCart", true);
-        console.log(result);
         setTotalPrice(result.Subtotal.toFixed(2));
         setCarts(result.Cart);
       } catch (error) {
@@ -54,12 +53,13 @@ const Cart = () => {
         <Loading />
       ) : (
         <div className="cart-page">
-          <MobilePageLayout title="My Basket" >
+          <MobilePageLayout title="My Basket">
             {carts.length > 0 ? (
               <>
                 <SearchBar
                   searchKey={searchKey}
                   handleInputChange={handleInputChange}
+                  placeholder="search in cart"
                 />
 
                 <ul className="basket-list">

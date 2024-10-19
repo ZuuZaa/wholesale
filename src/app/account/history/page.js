@@ -23,7 +23,6 @@ const History = () => {
       setIsLoading(true);
       try {
         const response = await fetchData("getOrders", true);
-        console.log(response);
         setOrders(response.UserOrders);
         setActiveStatus(ORDER_STATUS[0].status);
       } catch (error) {
