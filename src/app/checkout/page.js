@@ -17,51 +17,20 @@ import CheckoutForm from "./CheckoutForm";
 
 const { Option } = Select;
 
+
 const mainFunc1 = async () => {
   let status;
-  let fav_data = [];
+  let fav_data=[];
 
   const fetchData = async () => {
-    let token = "";
-    if (typeof localStorage !== "undefined") {
-      token = localStorage.getItem("jwtToken");
-    }
-    let response = await fetch(
-      `https://api.wscshop.co.uk/api/checkout/get-client-secret`,
-      {
-        method: "GET",
-        dataType: "json",
-        headers: {
-          Accept: "application/json, text/plain",
-          "Content-Type": "application/json;charset=UTF-8",
-          Authorization: "Bearer " + token,
-        },
+      let token="";
+      if (typeof localStorage !== 'undefined') {
+          token = localStorage.getItem("jwtToken");
       }
-    );
-    const resp = await response.json();
-    //console.log(resp)
-    status = resp.status;
-    fav_data = resp.output;
-    //console.log(fav_data)
-    //return resp.output;
-  };
-
-  await fetchData();
-
-  if (status === 401) {
-    try {
-      let token = "";
-      let refreshToken = "";
-      if (typeof localStorage !== "undefined") {
-        token = localStorage.getItem("jwtToken");
-        refreshToken = localStorage.getItem("refreshToken");
-      }
-      console.log(token);
-      console.log(refreshToken);
       let response = await fetch(
-        `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+        "https://api.wscshop.co.uk/api/checkout/get-client-secret",
         {
-          method: "POST",
+          method: "GET",
           dataType: "json",
           headers: {
             Accept: "application/json, text/plain",
@@ -70,30 +39,67 @@ const mainFunc1 = async () => {
           },
         }
       );
-      console.log(response);
-      const resp = await response.json();
-
-      if (resp.status !== 400) {
-        if (typeof localStorage !== "undefined") {
-          localStorage.setItem("refreshToken", resp.output.refreshToken);
-          localStorage.setItem("jwtToken", resp.output.token);
-        }
-
-        await fetchData();
-      } else {
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
-        //go to login page
-        //alert(1)
-      }
-    } catch {
-      console.log("error");
-    }
-  } else {
-    return fav_data;
+       const resp = await response.json();
+       //console.log(resp)
+       status=resp.status
+       fav_data=resp.output
+       //console.log(fav_data)
+       //return resp.output;
   }
-};
+
+  await fetchData()
+
+  if (status === 401) {
+      try {
+          let token="";
+          let refreshToken="";
+          if (typeof localStorage !== 'undefined') {
+              token = localStorage.getItem("jwtToken");
+              refreshToken=localStorage.getItem("refreshToken");
+          }
+          console.log(token)
+          console.log(refreshToken)
+          let response = await fetch(
+            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
+            {
+              method: "POST",
+              dataType: "json",
+              headers: {
+                Accept: "application/json, text/plain",
+                "Content-Type": "application/json;charset=UTF-8",
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(response)
+          const resp = await response.json();
+          
+          if(resp.status !== 400) {
+              if (typeof localStorage !== 'undefined') {
+                  localStorage.setItem("refreshToken", resp.output.refreshToken);
+                  localStorage.setItem("jwtToken", resp.output.token);
+              }
+              
+
+              await fetchData();
+          } else {
+              
+              if (typeof window !== 'undefined') {
+                  window.location.href="/login"
+                }
+              //go to login page
+              //alert(1)
+          }
+      } 
+      catch {
+          console.log("error")
+      }
+  }
+  else{
+      return fav_data
+  }
+  
+}
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -107,7 +113,7 @@ const Checkout = () => {
   const [paymentText, setPaymentText] = useState(null);
   const [publishKey, setPublishKey] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
-  const [paymentType, setPaymentType] = useState("2");
+  const [paymentType, setPaymentType] = useState("1");
 
   const dateOptions = generateDateOptions(10);
 
@@ -161,6 +167,7 @@ const Checkout = () => {
         console.log(" check response", response);
         setData(response);
         setSelectedShippingAddressOption(response.UserAddress[0].Id);
+        localStorage.setItem("address", response.UserAddress[0].Id);
         setPublishKey(response.StripeDetails[0].PublishKey);
       } catch (error) {
         console.error(error.message);
@@ -328,11 +335,15 @@ const Checkout = () => {
                     <div className="payment-type-content">
                       {paymentType === "1" ? (
                         <div className="App">
-                          card details
                           {clientSecret && (
-                            <Elements options={options} stripe={stripePromise}>
-                              <CheckoutForm />
-                            </Elements>
+                            <div className="flex justify-center">
+                              <Elements
+                                options={options}
+                                stripe={stripePromise}
+                              >
+                                <CheckoutForm />
+                              </Elements>
+                            </div>
                           )}
                         </div>
                       ) : (
