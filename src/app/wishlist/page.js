@@ -5,6 +5,7 @@ import FavoriteCard from "@/components/cards/favorite-card";
 import SearchBar from "@/components/search-bar";
 import { fetchData } from "@/utils/fetch-api";
 import "./wishlist.scss";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const Wishlist = () => {
   const [isLoading, setIsLoading] = useState(true);
