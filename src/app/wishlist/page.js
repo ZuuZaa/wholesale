@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import FavoriteCard from "@/components/cards/favorite-card";
-import MobilePageLayout from "@/components/layout/mobile-page-layout";
 import SearchBar from "@/components/search-bar";
 import { fetchData } from "@/utils/fetch-api";
 import "./wishlist.scss";
@@ -58,66 +57,65 @@ const Wishlist = () => {
         <Loading />
       ) : (
         <div className="wishlist-page">
-          <MobilePageLayout>
-            <div className="flex gap-2 mb-2">
-              <button
-                className={`select-list-btn w-full ${
-                  selectedList === "1" ? "active" : ""
-                }`}
-                value="1"
-                onClick={selectListHandler}
-              >
-                Agreements
-              </button>
-              <button
-                className={`select-list-btn w-full ${
-                  selectedList === "2" ? "active" : ""
-                }`}
-                value="2"
-                onClick={selectListHandler}
-              >
-                Wishlist
-              </button>
-            </div>
+          <div className="wishlist-actions sticky top-0 flex gap-2">
+            <button
+              className={`select-list-btn w-full ${
+                selectedList === "1" ? "active" : ""
+              }`}
+              value="1"
+              onClick={selectListHandler}
+            >
+              Agreements
+            </button>
+            <button
+              className={`select-list-btn w-full ${
+                selectedList === "2" ? "active" : ""
+              }`}
+              value="2"
+              onClick={selectListHandler}
+            >
+              Wishlist
+            </button>
+          </div>
 
-            {favorites?.length > 0 ? (
-              <>
-                <SearchBar
-                  searchKey={searchKey}
-                  handleInputChange={handleInputChange}
-                  placeholder="search in favorites"
-                />
-                <ul className="flex flex-col gap-2 py-2">
-                  {searchKey
-                    ? filteredCarts.map((item) => (
-                        <FavoriteCard
-                          key={item.Id}
-                          product={item}
-                          updateFavorites={updateFavorites}
-                          enableDelete={selectedList === "2"}
-                        />
-                      ))
-                    : favorites.map((item) => (
-                        <FavoriteCard
-                          key={item.Id}
-                          product={item}
-                          updateFavorites={updateFavorites}
-                          enableDelete={selectedList === "2"}
-                        />
-                      ))}
-                </ul>
-                {/* {totalPages > 1 && (
+          {favorites?.length > 0 ? (
+            <>
+              <SearchBar
+                searchKey={searchKey}
+                handleInputChange={handleInputChange}
+                topPosition={"46px"}
+                placeholder="search in favorites"
+              />
+              <ul className="flex flex-col gap-2 py-2">
+                {searchKey
+                  ? filteredCarts.map((item) => (
+                      <FavoriteCard
+                        key={item.Id}
+                        product={item}
+                        updateFavorites={updateFavorites}
+                        enableDelete={selectedList === "2"}
+                      />
+                    ))
+                  : favorites.map((item) => (
+                      <FavoriteCard
+                        key={item.Id}
+                        product={item}
+                        updateFavorites={updateFavorites}
+                        enableDelete={selectedList === "2"}
+                      />
+                    ))}
+              </ul>
+              {/* {totalPages > 1 && (
                   <Pagination
                     totalPages={totalPages}
                     activePage={activePage}
                     setPages={setPages}
                   />
                 )} */}
-              </>
-            ) : (
-              <p className="text-center py-5">There is no favorite product!</p>
-            )}
-          </MobilePageLayout>
+            </>
+          ) : (
+            <p className="text-center py-5">There is no favorite product!</p>
+          )}
         </div>
       )}
     </main>

@@ -1,7 +1,11 @@
 import { StyledMobilePageLayout } from "./mobile-page-layout.style";
 
-const MobilePageLayout = ({ title, children, fixedTitle }) => {
-  
+const MobilePageLayout = ({
+  title,
+  children,
+  fixedTitle,
+  disableTopPadding,
+}) => {
   return (
     <StyledMobilePageLayout className={`${fixedTitle ? "fixed-title" : ""}`}>
       {title && (
@@ -9,7 +13,7 @@ const MobilePageLayout = ({ title, children, fixedTitle }) => {
           <h2>{title}</h2>
         </div>
       )}
-      <div className="py-2">{children}</div>
+      <div className={disableTopPadding ? "pb-2" : "py-2"}>{children}</div>
     </StyledMobilePageLayout>
   );
 };

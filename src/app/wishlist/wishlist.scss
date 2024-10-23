@@ -1,4 +1,18 @@
 .wishlist-page {
+    padding: 40px 10px 60px;
+    height: 100vh;
+    overflow-y: scroll;
+    color: #454545;
+    background-color: #f1f1f1;
+    position: relative;
+
+    .wishlist-actions {
+        position: sticky;
+        top: 0;
+        padding-top: 0.5rem;
+        background-color: #f1f1f1cc;
+    }
+
     .select-list-btn {
         background-color: #fff;
         border: 1px solid #d9d9d9;

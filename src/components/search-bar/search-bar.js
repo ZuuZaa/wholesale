@@ -1,10 +1,14 @@
 import Icon from "@/components/icon";
-import "./search-bar.scss";
+import { StyledSearchBar } from "./search-bar-styled";
 
-
-const SearchBar = ({ searchKey, handleInputChange, placeholder="search..."}) => {
+const SearchBar = ({
+  searchKey,
+  handleInputChange,
+  topPosition,
+  placeholder = "search...",
+}) => {
   return (
-    <div className="search-box-container">
+    <StyledSearchBar top={topPosition}>
       <div className="search-box">
         <figure className="flex justify-center items-center">
           <Icon
@@ -20,7 +24,7 @@ const SearchBar = ({ searchKey, handleInputChange, placeholder="search..."}) => 
           onChange={handleInputChange}
         />
       </div>
-    </div>
+    </StyledSearchBar>
   );
 };
 
