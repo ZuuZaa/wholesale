@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledMobilePageLayout = styled.div`
   padding: 50px 10px 60px;
   height: 100vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   color: #454545;
   background-color: #f1f1f1;
   position: relative;
