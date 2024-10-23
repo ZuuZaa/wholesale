@@ -32,6 +32,9 @@ const ProductCard = ({ product, cardHeight }) => {
             <img
               src={product.MainImage}
               alt={product.Name}
+              onError={(e) =>
+                product.MainImage && (e.target.src = product.CatImage)
+              }
               className="product-card-image"
             />
           </figure>
