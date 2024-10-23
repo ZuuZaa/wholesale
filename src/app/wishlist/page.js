@@ -83,7 +83,7 @@ const Wishlist = () => {
               <SearchBar
                 searchKey={searchKey}
                 handleInputChange={handleInputChange}
-                topPosition={"46px"}
+                topPosition={"47px"}
                 placeholder="search in favorites"
               />
               <ul className="flex flex-col gap-2 py-2">
