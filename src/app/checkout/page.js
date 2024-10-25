@@ -174,8 +174,14 @@ const Checkout = () => {
       } finally {
         setIsLoading(false);
       }
-      const fetchedData1 = await mainFunc1();
-      setClientSecret(fetchedData1);
+      const client_secret = localStorage.getItem("clientsecret");
+      if (client_secret == null || client_secret == "") {
+        const fetchedData1 = await mainFunc1();
+        setClientSecret(fetchedData1);
+        localStorage.setItem("clientsecret", fetchedData1);
+      } else {
+        setClientSecret(client_secret);
+      }
     };
 
     fetchDataAsync();
@@ -375,7 +381,6 @@ const Checkout = () => {
                 </CardFrame>
                 <CardFrame>
                   <div className="order-summary">
-                    <h3 className="py-2">Order Summary</h3>
                     <ul className="border-top">
                       <li className="flex justify-between py-1">
                         <p>Subtotal</p>
@@ -389,6 +394,10 @@ const Checkout = () => {
                         <p>Delivery fee</p>
                         <span>{`₤${data?.DeliveryFee ?? 0}`}</span>
                       </li>
+                      <div className="flex justify-between py-1">
+                        <span>VAT</span>
+                        <b>{`₤${data?.VAT}`}</b>
+                      </div>
                       <li className="flex justify-between py-2 border-top">
                         <p>Total</p>
                         <span>{`₤${data?.Total}`}</span>
