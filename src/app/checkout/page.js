@@ -159,6 +159,12 @@ const Checkout = () => {
     setPaymentText(value);
   };
 
+  const isOrderButtonDisabled = () => {
+    if(selectedShippingAddressOption === null) return true
+    if (paymentType === "1") return true
+    return false
+  }
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
@@ -166,7 +172,7 @@ const Checkout = () => {
         const response = await fetchData("getPaymentPage", true);
         console.log(" check response", response);
         setData(response);
-        setSelectedShippingAddressOption(response.UserAddress[0].Id);
+       setSelectedShippingAddressOption(response.UserAddress[0].Id);
         localStorage.setItem("address", response.UserAddress[0].Id);
         setPublishKey(response.StripeDetails[0].PublishKey);
       } catch (error) {
@@ -414,7 +420,7 @@ const Checkout = () => {
                 <button
                   onClick={cashPayment}
                   className="btn btn-success"
-                  disabled={!selectedShippingAddressOption}
+                  disabled={isOrderButtonDisabled()}
                 >
                   Order now
                 </button>
