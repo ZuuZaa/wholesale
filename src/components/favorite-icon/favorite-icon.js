@@ -46,7 +46,7 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute, size = "16px" }) => {
       onClick={handleFavoriteClick}
     >
       <Icon
-        name="favorite"
+        name={isActive ? "favorite-filled" : "favorite"}
         size={size}
         color={isActive ? "var(--primary-theme-color)" : "#555555"}
       />

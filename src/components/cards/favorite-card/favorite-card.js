@@ -6,10 +6,13 @@ import trashbin from "@/assets/icons/trash-bin.svg";
 import "./favorite-card.scss";
 import { useTotalQuantity } from "@/context/total-quantity-context";
 import { fetchData } from "@/utils/fetch-api";
+import FavoriteIcon from "@/components/favorite-icon/favorite-icon";
 
 const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
   
   const { setTotalQuantity } = useTotalQuantity();
+
+  console.log("favorite", product)
 
   const addToCart = async (event) => {
     event.preventDefault();
@@ -54,10 +57,16 @@ const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
         <div className="card-info">
           <div className="flex justify-between gap-2">
             <h5 className="product-name">{product.Name}</h5>
-            {enableDelete && (
+            {enableDelete ? (
               <button onClick={removeFromFavorites}>
                 <Image src={trashbin} alt="card actions" />
               </button>
+            ) : (
+              <FavoriteIcon
+                productId={product.ProductId}
+                isFavorite={product.Favorite}
+              //  size="22px"
+              />
             )}
           </div>
           <div className="card-action">
