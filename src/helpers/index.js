@@ -18,7 +18,7 @@ export const generateDateOptions = (days) => {
     const today = dayjs();
 
     // Start with ASAP option
-    options.push({ value: "asap", label: "ASAP" });
+    options.push({ value: "ASAP", label: "ASAP" });
 
     // Add options for the next 'days' days
     for (let i = 1; i <= days; i++) {

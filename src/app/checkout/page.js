@@ -107,7 +107,7 @@ const Checkout = () => {
   const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(true);
   const [selectedShippingAddressOption, setSelectedShippingAddressOption] =
     useState(null);
-  const [selectedShippingOption, setSelectedShippingOption] = useState("2");
+  const [selectedShippingOption, setSelectedShippingOption] = useState("1");
   const { setTotalQuantity } = useTotalQuantity();
   const [date, setDate] = useState(null);
   const [paymentText, setPaymentText] = useState(null);
@@ -135,11 +135,11 @@ const Checkout = () => {
   };
 
   const handleDeliveryClick = () => {
-    setDeliveryDropdownIsOpen(true);
+   // setDeliveryDropdownIsOpen(true);
     setSelectedShippingOption("1");
   };
   const handleCollectionClick = () => {
-    setDeliveryDropdownIsOpen(false);
+   // setDeliveryDropdownIsOpen(false);
     setSelectedShippingOption("2");
   };
 
@@ -232,7 +232,7 @@ const Checkout = () => {
                     <div className="checkout-card-actions py-2 checkout-border-top">
                       <button
                         className={
-                          deliveryDropdownIsOpen
+                          selectedShippingOption === "1"
                             ? "btn btn-success"
                             : "btn btn-secondary"
                         }
@@ -242,9 +242,9 @@ const Checkout = () => {
                       </button>
                       <button
                         className={
-                          deliveryDropdownIsOpen
-                            ? "btn btn-secondary"
-                            : "btn btn-success"
+                          selectedShippingOption === "2"
+                            ? "btn btn-success"
+                            : "btn btn-secondary"
                         }
                         onClick={handleCollectionClick}
                       >
@@ -253,7 +253,7 @@ const Checkout = () => {
                     </div>
                     <div
                       className={
-                        deliveryDropdownIsOpen
+                        selectedShippingOption === "1"
                           ? "dropdown-content open"
                           : "dropdown-content"
                       }
@@ -371,10 +371,16 @@ const Checkout = () => {
                 </CardFrame>
                 <CardFrame>
                   <div className="flex gap-4">
-                    <p className="select-label">Delivery date:</p>
+                    <p className="select-label flex items-center">
+                      {`${
+                        selectedShippingOption === "1"
+                          ? "Delivery"
+                          : "Collection"
+                      } date:`}
+                    </p>
                     <Select
                       onChange={onSelectChange}
-                      allowClear
+                      defaultValue="ASAP"
                       className="date-select flex-grow"
                     >
                       {dateOptions.map((option) => (
