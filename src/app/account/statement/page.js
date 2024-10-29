@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 
 const Statement = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [statements, setStatements] = useState([]);
+  const [statements, setStatements] = useState(null);
   const [summaries, setSummaries] = useState([]);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -69,6 +69,7 @@ const Statement = () => {
           StartDate: startDate?.format("YYYY-MM-DD"),
           EndDate: endDate?.format("YYYY-MM-DD"),
         });
+        console.log(response.Statements);
         setSummaries(response.Summaries);
         setStatements(response.Statements);
       } catch (error) {
@@ -181,31 +182,44 @@ const Statement = () => {
               >
                 Get statements
               </button> */}
-              {statements.length > 0 && (
+              {statements && (
                 <>
-                  <div className="mt-3">
-                    <StatementList list={statements} />
-                  </div>
-                  <BottomFixedCard>
-                    <CardFrame>
-                      <div className="flex flex-col gap-2 p-1">
-                        {summaries?.map((item, index) => (
-                          <div className="flex justify-between" key={index}>
-                            <span className="color-muted">{item.title}</span>
-                            <b
-                              className={
-                                item.summary > 0 ? "color-premium" : "color-red"
-                              }
-                            >
-                              {`${item.summary < 0 ? "-" : ""}₤${Math.abs(
-                                item.summary
-                              )}`}
-                            </b>
-                          </div>
-                        ))}
+                  {statements.length > 0 ? (
+                    <>
+                      <div className="mt-3">
+                        {console.log("Statements", statements)}
+                        <StatementList list={statements} />
                       </div>
-                    </CardFrame>
-                  </BottomFixedCard>
+                      <BottomFixedCard>
+                        <CardFrame>
+                          <div className="flex flex-col gap-2 p-1">
+                            {summaries?.map((item, index) => (
+                              <div className="flex justify-between" key={index}>
+                                <span className="color-muted">
+                                  {item.title}
+                                </span>
+                                <b
+                                  className={
+                                    item.summary > 0
+                                      ? "color-premium"
+                                      : "color-red"
+                                  }
+                                >
+                                  {`${item.summary < 0 ? "-" : ""}₤${Math.abs(
+                                    item.summary
+                                  )}`}
+                                </b>
+                              </div>
+                            ))}
+                          </div>
+                        </CardFrame>
+                      </BottomFixedCard>
+                    </>
+                  ) : (
+                    <div className="flex justify-center pt-5">
+                      <p className="text-center">There are no statements between these dates.</p>
+                    </div>
+                  )}
                 </>
               )}
             </>

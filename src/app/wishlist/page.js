@@ -12,7 +12,7 @@ const Wishlist = () => {
   const [favorites, setFavorites] = useState([]);
   const [filteredCarts, setFilteredCarts] = useState([]);
   const [searchKey, setSearchKey] = useState("");
-  const [selectedList, setSelectedList] = useState("1");
+  const [selectedList, setSelectedList] = useState("2");
   // const [activePage, setActivePage] = useState(1);
   // const [totalPages, setTotalPages] = useState(null);
 
@@ -61,21 +61,21 @@ const Wishlist = () => {
           <div className="wishlist-actions sticky top-0 flex gap-2">
             <button
               className={`select-list-btn w-full ${
-                selectedList === "1" ? "active" : ""
-              }`}
-              value="1"
-              onClick={selectListHandler}
-            >
-              Agreements
-            </button>
-            <button
-              className={`select-list-btn w-full ${
                 selectedList === "2" ? "active" : ""
               }`}
               value="2"
               onClick={selectListHandler}
             >
               Wishlist
+            </button>
+            <button
+              className={`select-list-btn w-full ${
+                selectedList === "1" ? "active" : ""
+              }`}
+              value="1"
+              onClick={selectListHandler}
+            >
+              Agreement
             </button>
           </div>
 

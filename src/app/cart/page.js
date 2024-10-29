@@ -53,12 +53,13 @@ const Cart = () => {
         <Loading />
       ) : (
         <div className="cart-page">
-          <MobilePageLayout title="My Basket" disableTopPadding>
+          <MobilePageLayout title="My Basket" fixedTitle disableTopPadding>
             {carts.length > 0 ? (
               <>
                 <SearchBar
                   searchKey={searchKey}
                   handleInputChange={handleInputChange}
+                  topPosition={"54px"}
                   placeholder="search in cart"
                 />
 

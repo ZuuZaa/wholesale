@@ -41,7 +41,7 @@ const Account = () => {
         <Loading />
       ) : (
         <div className="order-detail-page">
-          <MobilePageLayout title="Order details" fixedTitle>
+          <MobilePageLayout title="Order details">
             <div className="flex flex-col gap-3">
               <CardFrame>
                 <div className="order-details-card flex flex-col gap-2 p-1">

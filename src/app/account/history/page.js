@@ -44,7 +44,7 @@ const History = () => {
   return (
     <main>
       <div className="orders-page">
-        <MobilePageLayout title="orders">
+        <MobilePageLayout title="orders" fixedTitle disableTopPadding>
           {isLoading ? (
             <Loading />
           ) : (
