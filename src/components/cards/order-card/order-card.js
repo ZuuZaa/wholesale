@@ -8,6 +8,7 @@ import { Modal } from "antd";
 import { fetchData } from "@/utils/fetch-api";
 import Icon from "@/components/icon";
 import { useRouter } from "next/navigation";
+import { useTotalQuantity } from "@/context/total-quantity-context";
 
 const renderStatusButton = (status, onSendClick, onEditClick) => {
   switch (status) {
@@ -37,20 +38,31 @@ const renderStatusButton = (status, onSendClick, onEditClick) => {
 };
 
 const OrderCard = ({ data }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [editMessage, setEditMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-  const router = useRouter()
+  const [navigate, setNavigate] = useState(false);
+  const router = useRouter();
+  const { setTotalQuantity } = useTotalQuantity();
 
   const onEditClick = () => {
     const fetchDataAsync = async () => {
       try {
         const response = await fetchData("editOrder", true, {
           OrderId: data.Id,
-        }).then(
-          router.push("/cart")
-        );
-        ;
+        });
+        console.log("response: ", response);
+        if (response.Message) {
+          setIsMessageModalOpen(true);
+          setEditMessage(response.Message);
+        }
+        if (response.Status === 1) {
+          setTotalQuantity(response.CartCount);
+          setNavigate(true);
+        }
+        //"{\"Status\":1, \"Message\": \"Order cancelled!\", \"CartCount\":2}"
       } catch (error) {
         console.error(error.message);
       }
@@ -59,10 +71,10 @@ const OrderCard = ({ data }) => {
   };
 
   const onSendClick = () => {
-    setIsModalOpen(true);
+    setIsEmailModalOpen(true);
   };
 
-  const handleOk = () => {
+  const handleSendInvoiceOk = () => {
     if (email) {
       const fetchDataAsync = async () => {
         try {
@@ -73,7 +85,7 @@ const OrderCard = ({ data }) => {
         } catch (error) {
           setErrorMessage(error.message);
         } finally {
-          setIsModalOpen(false);
+          setIsEmailModalOpen(false);
         }
       };
       fetchDataAsync();
@@ -82,10 +94,14 @@ const OrderCard = ({ data }) => {
     }
   };
 
-  const handleCancel = () => {
+  const handleMessageOk = () => {
+    setIsMessageModalOpen(false);
+  };
+
+  const handleSendInvoiceCancel = () => {
     setEmail("");
     setErrorMessage(null);
-    setIsModalOpen(false);
+    setIsEmailModalOpen(false);
   };
 
   return (
@@ -105,9 +121,9 @@ const OrderCard = ({ data }) => {
       </Link>
       <Modal
         title="Enter your email address, please."
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        open={isEmailModalOpen}
+        onOk={handleSendInvoiceOk}
+        onCancel={handleSendInvoiceCancel}
         okButtonProps={{
           style: { backgroundColor: "var(--primary-theme-color)" },
         }}
@@ -139,6 +155,21 @@ const OrderCard = ({ data }) => {
           </p>
         )}
       </Modal>
+      <Modal
+        title={editMessage}
+        open={isMessageModalOpen}
+        onOk={handleMessageOk}
+        afterClose={() => navigate && router.push("/cart")}
+        closable={false}
+        okButtonProps={{
+          style: { backgroundColor: "var(--primary-theme-color)" },
+        }}
+        cancelButtonProps={{
+          style: {
+            display: "none",
+          },
+        }}
+      />
     </div>
   );
 };
