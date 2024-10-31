@@ -17,20 +17,51 @@ import CheckoutForm from "./CheckoutForm";
 
 const { Option } = Select;
 
-
 const mainFunc1 = async () => {
   let status;
-  let fav_data=[];
+  let fav_data = [];
 
   const fetchData = async () => {
-      let token="";
-      if (typeof localStorage !== 'undefined') {
-          token = localStorage.getItem("jwtToken");
+    let token = "";
+    if (typeof localStorage !== "undefined") {
+      token = localStorage.getItem("jwtToken");
+    }
+    let response = await fetch(
+      "https://api.wscshop.co.uk/api/checkout/get-client-secret",
+      {
+        method: "GET",
+        dataType: "json",
+        headers: {
+          Accept: "application/json, text/plain",
+          "Content-Type": "application/json;charset=UTF-8",
+          Authorization: "Bearer " + token,
+        },
       }
+    );
+    const resp = await response.json();
+    //console.log(resp)
+    status = resp.status;
+    fav_data = resp.output;
+    //console.log(fav_data)
+    //return resp.output;
+  };
+
+  await fetchData();
+
+  if (status === 401) {
+    try {
+      let token = "";
+      let refreshToken = "";
+      if (typeof localStorage !== "undefined") {
+        token = localStorage.getItem("jwtToken");
+        refreshToken = localStorage.getItem("refreshToken");
+      }
+      console.log(token);
+      console.log(refreshToken);
       let response = await fetch(
-        "https://api.wscshop.co.uk/api/checkout/get-client-secret",
+        `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
         {
-          method: "GET",
+          method: "POST",
           dataType: "json",
           headers: {
             Accept: "application/json, text/plain",
@@ -39,72 +70,34 @@ const mainFunc1 = async () => {
           },
         }
       );
-       const resp = await response.json();
-       //console.log(resp)
-       status=resp.status
-       fav_data=resp.output
-       //console.log(fav_data)
-       //return resp.output;
-  }
+      console.log(response);
+      const resp = await response.json();
 
-  await fetchData()
+      if (resp.status !== 400) {
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("refreshToken", resp.output.refreshToken);
+          localStorage.setItem("jwtToken", resp.output.token);
+        }
 
-  if (status === 401) {
-      try {
-          let token="";
-          let refreshToken="";
-          if (typeof localStorage !== 'undefined') {
-              token = localStorage.getItem("jwtToken");
-              refreshToken=localStorage.getItem("refreshToken");
-          }
-          console.log(token)
-          console.log(refreshToken)
-          let response = await fetch(
-            `https://api.wscshop.co.uk/api/account/refresh-token?userRefreshToken=${refreshToken}`,
-            {
-              method: "POST",
-              dataType: "json",
-              headers: {
-                Accept: "application/json, text/plain",
-                "Content-Type": "application/json;charset=UTF-8",
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
-          console.log(response)
-          const resp = await response.json();
-          
-          if(resp.status !== 400) {
-              if (typeof localStorage !== 'undefined') {
-                  localStorage.setItem("refreshToken", resp.output.refreshToken);
-                  localStorage.setItem("jwtToken", resp.output.token);
-              }
-              
-
-              await fetchData();
-          } else {
-              
-              if (typeof window !== 'undefined') {
-                  window.location.href="/login"
-                }
-              //go to login page
-              //alert(1)
-          }
-      } 
-      catch {
-          console.log("error")
+        await fetchData();
+      } else {
+        if (typeof window !== "undefined") {
+          window.location.href = "/login";
+        }
+        //go to login page
+        //alert(1)
       }
+    } catch {
+      console.log("error");
+    }
+  } else {
+    return fav_data;
   }
-  else{
-      return fav_data
-  }
-  
-}
+};
 
 const Checkout = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [deliveryDropdownIsOpen, setDeliveryDropdownIsOpen] = useState(true);
   const [selectedShippingAddressOption, setSelectedShippingAddressOption] =
     useState(null);
   const [selectedShippingOption, setSelectedShippingOption] = useState("1");
@@ -113,7 +106,7 @@ const Checkout = () => {
   const [paymentText, setPaymentText] = useState(null);
   const [publishKey, setPublishKey] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
-  const [paymentType, setPaymentType] = useState("1");
+  const [paymentType, setPaymentType] = useState(null);
 
   const dateOptions = generateDateOptions(10);
 
@@ -135,16 +128,16 @@ const Checkout = () => {
   };
 
   const handleDeliveryClick = () => {
-   // setDeliveryDropdownIsOpen(true);
+    // setDeliveryDropdownIsOpen(true);
     setSelectedShippingOption("1");
   };
   const handleCollectionClick = () => {
-   // setDeliveryDropdownIsOpen(false);
+    // setDeliveryDropdownIsOpen(false);
     setSelectedShippingOption("2");
   };
 
   const handlePaymentOption = (e) => {
-    setPaymentType(e.target.value);
+    setPaymentType(Number(e.target.value));
   };
 
   const handleShippingAddressOptionChange = (event) => {
@@ -160,21 +153,22 @@ const Checkout = () => {
   };
 
   const isOrderButtonDisabled = () => {
-    if(selectedShippingAddressOption === null) return true
-    if (paymentType === "1") return true
-    return false
-  }
+    if (selectedShippingAddressOption === null) return true;
+    if (paymentType === 1) return true;
+    return false;
+  };
 
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
         const response = await fetchData("getPaymentPage", true);
-        console.log(" check response", response);
+        console.log("check response", response);
         setData(response);
-       setSelectedShippingAddressOption(response.UserAddress[0].Id);
+        setSelectedShippingAddressOption(response.UserAddress[0].Id);
         localStorage.setItem("address", response.UserAddress[0].Id);
         setPublishKey(response.StripeDetails[0].PublishKey);
+        setPaymentType(response.DefaultPayment);
       } catch (error) {
         console.error(error.message);
       } finally {
@@ -323,48 +317,51 @@ const Checkout = () => {
                     <div className="checkout-card-actions py-2 checkout-border-top">
                       <button
                         className={`
-                          btn btn-${
-                            paymentType === "2" ? "success" : "secondary"
-                          }
+                          btn btn-${paymentType === 2 ? "success" : "secondary"}
                           `}
                         value="2"
                         onClick={handlePaymentOption}
+                        disabled={!data.CashActive}
                       >
                         Cash / Bank Transfer
                       </button>
                       <button
                         className={`
-                          btn btn-${
-                            paymentType === "1" ? "success" : "secondary"
-                          }
+                          btn btn-${paymentType === 1 ? "success" : "secondary"}
                           `}
                         value="1"
                         onClick={handlePaymentOption}
+                        disabled={!data.CardActive}
                       >
                         Card
                       </button>
                     </div>
                     <div className="payment-type-content">
-                      {paymentType === "1" ? (
+                      {paymentType === 1 ? (
                         <div className="App">
-                          {clientSecret && (
-                            <div className="flex justify-center">
-                              <Elements
-                                options={options}
-                                stripe={stripePromise}
-                              >
-                                <CheckoutForm />
-                              </Elements>
-                            </div>
-                          )}
+                          {clientSecret &&
+                            data?.CardActive && (
+                              <div className="flex justify-center">
+                                <Elements
+                                  options={options}
+                                  stripe={stripePromise}
+                                >
+                                  <CheckoutForm />
+                                </Elements>
+                              </div>
+                            )}
                         </div>
                       ) : (
-                        <TextArea
-                          onChange={onTextareaChange}
-                          name="cash-input"
-                          className="cash-input py-2"
-                          rows="6"
-                        />
+                        <>
+                          {data?.CashActive && (
+                            <TextArea
+                              onChange={onTextareaChange}
+                              name="cash-input"
+                              className="cash-input py-2"
+                              rows="6"
+                            />
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
