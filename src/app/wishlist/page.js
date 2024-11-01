@@ -87,23 +87,31 @@ const Wishlist = () => {
                 placeholder="search in favorites"
               />
               <ul className="flex flex-col gap-2 py-2">
-                {searchKey
-                  ? filteredCarts.map((item) => (
-                      <FavoriteCard
-                        key={item.Id}
-                        product={item}
-                        updateFavorites={updateFavorites}
-                        enableDelete={selectedList === "2"}
-                      />
-                    ))
-                  : favorites.map((item) => (
-                      <FavoriteCard
-                        key={item.Id}
-                        product={item}
-                        updateFavorites={updateFavorites}
-                        enableDelete={selectedList === "2"}
-                      />
-                    ))}
+                {searchKey ? (
+                  <>
+                    {filteredCarts.length > 0 ? (
+                      filteredCarts.map((item) => (
+                        <FavoriteCard
+                          key={item.Id}
+                          product={item}
+                          updateFavorites={updateFavorites}
+                          enableDelete={selectedList === "2"}
+                        />
+                      ))
+                    ) : (
+                      <p className="text-center py-5">No product found.</p>
+                    )}
+                  </>
+                ) : (
+                  favorites.map((item) => (
+                    <FavoriteCard
+                      key={item.Id}
+                      product={item}
+                      updateFavorites={updateFavorites}
+                      enableDelete={selectedList === "2"}
+                    />
+                  ))
+                )}
               </ul>
               {/* {totalPages > 1 && (
                   <Pagination
@@ -114,7 +122,9 @@ const Wishlist = () => {
                 )} */}
             </>
           ) : (
-            <p className="text-center py-5">There is no favorite product!</p>
+            <p className="text-center py-5">
+              You currently have no products in this list.
+            </p>
           )}
         </div>
       )}
