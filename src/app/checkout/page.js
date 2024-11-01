@@ -128,11 +128,9 @@ const Checkout = () => {
   };
 
   const handleDeliveryClick = () => {
-    // setDeliveryDropdownIsOpen(true);
     setSelectedShippingOption("1");
   };
   const handleCollectionClick = () => {
-    // setDeliveryDropdownIsOpen(false);
     setSelectedShippingOption("2");
   };
 
@@ -154,7 +152,7 @@ const Checkout = () => {
 
   const isOrderButtonDisabled = () => {
     if (selectedShippingAddressOption === null) return true;
-    if (paymentType === 1) return true;
+    if (paymentType === 2) return true;
     return false;
   };
 
@@ -317,9 +315,9 @@ const Checkout = () => {
                     <div className="checkout-card-actions py-2 checkout-border-top">
                       <button
                         className={`
-                          btn btn-${paymentType === 2 ? "success" : "secondary"}
+                          btn btn-${paymentType === 1 ? "success" : "secondary"}
                           `}
-                        value="2"
+                        value="1"
                         onClick={handlePaymentOption}
                         disabled={!data.CashActive}
                       >
@@ -327,9 +325,9 @@ const Checkout = () => {
                       </button>
                       <button
                         className={`
-                          btn btn-${paymentType === 1 ? "success" : "secondary"}
+                          btn btn-${paymentType === 2 ? "success" : "secondary"}
                           `}
-                        value="1"
+                        value="2"
                         onClick={handlePaymentOption}
                         disabled={!data.CardActive}
                       >
@@ -337,7 +335,7 @@ const Checkout = () => {
                       </button>
                     </div>
                     <div className="payment-type-content">
-                      {paymentType === 1 ? (
+                      {paymentType === 2 ? (
                         <div className="App">
                           {clientSecret &&
                             data?.CardActive && (
