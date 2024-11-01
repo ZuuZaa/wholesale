@@ -21,10 +21,11 @@ const Footer = () => {
       console.log("footer:", response);
       setTotalQuantity(response.TotalQuantity);
 
-      const color = response?.Settings?.[0]?.Color;
+      const color = response?.Settings?.[0]?.Color?.toString() || "";
       const logo = response?.Settings?.[0]?.LogoMobile;
 
       if (color) {
+        console.log("color", color)
         document.documentElement.style.setProperty(
           "--primary-theme-color",
           `#${color}`

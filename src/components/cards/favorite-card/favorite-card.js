@@ -12,8 +12,6 @@ const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
   
   const { setTotalQuantity } = useTotalQuantity();
 
-  console.log("favorite", product)
-
   const addToCart = async (event) => {
     event.preventDefault();
     try {
@@ -21,10 +19,9 @@ const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
         ProductId: product.ProductId,
         Quantity: 1,
       });
-      console.log("response", response);
       setTotalQuantity(response.TotalQuantity);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -36,7 +33,7 @@ const FavoriteCard = ({ product, updateFavorites, enableDelete = true }) => {
       });
       updateFavorites(response.Favorites);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

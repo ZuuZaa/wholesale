@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Icon = ({ name, size, color, display, onClick }) => {
   return (
     <StyledIcon color={color} size={size} display={display} onClick={onClick} >
-      <i class={`icon icon-${name}`}></i>
+      <i className={`icon icon-${name}`}></i>
     </StyledIcon>
   );
 };

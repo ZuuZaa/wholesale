@@ -13,7 +13,6 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute, size = "16px" }) => {
       const result = await fetchData("postFavorites", true, {
         ProductId: productId,
       });
-      console.log("result: ", result);
     } catch (error) {
       console.error(error.message);
     }
@@ -24,7 +23,6 @@ const FavoriteIcon = ({ productId, isFavorite, isAbsolute, size = "16px" }) => {
       const result = await fetchData("removeFavorites", true, {
         ProductId: productId,
       });
-      console.log("result: ", result);
     } catch (error) {
       console.error(error.message);
     }

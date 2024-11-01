@@ -2,7 +2,6 @@ import FavoriteIcon from "./favorite-icon";
 
 const FavoriteImageContainer = ({ productId, isFavorite, children }) => {
 
-  console.log(isFavorite)
   return (
     <div className="product-image-container">
       <FavoriteIcon isFavorite={isFavorite} productId={productId} isAbsolute={true}/>
