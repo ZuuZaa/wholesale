@@ -5,7 +5,6 @@ import FavoriteCard from "@/components/cards/favorite-card";
 import SearchBar from "@/components/search-bar";
 import { fetchData } from "@/utils/fetch-api";
 import "./wishlist.scss";
-import ScrollToTop from "@/components/scroll-to-top";
 
 const Wishlist = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +46,7 @@ const Wishlist = () => {
 
   useEffect(() => {
     const filteredCarts = favorites?.filter((item) =>
-      item.name.toLowerCase().includes(searchKey.trim())
+      item.Name.toLowerCase().includes(searchKey.trim())
     );
     setFilteredCarts(filteredCarts);
   }, [searchKey]);
