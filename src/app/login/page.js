@@ -57,7 +57,7 @@ export default function Login() {
     }
     try {
       const res = await fetch(
-        "https://ws.wscshop.co.uk/api/account/post-login",
+        "https://anthapapi.logixcommerce.com/api/account/post-login",
         {
           method: "POST",
           headers: {
