@@ -15,6 +15,7 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const [addressList, setAddressList] = useState({});
   const [customers, setCustomers] = useState([]);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [addressDropdownIsOpen, setAddressDropdownIsOpen] = useState(false);
 
@@ -22,6 +23,7 @@ const Profile = () => {
     setAddressDropdownIsOpen(!addressDropdownIsOpen);
   };
   const selectCustomer = (customerId) => {
+    setSelectedCustomer(customerId);
     if (typeof localStorage !== "undefined") {
       localStorage.setItem("customerId", customerId);
     }
@@ -74,10 +76,12 @@ const Profile = () => {
         setIsLoading(false);
       }
     };
+
+    if (typeof localStorage !== "undefined") {
+      setSelectedCustomer(localStorage.getItem("customerId"));
+    }
     fetchDataAsync();
   }, []);
-
-
 
   return (
     <main>
@@ -90,30 +94,28 @@ const Profile = () => {
               <div>
                 <div className="profile-info">
                   <div className="profile-photo mt-1"></div>
-                  <div className="w-full pr-5">
+                  <div className="w-full pr-5 flex flex-col gap-1">
                     <p className="user-name">
                       {user?.FirstName || "NAME"} {user?.LastName || "SURNAME"}
                     </p>
                     <p className="user-email">{user?.Email}</p>
-                    <div className="pt-1">
-                      <Select
-                        style={{ width: "100%" }}
-                        value={
-                          customers.find(
-                            (customer) => customer.Id == localStorage.getItem("customerId")
-                          )?.Name
-                        }
-                        showSearch={true}
-                        onChange={(val) => selectCustomer(val)}
-                        placeholder="Select a customer"
-                        filterOption={(input, option) =>
-                          (option?.label ?? "")
-                            .toLowerCase()
-                            .includes(input.toLowerCase())
-                        }
-                        options={customizedOptions(customers)}
-                      />
-                    </div>
+                    <Select
+                      style={{ flexGrow: 1 }}
+                      value={
+                        customers.find(
+                          (customer) => customer.Id == selectedCustomer
+                        )?.Name
+                      }
+                      showSearch={true}
+                      onChange={(val) => selectCustomer(val)}
+                      placeholder="Select a customer"
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={customizedOptions(customers)}
+                    />
                   </div>
                 </div>
               </div>
