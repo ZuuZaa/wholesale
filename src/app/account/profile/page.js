@@ -99,24 +99,26 @@ const Profile = () => {
                       {user?.FirstName || "NAME"} {user?.LastName || "SURNAME"}
                     </p>
                     <p className="user-email">{user?.Email}</p>
-                    <Select
-                      style={{width: '250px'}}
-                      className="custom-select"
-                      value={
-                        customers.find(
-                          (customer) => customer.Id == selectedCustomer
-                        )?.Name
-                      }
-                      showSearch={true}
-                      onChange={(val) => selectCustomer(val)}
-                      placeholder="Select a customer"
-                      filterOption={(input, option) =>
-                        (option?.label ?? "")
-                          .toLowerCase()
-                          .includes(input.toLowerCase())
-                      }
-                      options={customizedOptions(customers)}
-                    />
+                    {customers.length > 0 && (
+                      <Select
+                        style={{ width: "200px" }}
+                        className="custom-select"
+                        value={
+                          customers.find(
+                            (customer) => customer.Id == selectedCustomer
+                          )?.Name
+                        }
+                        showSearch={true}
+                        onChange={(val) => selectCustomer(val)}
+                        placeholder="Select a customer"
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        options={customizedOptions(customers)}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
