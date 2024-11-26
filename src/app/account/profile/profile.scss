@@ -37,6 +37,12 @@
         font-size: 11px;
     }
 
+    .custom-select .ant-select-selector {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+
     .contact {
         display: grid;
         grid-template-columns: repeat(2, 1fr);

@@ -100,7 +100,8 @@ const Profile = () => {
                     </p>
                     <p className="user-email">{user?.Email}</p>
                     <Select
-                      style={{ flexGrow: 1 }}
+                      style={{width: '250px'}}
+                      className="custom-select"
                       value={
                         customers.find(
                           (customer) => customer.Id == selectedCustomer
