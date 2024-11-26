@@ -15,6 +15,12 @@ const roboto = Roboto({
 export const metadata = {
   title: "Wholesale Catering",
   description: "Wholesale Catering",
+  viewport: {
+    width: "device-width",
+    initialScale: "1.0",
+    maximumScale: "1.0",
+    userScalable: "no",
+  },
 };
 
 export default function RootLayout({ children }) {
