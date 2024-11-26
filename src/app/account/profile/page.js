@@ -9,16 +9,30 @@ import { fetchData } from "@/utils/fetch-api";
 import Loading from "@/components/loading";
 import "./profile.scss";
 import Icon from "@/components/icon";
-
+import { Select } from "antd";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const [addressList, setAddressList] = useState({});
+  const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [addressDropdownIsOpen, setAddressDropdownIsOpen] = useState(false);
 
   const handleSavedAddressClick = () => {
     setAddressDropdownIsOpen(!addressDropdownIsOpen);
+  };
+  const selectCustomer = (customerId) => {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem("customerId", customerId);
+    }
+  };
+
+  const customizedOptions = () => {
+    const optimizedCustomers = customers?.map((customer) => ({
+      value: `${customer.Id}`,
+      label: `${customer.Name} (${customer.Code})`,
+    }));
+    return optimizedCustomers;
   };
 
   const logout = async () => {
@@ -53,15 +67,17 @@ const Profile = () => {
         const result = await fetchData("getProfile", true);
         setUser(result.User[0]);
         setAddressList(result.UserAddress);
+        setCustomers(result.Customers);
       } catch (error) {
         console.error(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchDataAsync();
   }, []);
+
+
 
   return (
     <main>
@@ -71,13 +87,34 @@ const Profile = () => {
         <div className="profile-page">
           <CardFrame>
             <div className="profile-header">
-              <div className="profile-info">
-                <div className="profile-photo"></div>
-                <div>
-                  <p className="user-name">
-                    {user?.FirstName || "NAME"} {user?.LastName || "SURNAME"}
-                  </p>
-                  <p className="user-email">{user?.Email}</p>
+              <div>
+                <div className="profile-info">
+                  <div className="profile-photo mt-1"></div>
+                  <div className="w-full pr-5">
+                    <p className="user-name">
+                      {user?.FirstName || "NAME"} {user?.LastName || "SURNAME"}
+                    </p>
+                    <p className="user-email">{user?.Email}</p>
+                    <div className="pt-1">
+                      <Select
+                        style={{ width: "100%" }}
+                        value={
+                          customers.find(
+                            (customer) => customer.Id == localStorage.getItem("customerId")
+                          )?.Name
+                        }
+                        showSearch={true}
+                        onChange={(val) => selectCustomer(val)}
+                        placeholder="Select a customer"
+                        filterOption={(input, option) =>
+                          (option?.label ?? "")
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        }
+                        options={customizedOptions(customers)}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="flex justify-center items-center">
@@ -177,6 +214,6 @@ const Profile = () => {
       )}
     </main>
   );
-}
+};
 
 export default Profile;

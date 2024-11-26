@@ -11,10 +11,12 @@ function uuidv4() {
 
 let token = "";
 let session_id = "";
+let customer_id = "";
 
 if (typeof localStorage !== "undefined") {
   token = localStorage.getItem("jwtToken");
   session_id = localStorage.getItem("sessionId");
+  customer_id = localStorage.getItem("customerId");
 
   if (session_id == null || session_id == "") {
     const value = uuidv4();
@@ -25,7 +27,8 @@ if (typeof localStorage !== "undefined") {
 export const fetchData = async (method, auth, details) => {
   const requestBody = JSON.stringify({
     Body: JSON.stringify({
-    UserId: 0,
+      UserId: 0,
+      CustomerId: customer_id,
       Method: method,
       Postcode: "",
       SessionId: session_id,

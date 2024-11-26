@@ -22,7 +22,7 @@
 
     .profile-info {
         display: flex;
-        align-items: center;
+        flex-grow: 1;
         gap: 10px;
         border-right: 0.4px solid #828282;
 

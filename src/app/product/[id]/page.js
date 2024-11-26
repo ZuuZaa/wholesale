@@ -29,7 +29,7 @@ const ProductDetail = () => {
   const [category, setCategory] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [productDetails, setProductDetails] = useState({});
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const { setTotalQuantity } = useTotalQuantity();
 
   useEffect(() => {
@@ -54,20 +54,6 @@ const ProductDetail = () => {
 
     fetchDataAsync();
   }, []);
-
-  // let updateQuantity = async (quantity) => {
-  //   try {
-  //     const response = await fetchData("postCart", true, {
-  //       ProductId: productDetails.ProductId,
-  //       Quantity: quantity,
-  //     });
-  //     setCount(response?.Product?.[0]?.Quantity);
-  //     setPrice(response?.Product?.[0]?.Total);
-  //     updateTotalPrise(response?.Subtotal?.toFixed(2));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const increaseProductQuantity = () => setCount(count + 1);
 
