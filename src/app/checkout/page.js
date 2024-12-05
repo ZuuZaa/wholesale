@@ -158,6 +158,7 @@ const Checkout = () => {
   const navigateForCard = async () => {
     const userId = data?.User?.[0]?.Id;
     const companyId = data?.User?.[0]?.CompanyId;
+    const navigationUrl = data?.User?.[0]?.PayUrl;
     if (userId && companyId) {
       const response = await fetch(
         `https://ps.logixcommerce.com/api/createpayment`,
@@ -176,9 +177,7 @@ const Checkout = () => {
       );
 
       const resp = await response.json();
-
-      window.location.href =
-        "https://ps.logixcommerce.com/opayo/payment/" + resp.clayntId;
+      window.location.href = `${navigationUrl}${resp.clayntId}`;
     }
   };
 
@@ -188,6 +187,7 @@ const Checkout = () => {
       try {
         const response = await fetchData("getPaymentPage", true);
         setData(response);
+        console.log("c resp", response)
         setSelectedShippingAddressOption(response.UserAddress[0].Id);
         localStorage.setItem("address", response.UserAddress[0].Id);
         setPublishKey(response.StripeDetails[0].PublishKey);
