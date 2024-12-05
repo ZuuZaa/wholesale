@@ -39,7 +39,6 @@ const mainFunc1 = async () => {
       }
     );
     const resp = await response.json();
-    //console.log(resp)
     status = resp.status;
     fav_data = resp.output;
     //console.log(fav_data)
@@ -156,12 +155,38 @@ const Checkout = () => {
     return false;
   };
 
+  const navigateForCard = async () => {
+    const userId = data?.User?.[0]?.Id;
+    const companyId = data?.User?.[0]?.CompanyId;
+    if (userId && companyId) {
+      const response = await fetch(
+        `https://ps.logixcommerce.com/api/createpayment`,
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: "1c6387d5-0b58-401d-8296-242e27170c9f",
+            saleId: 0,
+            companyId,
+            paymentUserId: Number(userId),
+          }),
+        }
+      );
+
+      const resp = await response.json();
+
+      window.location.href =
+        "https://ps.logixcommerce.com/opayo/payment/" + resp.clayntId;
+    }
+  };
+
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true);
       try {
         const response = await fetchData("getPaymentPage", true);
-        console.log("check response", response);
         setData(response);
         setSelectedShippingAddressOption(response.UserAddress[0].Id);
         localStorage.setItem("address", response.UserAddress[0].Id);
@@ -328,7 +353,7 @@ const Checkout = () => {
                           btn btn-${paymentType === 2 ? "success" : "secondary"}
                           `}
                         value="2"
-                        onClick={handlePaymentOption}
+                        onClick={navigateForCard}
                         disabled={!data.CardActive}
                       >
                         Card
@@ -337,17 +362,16 @@ const Checkout = () => {
                     <div className="payment-type-content">
                       {paymentType === 2 ? (
                         <div className="App">
-                          {clientSecret &&
-                            data?.CardActive && (
-                              <div className="flex justify-center">
-                                <Elements
-                                  options={options}
-                                  stripe={stripePromise}
-                                >
-                                  <CheckoutForm />
-                                </Elements>
-                              </div>
-                            )}
+                          {clientSecret && data?.CardActive && (
+                            <div className="flex justify-center">
+                              <Elements
+                                options={options}
+                                stripe={stripePromise}
+                              >
+                                <CheckoutForm />
+                              </Elements>
+                            </div>
+                          )}
                         </div>
                       ) : (
                         <>

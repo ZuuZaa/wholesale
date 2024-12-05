@@ -72,7 +72,7 @@ export default function Login() {
         }
       );
       const resJson = await res.json();
-      console.log(resJson);
+      console.log("login", resJson.output);
       if (res.status === 200) {
         if (resJson.status === 400) {
           setMessage(resJson.statusText);
